@@ -60,84 +60,6 @@ public class TestEditor : EditorWindow, IEditorWindow
             if (_TabList == null)
                 _TabList = ATabList.Create(this,
                     new List<object>() {"Uses", "Used By", "Duplicate", "GUIDs", "Unused Assets", "Uses in Build"});
-
-            if (_TreeView == null)
-            {
-                _TreeView = SimpleTreeView.Create(new GUIContent("test title"), 70);
-                _TreeView.SetData(new List<TreeViewItem>()
-                {
-                    new TreeViewItem {id = 1, depth = 0, displayName = "Animals"},
-                    new TreeViewItem {id = 2, depth = 1, displayName = "Mammals"},
-                    new TreeViewItem {id = 3, depth = 2, displayName = "Tiger"},
-                    new TreeViewItem {id = 4, depth = 2, displayName = "Elephant"},
-                    new TreeViewItem {id = 5, depth = 2, displayName = "Okapi"},
-                    new TreeViewItem {id = 6, depth = 2, displayName = "Armadillo"},
-                    new TreeViewItem {id = 7, depth = 1, displayName = "Reptiles"},
-                    new TreeViewItem {id = 8, depth = 2, displayName = "Crocodile"},
-                    new TreeViewItem {id = 9, depth = 2, displayName = "Lizard"},
-                });
-            }
-
-            if (_MultiColumnTreeView == null)
-            {
-                var headerState = MultiColumnTreeView.CreateDefaultMultiColumnHeaderState();
-                var multiColumnHeader = new MultiColumnHeader(headerState);
-                multiColumnHeader.ResizeToFit();
-                var treeModel = new TreeModel<TreeElement>(GetData());
-                _MultiColumnTreeView = new MultiColumnTreeView(new TreeViewState(), multiColumnHeader, treeModel, 300);
-            }
-
-            _MultiColumnTreeView.Draw();
-
-            GUILayout.Space(10);
-
-            GUILib.Line();
-            GUILib.HorizontalRect(() => { _TabList.Draw(); });
-            GUILib.Line();
-
-            _TreeView.Draw();
-
-            if (GUILib.Button("test button"))
-            {
-                Debug.Log("click test button");
-            }
-
-            if (GUILib.EnumPopup(ref _MyEnum, EditorGUIUtility.IconContent("ShurikenCheckMarkMixed"),
-                    GUILayout.Width(50)))
-            {
-                Debug.Log(_MyEnum);
-            }
-
-            if (GUILib.Popup(ref _SelectStr, new string[] {"1", "4", "7"},
-                    EditorGUIUtility.IconContent("ShurikenCheckMarkMixed"), GUILayout.Width(50)))
-            {
-                Debug.Log(_SelectStr);
-            }
-
-            GUILib.HelpBox("Test", MessageType.Info);
-
-            GUILib.IntSlider("int slider", ref _SliderInt, 0, 10);
-
-            GUILib.Slider("float slider", ref _SliderFloat, 0, 10);
-
-            GUILib.MinMaxSlider("min max slider", ref _MinSliderFloat, ref _MaxSliderFloat, 0, 10);
-            GUILib.MinMaxSlider("min max slider readonly", ref _MinSliderFloat, ref _MaxSliderFloat, 0, 10, true);
-
-            GUILib.IntMinMaxSlider("int min max slider", ref _MinSliderInt, ref _MaxSliderInt, 0, 10);
-            GUILib.IntMinMaxSlider("int min max slider readonly", ref _MinSliderInt, ref _MaxSliderInt, 0, 10, true);
-
-            GUILib.Foldout("foldout", ref _Foldout);
-
-            GUILib.Color("Color", ref _Color);
-
-            GUILib.Toggle(ref _Toggle1, new GUIContent("Test toggle"));
-
-            GUILib.HorizontalRect(() =>
-            {
-                GUILib.Label("Search:", GUILayout.ExpandWidth(false));
-                GUILib.SearchBar(ref _SearchString);
-            });
-
             if (_SplitView1 == null)
             {
                 _SplitView1 = new ASplitView(this)
@@ -182,8 +104,87 @@ public class TestEditor : EditorWindow, IEditorWindow
                 _SplitView2.CalculateWeight();
             }
 
+            if (_TreeView == null)
+            {
+                _TreeView = SimpleTreeView.Create(new GUIContent("test title"), 70);
+                _TreeView.SetData(new List<TreeViewItem>()
+                {
+                    new TreeViewItem {id = 1, depth = 0, displayName = "Animals"},
+                    new TreeViewItem {id = 2, depth = 1, displayName = "Mammals"},
+                    new TreeViewItem {id = 3, depth = 2, displayName = "Tiger"},
+                    new TreeViewItem {id = 4, depth = 2, displayName = "Elephant"},
+                    new TreeViewItem {id = 5, depth = 2, displayName = "Okapi"},
+                    new TreeViewItem {id = 6, depth = 2, displayName = "Armadillo"},
+                    new TreeViewItem {id = 7, depth = 1, displayName = "Reptiles"},
+                    new TreeViewItem {id = 8, depth = 2, displayName = "Crocodile"},
+                    new TreeViewItem {id = 9, depth = 2, displayName = "Lizard"},
+                });
+            }
+
+            if (_MultiColumnTreeView == null)
+            {
+                var headerState = MultiColumnTreeView.CreateDefaultMultiColumnHeaderState();
+                var multiColumnHeader = new MultiColumnHeader(headerState);
+                multiColumnHeader.ResizeToFit();
+                var treeModel = new TreeModel<TreeElement>(GetData());
+                _MultiColumnTreeView = new MultiColumnTreeView(new TreeViewState(), multiColumnHeader, treeModel, 300);
+            }
+
+           
+            // _MultiColumnTreeView.Draw();
+
+            GUILayout.Space(10);
+
+            GUILib.Line();
+            GUILib.HorizontalRect(() => { _TabList.Draw(); });
+            GUILib.Line();
+
+            // _TreeView.Draw();
+
+            if (GUILib.Button("test button"))
+            {
+                Debug.Log("click test button");
+            }
+
+            if (GUILib.EnumPopup(ref _MyEnum, EditorGUIUtility.IconContent("ShurikenCheckMarkMixed"),
+                    GUILayout.Width(50)))
+            {
+                Debug.Log(_MyEnum);
+            }
+
+            if (GUILib.Popup(ref _SelectStr, new string[] {"1", "4", "7"},
+                    EditorGUIUtility.IconContent("ShurikenCheckMarkMixed"), GUILayout.Width(50)))
+            {
+                Debug.Log(_SelectStr);
+            }
+
+            GUILib.HelpBox("Test", MessageType.Info);
+
+            GUILib.IntSlider("int slider", ref _SliderInt, 0, 10);
+
+            GUILib.Slider("float slider", ref _SliderFloat, 0, 10);
+
+            GUILib.MinMaxSlider("min max slider", ref _MinSliderFloat, ref _MaxSliderFloat, 0, 10);
+            GUILib.MinMaxSlider("min max slider readonly", ref _MinSliderFloat, ref _MaxSliderFloat, 0, 10, true);
+
+            GUILib.IntMinMaxSlider("int min max slider", ref _MinSliderInt, ref _MaxSliderInt, 0, 10);
+            GUILib.IntMinMaxSlider("int min max slider readonly", ref _MinSliderInt, ref _MaxSliderInt, 0, 10, true);
+
+            GUILib.Foldout("foldout", ref _Foldout);
+
+            GUILib.Color("Color", ref _Color);
+
+            GUILib.Toggle(ref _Toggle1, new GUIContent("Test toggle"));
+
+            GUILib.HorizontalRect(() =>
+            {
+                GUILib.Label("Search:", GUILayout.ExpandWidth(false));
+                GUILib.SearchBar(ref _SearchString);
+            });
+
+          
             Repaint();
-            _SplitView1.Draw();
+            _SplitView1.Draw(); 
 
 
             GUILib.ObjectField("test go", ref _Go);

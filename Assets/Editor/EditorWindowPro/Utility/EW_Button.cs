@@ -7,27 +7,21 @@ namespace EditorWindowPro.Utility
     {
         private string _Text;
         
-        public EW_Button(Rect rect, string text)
+        public EW_Button(Rect rect, string text) : base(rect)
         {
             Rect = rect;
             _Text = text;
         }
 
-        public override void Draw()
+        public override void Draw(Rect rect)
         {
-            base.Draw();
+            base.Draw(rect);
             
             EditorGUI.BeginDisabledGroup(true);
             GUILayout.BeginArea(Rect);
             GUILayout.Button(_Text, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
             GUILayout.EndArea();
             EditorGUI.EndDisabledGroup(); 
-        }
-
-
-        public override bool Contains(Vector2 position)
-        {
-            return Rect.Contains(position);
         }
 
         public override int ID => Rect.GetHashCode();

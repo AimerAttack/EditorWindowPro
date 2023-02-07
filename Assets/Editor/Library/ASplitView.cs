@@ -201,10 +201,10 @@ namespace Amazing.Editor.Library
                 dRect.height = s_SplitSize;
             }
 
-            if (Event.current.type == EventType.Repaint || Event.current.type == EventType.MouseMove)
-            {
+            // if (Event.current.type == EventType.Repaint || Event.current.type == EventType.MouseMove)
+            // {
                 GUILib.Rect(dRect, Color.black, 0.4f);
-            }
+            // }
 
             var dRect2 = GUILib.Padding(dRect, -2f, -2f);
 

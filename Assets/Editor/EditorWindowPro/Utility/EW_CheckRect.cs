@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EditorWindowPro.Utility
 {
-    public class EW_CheckRect : I_EW_Drawable,I_EW_ID,I_EW_Contains
+    public class EW_CheckRect : I_EW_ID,I_EW_Contains
     {
         private Rect Rect;
 
