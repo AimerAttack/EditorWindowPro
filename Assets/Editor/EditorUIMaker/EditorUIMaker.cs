@@ -16,10 +16,6 @@ namespace EditorUIMaker
             window.Focus();
         }
 
-        private EUM_Paper2 _Paper2;
-        private EUM_Toolbar _Toolbar;
-        private EUM_ToolboxControls2 _ToolboxControls2;
-
         private const float s_SplitSize = 2f;
         private const float s_MinInspectorWidth = 300;
         private const float s_MinViewportWidth = 200;
