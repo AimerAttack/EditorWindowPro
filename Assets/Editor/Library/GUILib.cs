@@ -8,7 +8,7 @@ namespace Amazing.Editor.Library
 {
     public static class GUILib
     {
-        public static readonly Color s_DefaultColor = new Color(0f, 0f, 0f, 0.3f);
+        public static readonly Color s_DefaultColor = new Color(56f/255, 56f/255, 56f/255, 1f);
         public const float s_DefaultLineHeight = 1f;
 
         internal static Dictionary<string, GUIContent> tooltipCache = new Dictionary<string, GUIContent>();
@@ -323,9 +323,14 @@ namespace Amazing.Editor.Library
             GUILayout.EndScrollView();
         }
 
-        public static void Foldout(string label, ref bool foldout)
+        public static void Foldout(string label, ref bool foldout,GUIStyle style=null)
         {
-            foldout = EditorGUILayout.Foldout(foldout, label);
+            if(style == null)
+                foldout = EditorGUILayout.Foldout(foldout, label);
+            else
+            {
+                foldout = EditorGUILayout.Foldout(foldout, label, style);
+            }
         }
     }
 }
