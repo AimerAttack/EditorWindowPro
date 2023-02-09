@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace EditorUIMaker
 {
-    public class EUM_Toolbar2 : I_EUM_Drawable
+    public class EUM_Toolbar : I_EUM_Drawable
     {
         private const float s_Height = 18;
 
-        public EUM_Toolbar2()
+        public EUM_Toolbar()
         {
-            EditorUIMakerSetting.ZoomIndex = EditorUIMakerSetting.DefaultZoomIndex();
+            EUM_Setting.ZoomIndex = EUM_Setting.DefaultZoomIndex();
         }
 
         public void Draw(ref Rect rect)
@@ -35,7 +35,7 @@ namespace EditorUIMaker
             
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Zoom:", GUILayout.Width(40));
-            EditorUIMakerSetting.ZoomIndex = EditorGUILayout.Popup(EditorUIMakerSetting.ZoomIndex, EditorUIMakerSetting.GetZoomScalesText(), GUILayout.Width(60));
+            EUM_Setting.ZoomIndex = EditorGUILayout.Popup(EUM_Setting.ZoomIndex, EUM_Setting.GetZoomScalesText(), GUILayout.Width(60));
             EditorGUILayout.EndHorizontal();
             
             if(GUILayout.Button("Fit Canvas", "ToolbarButton"))

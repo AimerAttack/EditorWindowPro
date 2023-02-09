@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace EditorUIMaker
 {
-    public static class EditorUIMakerSetting
+    public static class EUM_Setting
     {
         public static int ZoomIndex;
 

@@ -1,4 +1,5 @@
 using System;
+using Amazing.Editor.Library;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,12 +17,20 @@ namespace EditorUIMaker
         }
 
         private EUM_Paper2 _Paper2;
-        private EUM_Toolbar2 _Toolbar2;
+        private EUM_Toolbar _Toolbar;
         private EUM_ToolboxControls2 _ToolboxControls2;
+
+        private const float s_SplitSize = 2f;
+        private const float s_MinInspectorWidth = 300;
+        private const float s_MinViewportWidth = 200;
+        private const float s_ToolbarWidth = 200;
         
         private EUM_Toolbox _Toolbox;
         private EUM_Viewport _Viewport;
         private EUM_Inspector _Inspector;
+
+        private float _Ratio = 0.3f;
+        private bool _ResizeView = false;
 
         public EditorUIMaker()
         {
@@ -49,30 +58,58 @@ namespace EditorUIMaker
 
         private void OnGUI()
         {
-            var windowRect = new Rect(0, 0, position.width, position.height);
+            _Toolbox.HandleDrag();
+
+            var inspectorWidth = position.width * _Ratio;
+            inspectorWidth = Mathf.Max(s_MinInspectorWidth, inspectorWidth);
+            var toolboxWidth = s_ToolbarWidth;
+            var viewportWidth = position.width - inspectorWidth - toolboxWidth;
+            viewportWidth = Mathf.Max(s_MinViewportWidth, viewportWidth);
             
-            var viewportRect = new Rect(position.width/3, 0, position.width/3, position.height);
+            var viewportRect = new Rect(toolboxWidth, 0,viewportWidth - s_SplitSize, position.height);
             _Viewport.Draw(ref viewportRect);
               
-            var toolboxRect = new Rect(0, 0, position.width/3, position.height);
+            var toolboxRect = new Rect(0, 0, toolboxWidth, position.height);
             _Toolbox.Draw(ref toolboxRect);
             
-            var inspectorRect = new Rect(position.width*2/3, 0, position.width/3, position.height);
+            var inspectorRect = new Rect(viewportRect.x + viewportRect.width + s_SplitSize, 0,inspectorWidth, position.height);
             _Inspector.Draw(ref inspectorRect);
+
+            var cursorRect = new Rect(viewportRect.x + viewportRect.width, 0, 2, position.height);
+            GUILib.Rect(cursorRect, Color.black, 0.4f);
+            var dRect2 = GUILib.Padding(cursorRect, -2f, -2f);
+            EditorGUIUtility.AddCursorRect(dRect2, MouseCursor.ResizeHorizontal);
             
-            // _Paper.Draw(position.width, position.height);
-            // _Paper.DrawEditorGrid(position);
-            // _Paper.DrawVirtualWindow(UIEditorHelpers.GetZoomScaleFactor());
-            // _Toolbar.Draw();
-            // _ToolboxControls.Draw(position);
-            //
-            // _ToolboxControls.HandleToolboxDrags();
-            //
-            // ProcessMouseMove();
-            //
-            // ProcessScrollWheel();
+            if (Event.current.type == EventType.MouseDown && dRect2.Contains(Event.current.mousePosition))
+            {
+                _ResizeView = true;
+                RefreshSplitPosition();
+            }
+
+            if (_ResizeView)
+            {
+                RefreshSplitPosition();
+            }
+            
+            if (Event.current.type == EventType.MouseUp)
+            {
+                if(_ResizeView)
+                    _ResizeView = false;
+            }
             
             Repaint();
+        }
+
+        void RefreshSplitPosition()
+        {
+            if(position.width <= s_MinInspectorWidth + s_MinViewportWidth + s_ToolbarWidth)
+                return;
+            if(Event.current.mousePosition.x <= s_ToolbarWidth + s_MinInspectorWidth)
+                return;
+            var delta = position.width - Event.current.mousePosition.x;
+            if(delta < s_MinInspectorWidth)
+                return;
+            _Ratio = delta / position.width;
         }
 
         void ProcessScrollWheel()

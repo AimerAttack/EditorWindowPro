@@ -16,8 +16,8 @@ namespace EditorUIMaker
         void DrawContent()
         {
             var rect = new Rect(_ContentRect.x - 100, _ContentRect.y + 100, 1300, 300);
-            // GUILib.Rect(rect, Color.grey, 0.5f);
-            GUILib.Rect(rect, Color.white, 1f);
+            EUM_Helper.VitualWindowRect = rect;
+            GUILib.Rect(rect, Color.grey, 0.5f);
         }
     }
 }
