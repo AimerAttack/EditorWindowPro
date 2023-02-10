@@ -10,7 +10,7 @@ namespace EditorUIMaker
 
         public EUM_Toolbar()
         {
-            EUM_Setting.ZoomIndex = EUM_Setting.DefaultZoomIndex();
+            EUM_Helper.Instance.ZoomIndex = EUM_Helper.DefaultZoomIndex();
         }
 
         public void Draw(ref Rect rect)
@@ -35,7 +35,7 @@ namespace EditorUIMaker
             
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Zoom:", GUILayout.Width(40));
-            EUM_Setting.ZoomIndex = EditorGUILayout.Popup(EUM_Setting.ZoomIndex, EUM_Setting.GetZoomScalesText(), GUILayout.Width(60));
+            EUM_Helper.Instance.ZoomIndex = EditorGUILayout.Popup(EUM_Helper.Instance.ZoomIndex, EUM_Helper.GetZoomScalesText(), GUILayout.Width(60));
             EditorGUILayout.EndHorizontal();
             
             if(GUILayout.Button("Fit Canvas", "ToolbarButton"))
