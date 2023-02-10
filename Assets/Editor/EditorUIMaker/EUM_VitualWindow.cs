@@ -105,7 +105,7 @@ namespace EditorUIMaker
             if (_ResizeType != E_ResizeType.Null)
                 ResizeContent();
 
-            if (Event.current.type == EventType.MouseUp)
+            if (Event.current.rawType == EventType.MouseUp)
                 _ResizeType = E_ResizeType.Null;
         }
 

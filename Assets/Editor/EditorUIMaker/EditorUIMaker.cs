@@ -95,7 +95,7 @@ namespace EditorUIMaker
                 RefreshSplitPosition();
             }
 
-            if (Event.current.type == EventType.MouseUp)
+            if (Event.current.rawType == EventType.MouseUp)
             {
                 if (_ResizeView)
                     _ResizeView = false;
