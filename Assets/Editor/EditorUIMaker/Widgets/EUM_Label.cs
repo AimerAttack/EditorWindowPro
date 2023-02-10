@@ -7,17 +7,17 @@ namespace EditorUIMaker.Widgets
     {
         public override string TypeName => "Label";
         public GUIContent Content = new GUIContent("Label");
-        
-        public override void DrawDraging(float x, float y)
+
+        public override void DrawDraging(Vector2 position)
         {
-            GUI.Label(new Rect(x + 10,y-10,100,40),Content);
+            GUI.Label(new Rect(position.x + 10, position.y - 10, 100, 40), Content);
         }
 
         public override void DrawLayout()
         {
             GUILib.Label(Content);
         }
-        
+
         public override EUM_BaseWidget Clone()
         {
             var widget = new EUM_Label();

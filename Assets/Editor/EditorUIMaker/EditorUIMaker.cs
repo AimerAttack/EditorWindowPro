@@ -116,8 +116,7 @@ namespace EditorUIMaker
         {
             if (EUM_Helper.Instance.DraggingWidget != null)
             {
-                EUM_Helper.Instance.DraggingWidget.DrawDraging(Event.current.mousePosition.x,
-                    Event.current.mousePosition.y);
+                EUM_Helper.Instance.DraggingWidget.DrawDraging(Event.current.mousePosition);
 
                 if (!EUM_Helper.Instance.ViewportRect.Contains(Event.current.mousePosition))
                 {

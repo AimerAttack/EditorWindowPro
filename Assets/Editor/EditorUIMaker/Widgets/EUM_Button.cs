@@ -9,9 +9,9 @@ namespace EditorUIMaker.Widgets
 
         public override string TypeName => "Button";
 
-        public override void DrawDraging(float x, float y)
+        public override void DrawDraging(Vector2 position)
         {
-            GUI.Button(new Rect(x,y,100,20), Name);
+            GUI.Button(new Rect(position.x,position.y,100,20), Name);
         }
 
         public override void DrawLayout()
