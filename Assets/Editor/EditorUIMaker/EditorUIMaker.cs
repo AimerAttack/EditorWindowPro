@@ -64,6 +64,7 @@ namespace EditorUIMaker
             
             var viewportRect = new Rect(toolboxWidth, 0,viewportWidth - s_SplitSize, position.height);
             _Viewport.Draw(ref viewportRect);
+            DrawItems();
               
             var inspectorRect = new Rect(viewportRect.x + viewportRect.width + s_SplitSize, 0,inspectorWidth, position.height);
             _Inspector.Draw(ref inspectorRect);
@@ -76,7 +77,6 @@ namespace EditorUIMaker
             var dRect2 = GUILib.Padding(cursorRect, -2f, -2f);
             EditorGUIUtility.AddCursorRect(dRect2, MouseCursor.ResizeHorizontal);
             
-            DrawItems();
             DrawDraging();
             DrawHoverRect();
             DrawSelectRect();

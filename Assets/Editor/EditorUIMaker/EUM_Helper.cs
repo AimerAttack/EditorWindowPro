@@ -14,5 +14,6 @@ namespace EditorUIMaker
         public EUM_Container DraggingOverContainer;
         public List<EUM_Container> Containers = new List<EUM_Container>();
         public bool Preview;
+        public string WindowTitle = "WindowTitle";
     }
 }
