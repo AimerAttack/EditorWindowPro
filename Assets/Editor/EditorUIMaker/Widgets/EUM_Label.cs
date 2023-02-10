@@ -8,11 +8,6 @@ namespace EditorUIMaker.Widgets
         public override string TypeName => "Label";
         public GUIContent Content = new GUIContent("Label");
         
-        public override void Draw(ref Rect rect)
-        {
-            GUI.Label(rect,Content);
-        }
-
         public override void DrawDraging(float x, float y)
         {
             GUI.Label(new Rect(x + 10,y-10,100,40),Content);

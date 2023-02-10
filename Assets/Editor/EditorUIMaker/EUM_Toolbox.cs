@@ -16,7 +16,6 @@ namespace EditorUIMaker
         private bool _ShowContainers;
         private bool _ShowControls;
         private bool _ShowNumericFields;
-        private Rect _Rect;
 
         private List<EUM_BaseWidget> _Controls = new List<EUM_BaseWidget>();
 
@@ -25,13 +24,13 @@ namespace EditorUIMaker
             _Title = new EUM_Title(new GUIContent("Toolbox"));
             _ShowBuildIn = true;
 
+            _Controls.Add(new EUM_Space());
             _Controls.Add(new EUM_Button());
             _Controls.Add(new EUM_Label());
         }
 
         public void Draw(ref Rect rect)
         {
-            _Rect = rect;
             GUILib.Rect(rect, GUILib.s_DefaultColor, 1f);
 
             _Title.Draw(ref rect);
