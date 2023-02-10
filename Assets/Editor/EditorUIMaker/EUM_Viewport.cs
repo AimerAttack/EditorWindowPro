@@ -21,8 +21,13 @@ namespace EditorUIMaker
             _Title.Draw(ref rect);
             _Toolbar.Draw(ref rect);
 
-            EUM_Helper.ViewportRect = rect;
+            EUM_Helper.Instance.ViewportRect = rect;
             _Paper.Draw(ref rect);
+        }
+        
+        public void DrawRect(Rect rect)
+        {
+            
         }
     }
 }

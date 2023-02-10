@@ -45,10 +45,7 @@ namespace EditorUIMaker
             
             GUILayout.FlexibleSpace();
             
-            if(GUILayout.Button("Preview","ToolbarButton"))
-            {
-                
-            }
+            GUILib.Toggle(ref EUM_Helper.Instance.Preview, new GUIContent("Preview"), new GUIStyle("ToolbarButton"));
 
             GUILayout.EndHorizontal();
             GUILayout.EndArea();

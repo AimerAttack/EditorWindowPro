@@ -102,13 +102,10 @@ namespace EditorUIMaker
                     if (lastRect.Contains(Event.current.mousePosition))
                     {
                         DragAndDrop.PrepareStartDrag();
-                        DragAndDrop.objectReferences = new UnityEngine.Object[] {null};
-                        DragAndDrop.SetGenericData("IsUIEditorControl", true);
-
                         DragAndDrop.StartDrag("Create a new control");
                         Event.current.Use();
 
-                        EUM_Helper.FloatingWidget = control.Clone();
+                        EUM_Helper.Instance.DraggingWidget = control.Clone();
                     }
                 }
             }
@@ -128,116 +125,31 @@ namespace EditorUIMaker
             {
                 case EventType.DragPerform:
                 {
-                    object genericData = DragAndDrop.GetGenericData("IsUIEditorControl");
-
-                    EUM_Helper.FloatingWidget = null;
-
-                    if (genericData != null && !_Rect.Contains(Event.current.mousePosition))
+                    if (EUM_Helper.Instance.DraggingWidget != null)
                     {
                         DragAndDrop.AcceptDrag();
-                        string objectType = (string) DragAndDrop.GetGenericData("ControlType");
-                        System.Action objectAction = (System.Action) DragAndDrop.GetGenericData("ControlAction");
-                        UIEditorLibraryControl prefab = (UIEditorLibraryControl) DragAndDrop.GetGenericData("Prefab");
-
-                        if (!string.IsNullOrEmpty(objectType))
-                            EditorApplication.ExecuteMenuItem(objectType);
-                        else if (prefab != null)
-                        {
-                        }
-                        else if (objectAction != null)
-                            objectAction.Invoke();
-
                         Event.current.Use();
 
-                        if (EUM_Helper.VitualWindowRect.Contains(Event.current.mousePosition) &&
-                            EUM_Helper.ViewportRect.Contains(Event.current.mousePosition)
+                        if (EUM_Helper.Instance.VitualWindowRect.Contains(Event.current.mousePosition) &&
+                            EUM_Helper.Instance.ViewportRect.Contains(Event.current.mousePosition)
                            )
                         {
-                            Debug.Log("in");
-                        }
-                        else
-                        {
-                            Debug.LogError("not in");
-                        }
-                    }
-                    else if (DragAndDrop.objectReferences != null && DragAndDrop.objectReferences.Length > 0)
-                    {
-                        for (int i = 0; i < DragAndDrop.objectReferences.Length; ++i)
-                        {
-                            Texture2D textureData = DragAndDrop.objectReferences[i] as Texture2D;
-                            if (textureData != null)
+                            //in window
+                            if (EUM_Helper.Instance.DraggingOverContainer != null)
                             {
-                                if (textureData != null)
-                                {
-                                    Sprite spriteData =
-                                        AssetDatabase.LoadAssetAtPath(DragAndDrop.paths[i], typeof(Sprite)) as Sprite;
-                                    if (spriteData != null)
-                                    {
-                                        EditorApplication.ExecuteMenuItem("GameObject/UI/Image");
-                                        Selection.activeGameObject.GetComponent<UnityEngine.UI.Image>().sprite =
-                                            spriteData;
-                                        Selection.activeGameObject.GetComponent<UnityEngine.RectTransform>().sizeDelta =
-                                            new Vector2(textureData.width, textureData.height);
-                                        Selection.activeGameObject.name = spriteData.name;
-                                    }
-                                    else
-                                    {
-                                        EditorApplication.ExecuteMenuItem("GameObject/UI/Raw Image");
-                                        Selection.activeGameObject.GetComponent<UnityEngine.UI.RawImage>().texture =
-                                            textureData;
-                                        Selection.activeGameObject.GetComponent<UnityEngine.RectTransform>().sizeDelta =
-                                            new Vector2(textureData.width, textureData.height);
-                                        Selection.activeGameObject.name = textureData.name;
-                                    }
-                                }
-                            }
-
-                            GameObject isRect = DragAndDrop.objectReferences[i] as GameObject;
-                            if (isRect != null)
-                            {
-                                if (isRect.GetComponent<RectTransform>() != null)
-                                {
-                                }
+                                //in container
+                                EUM_Helper.Instance.DraggingOverContainer.Widgets.Add(EUM_Helper.Instance.DraggingWidget);
                             }
                         }
                     }
-
+                    EUM_Helper.Instance.DraggingWidget = null;
+ 
                     break;
                 }
                 case EventType.DragUpdated:
                 {
-                    if (DragAndDrop.GetGenericData("IsUIEditorControl") != null)
-                    {
-                        DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
-                    }
-                    else if (DragAndDrop.objectReferences != null && DragAndDrop.objectReferences.Length > 0)
-                    {
-                        bool isTextureType = false;
-                        bool isRectTransformType = false;
-
-                        for (int i = 0; i < DragAndDrop.objectReferences.Length; ++i)
-                        {
-                            Texture2D isTexture = DragAndDrop.objectReferences[i] as Texture2D;
-                            if (isTexture != null)
-                            {
-                                isTextureType = true;
-                            }
-
-                            GameObject isRectTransform = DragAndDrop.objectReferences[i] as GameObject;
-                            if (isRectTransform != null)
-                            {
-                                if (isRectTransform.GetComponent<RectTransform>() != null)
-                                    isRectTransformType = true;
-                            }
-                        }
-
-                        if (isTextureType || isRectTransformType)
-                        {
-                            DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
-                            DragAndDrop.AcceptDrag();
-                        }
-                    }
-
+                    DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+                 
                     break;
                 }
             }

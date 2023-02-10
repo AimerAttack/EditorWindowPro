@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Amazing.Editor.Library;
 using UnityEditor;
 using UnityEngine;
@@ -35,6 +37,8 @@ namespace EditorUIMaker
 
         void Init()
         {
+            EUM_Helper.Instance = new EUM_Helper();
+            
             _Toolbox = new EUM_Toolbox();
             _Viewport = new EUM_Viewport();
             _Inspector = new EUM_Inspector();
@@ -72,8 +76,10 @@ namespace EditorUIMaker
             var dRect2 = GUILib.Padding(cursorRect, -2f, -2f);
             EditorGUIUtility.AddCursorRect(dRect2, MouseCursor.ResizeHorizontal);
             
+            DrawItems();
             DrawDraging();
             DrawHoverRect();
+            DrawSelectRect();
             
             if (Event.current.type == EventType.MouseDown && dRect2.Contains(Event.current.mousePosition))
             {
@@ -95,17 +101,87 @@ namespace EditorUIMaker
             Repaint();
         }
 
+        void DrawItems()
+        {
+            foreach (var container in EUM_Helper.Instance.Containers)
+            {
+                container.DrawItems();
+            }
+        }
+        
         void DrawDraging()
         {
-            if (EUM_Helper.FloatingWidget != null)
+            EUM_Helper.Instance.DraggingOverContainer = null;
+            
+            if (EUM_Helper.Instance.DraggingWidget != null)
             {
-                EUM_Helper.FloatingWidget.DrawDraging(Event.current.mousePosition.x, Event.current.mousePosition.y);
+                EUM_Helper.Instance.DraggingWidget.DrawDraging(Event.current.mousePosition.x, Event.current.mousePosition.y);
+                
+                if(!EUM_Helper.Instance.ViewportRect.Contains(Event.current.mousePosition))
+                    return;
+                if(!EUM_Helper.Instance.VitualWindowRect.Contains(Event.current.mousePosition))
+                    return;
+            
+                EUM_Container container = null;
+                
+                foreach (var item in EUM_Helper.Instance.Containers)
+                {
+                    if(!item.Contains(Event.current.mousePosition))
+                        continue;
+                    if (container == null)
+                    {
+                        container = item;
+                    }
+                    else
+                    {
+                        if(item.Depth > container.Depth)
+                            container = item;
+                    }
+                }
+            
+                if (container != null)
+                {
+                    container.DrawArea();
+                    EUM_Helper.Instance.DraggingOverContainer = container;
+                }
             } 
         }
 
-        void DrawHoverRect()
+        void DrawSelectRect()
         {
             
+        }
+        
+        void DrawHoverRect()
+        {
+            if(EUM_Helper.Instance.DraggingWidget != null)
+                return;
+            if(!EUM_Helper.Instance.ViewportRect.Contains(Event.current.mousePosition))
+                return;
+            if(!EUM_Helper.Instance.VitualWindowRect.Contains(Event.current.mousePosition))
+                return;
+            
+            EUM_Container container = null;
+
+            foreach (var item in EUM_Helper.Instance.Containers)
+            {
+                if(!item.Contains(Event.current.mousePosition))
+                    continue;
+                if (container == null)
+                {
+                    container = item;
+                }
+                else
+                {
+                    if(item.Depth > container.Depth)
+                        container = item;
+                }
+            }
+            
+            if (container != null)
+            {
+                container.DrawArea();
+            }
         }
 
         void RefreshSplitPosition()
@@ -120,15 +196,6 @@ namespace EditorUIMaker
             _Ratio = delta / position.width;
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
-
         void ProcessScrollWheel()
         {
             if (Event.current.type == EventType.ScrollWheel)

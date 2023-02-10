@@ -6,6 +6,13 @@ namespace EditorUIMaker
     public class EUM_VitualWindow : I_EUM_Drawable
     {
         private Rect _ContentRect;
+        private EUM_Container _Container;
+        
+        public EUM_VitualWindow()
+        {
+            _Container = new EUM_Container();
+            EUM_Helper.Instance.Containers.Add(_Container);
+        }
         
         public void Draw(ref Rect rect)
         {
@@ -15,9 +22,13 @@ namespace EditorUIMaker
 
         void DrawContent()
         {
-            var rect = new Rect(_ContentRect.x - 100, _ContentRect.y + 100, 1300, 300);
-            EUM_Helper.VitualWindowRect = rect;
+            var rect = new Rect(_ContentRect.x + 200, _ContentRect.y + 100, 400, 300);
+            EUM_Helper.Instance.VitualWindowRect = rect;
             GUILib.Rect(rect, Color.grey, 0.5f);
+            _Container.Rect = rect;
+
+            //resize bar
+
         }
     }
 }

@@ -13,6 +13,21 @@ namespace Amazing.Editor.Library
 
         internal static Dictionary<string, GUIContent> tooltipCache = new Dictionary<string, GUIContent>();
 
+        public static void Frame(Rect rect, Color color,float size=1, float alpha = 1)
+        {
+            var oldColor = GUI.color;
+            color.a = alpha;
+
+            GUI.color = color;
+            
+            GUI.DrawTexture(new Rect(rect.x, rect.y, rect.width, size), (Texture) EditorGUIUtility.whiteTexture);
+            GUI.DrawTexture(new Rect(rect.x, rect.yMax - size, rect.width, size), (Texture) EditorGUIUtility.whiteTexture);
+            GUI.DrawTexture(new Rect(rect.x, rect.y + 1f, size, rect.height - 2f * size), (Texture) EditorGUIUtility.whiteTexture);
+            GUI.DrawTexture(new Rect(rect.xMax - size, rect.y + 1f, size, rect.height - 2f * size), (Texture) EditorGUIUtility.whiteTexture);
+
+            GUI.color = oldColor;
+        }
+        
         public static void Rect(Rect r, Color c, float alpha = 1)
         {
             var cColor = GUI.color;
