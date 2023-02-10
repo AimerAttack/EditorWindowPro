@@ -194,6 +194,9 @@ namespace EditorUIMaker
 
             foreach (var item in EUM_Helper.Instance.Containers)
             {
+                //is root container,dont show
+                if(item.Depth == 0)
+                    continue;
                 if (!item.Contains(Event.current.mousePosition))
                     continue;
                 if (container == null)
@@ -264,6 +267,11 @@ namespace EditorUIMaker
                     }
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
+            
         }
     }
 }
