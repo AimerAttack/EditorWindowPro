@@ -178,7 +178,7 @@ public class TestEditor : EditorWindow, IEditorWindow
 
             GUILib.HorizontalRect(() =>
             {
-                GUILib.Label("Search:", GUILayout.ExpandWidth(false));
+                GUILib.Label(new GUIContent("Search:"), GUILayout.ExpandWidth(false));
                 GUILib.SearchBar(ref _SearchString);
             });
 

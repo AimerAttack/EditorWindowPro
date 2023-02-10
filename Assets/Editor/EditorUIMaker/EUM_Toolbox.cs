@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Amazing.Editor.Library;
+using EditorUIMaker.Widgets;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -15,19 +17,25 @@ namespace EditorUIMaker
         private bool _ShowControls;
         private bool _ShowNumericFields;
         private Rect _Rect;
+        private EUM_BaseWidget _FloatingWidget;
+
+        private List<EUM_BaseWidget> _Controls = new List<EUM_BaseWidget>();
 
         public EUM_Toolbox()
         {
             _Title = new EUM_Title(new GUIContent("Toolbox"));
             _ShowBuildIn = true;
+
+            _Controls.Add(new EUM_Button());
+            _Controls.Add(new EUM_Label());
         }
 
-        public void Draw(ref Rect rect)
+        public void DrawWithRect(ref Rect rect)
         {
             _Rect = rect;
             GUILib.Rect(rect, GUILib.s_DefaultColor, 1f);
 
-            _Title.Draw(ref rect);
+            _Title.DrawWithRect(ref rect);
 
             GUILayout.BeginArea(rect);
 
@@ -36,6 +44,12 @@ namespace EditorUIMaker
 
             GUILib.ScrollView(ref _ScrollPos, DrawControls);
             GUILayout.EndArea();
+
+            if (_FloatingWidget != null)
+            {
+                var floatRect = new Rect(Event.current.mousePosition, new Vector2(100, 30));
+                _FloatingWidget.DrawWithRect(ref floatRect);
+            }
         }
 
         void DrawToggleTab()
@@ -85,23 +99,26 @@ namespace EditorUIMaker
 
         void DrawBaseControls()
         {
-            GUILayout.Label("Button");
-
-            var lastRect = GUILayoutUtility.GetLastRect();
-            if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+            foreach (var control in _Controls)
             {
-                if (lastRect.Contains(Event.current.mousePosition))
-                {
-                    DragAndDrop.PrepareStartDrag();
-                    DragAndDrop.objectReferences = new UnityEngine.Object[] {null};
-                    DragAndDrop.SetGenericData("IsUIEditorControl", true);
+                GUILayout.Label(control.TypeName);
 
-                    DragAndDrop.StartDrag("Create a new control");
-                    Event.current.Use();
+                var lastRect = GUILayoutUtility.GetLastRect();
+                if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+                {
+                    if (lastRect.Contains(Event.current.mousePosition))
+                    {
+                        DragAndDrop.PrepareStartDrag();
+                        DragAndDrop.objectReferences = new UnityEngine.Object[] {null};
+                        DragAndDrop.SetGenericData("IsUIEditorControl", true);
+
+                        DragAndDrop.StartDrag("Create a new control");
+                        Event.current.Use();
+
+                        _FloatingWidget = control.Clone();
+                    }
                 }
             }
-
-            GUILayout.Label("Label");
         }
 
         void DrawNumericFields()
@@ -119,6 +136,7 @@ namespace EditorUIMaker
                 case EventType.DragPerform:
                 {
                     object genericData = DragAndDrop.GetGenericData("IsUIEditorControl");
+                    _FloatingWidget = null;
 
                     if (genericData != null && !_Rect.Contains(Event.current.mousePosition))
                     {
@@ -137,7 +155,9 @@ namespace EditorUIMaker
 
                         Event.current.Use();
 
-                        if (EUM_Helper.VitualWindowRect.Contains(Event.current.mousePosition))
+                        if (EUM_Helper.VitualWindowRect.Contains(Event.current.mousePosition) &&
+                            EUM_Helper.ViewportRect.Contains(Event.current.mousePosition)
+                           )
                         {
                             Debug.Log("in");
                         }

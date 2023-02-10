@@ -63,13 +63,13 @@ namespace EditorUIMaker
             viewportWidth = Mathf.Max(s_MinViewportWidth, viewportWidth);
             
             var viewportRect = new Rect(toolboxWidth, 0,viewportWidth - s_SplitSize, position.height);
-            _Viewport.Draw(ref viewportRect);
+            _Viewport.DrawWithRect(ref viewportRect);
               
-            var toolboxRect = new Rect(0, 0, toolboxWidth, position.height);
-            _Toolbox.Draw(ref toolboxRect);
-            
             var inspectorRect = new Rect(viewportRect.x + viewportRect.width + s_SplitSize, 0,inspectorWidth, position.height);
-            _Inspector.Draw(ref inspectorRect);
+            _Inspector.DrawWithRect(ref inspectorRect);
+            
+            var toolboxRect = new Rect(0, 0, toolboxWidth, position.height);
+            _Toolbox.DrawWithRect(ref toolboxRect);
 
             var cursorRect = new Rect(viewportRect.x + viewportRect.width, 0, 2, position.height);
             GUILib.Rect(cursorRect, Color.black, 0.4f);
@@ -94,6 +94,11 @@ namespace EditorUIMaker
             }
             
             Repaint();
+        }
+
+        void DrawDraging()
+        {
+            
         }
 
         void RefreshSplitPosition()

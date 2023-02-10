@@ -13,7 +13,7 @@ namespace EditorUIMaker
             EUM_Setting.ZoomIndex = EUM_Setting.DefaultZoomIndex();
         }
 
-        public void Draw(ref Rect rect)
+        public void DrawWithRect(ref Rect rect)
         {
             var drawRect = new Rect(rect.x, rect.y, rect.width, s_Height);
             rect.yMin += s_Height;

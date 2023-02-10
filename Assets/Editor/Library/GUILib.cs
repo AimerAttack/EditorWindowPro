@@ -241,7 +241,7 @@ namespace Amazing.Editor.Library
             return true;
         }
 
-        public static void Label(string label, params GUILayoutOption[] options)
+        public static void Label(GUIContent label, params GUILayoutOption[] options)
         {
             GUILayout.Label(label, options);
         }
