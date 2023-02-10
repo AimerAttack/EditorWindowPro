@@ -6,7 +6,7 @@ namespace EditorUIMaker
 {
     public class EUM_Title : I_EUM_Drawable
     {
-        private const float s_TitleHeight = 16;
+        public const float s_TitleHeight = 16;
 
         private GUIContent _Title;
 
@@ -18,7 +18,7 @@ namespace EditorUIMaker
         public void Draw(ref Rect rect)
         {
             var titleRect = new Rect(rect.x, rect.y, rect.width, s_TitleHeight);
-            GUILib.Rect(titleRect, Color.black, 0.2f);
+            GUILib.Rect(titleRect, Color.black, 1f);
 
             titleRect.xMin += 4f;
             GUI.Label(titleRect, _Title);

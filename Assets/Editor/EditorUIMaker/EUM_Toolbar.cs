@@ -6,7 +6,7 @@ namespace EditorUIMaker
 {
     public class EUM_Toolbar : I_EUM_Drawable
     {
-        private const float s_Height = 18;
+        public const float s_Height = 18;
 
         public EUM_Toolbar()
         {

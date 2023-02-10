@@ -7,7 +7,13 @@ namespace EditorUIMaker
     public class EUM_Helper
     {
         public static EUM_Helper Instance;
-        
+
+        public static float MinWindowHeight = 200;
+        public static float MinWindowWidth = 100;
+        public static float InitWindowWidth = 400;
+        public static float InitWindowHeight = 300;
+
+        public Rect WindowRect;
         public Rect VitualWindowRect;
         public Rect ViewportRect;
         public EUM_BaseWidget DraggingWidget;

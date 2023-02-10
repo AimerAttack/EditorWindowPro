@@ -18,11 +18,15 @@ namespace EditorUIMaker
         
         public void Draw(ref Rect rect)
         {
+            var paperRect = new Rect(rect.x, rect.y, rect.width, rect.height);
+            paperRect.yMin += EUM_Title.s_TitleHeight;
+            paperRect.yMin += EUM_Toolbar.s_Height;
+            
+            EUM_Helper.Instance.ViewportRect = paperRect;
+            _Paper.Draw(ref paperRect);
+            
             _Title.Draw(ref rect);
             _Toolbar.Draw(ref rect);
-
-            EUM_Helper.Instance.ViewportRect = rect;
-            _Paper.Draw(ref rect);
         }
         
         public void DrawRect(Rect rect)

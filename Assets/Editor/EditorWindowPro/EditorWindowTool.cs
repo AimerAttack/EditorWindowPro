@@ -10,7 +10,7 @@ namespace EditorWindowPro
 {
     public class EditorWindowTool : EditorWindow, IEditorWindow
     {
-        [MenuItem("Tools/EditorWindowTool")]
+        // [MenuItem("Tools/EditorWindowTool")]
         static EditorWindowTool OpenWindow()
         {
             var window = GetWindow<EditorWindowTool>();

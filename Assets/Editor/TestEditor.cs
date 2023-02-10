@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 public class TestEditor : EditorWindow, IEditorWindow
 {
-    [MenuItem("Tools/组件展示窗口")]
+    // [MenuItem("Tools/组件展示窗口")]
     static TestEditor OpenWindow()
     {
         var window = GetWindow<TestEditor>();

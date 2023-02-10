@@ -7,7 +7,7 @@ namespace Editor
 {
     public class TestWindow : EditorWindow
     {
-        [MenuItem("Tools/鼠标拖拽测试")]
+        // [MenuItem("Tools/鼠标拖拽测试")]
         static TestWindow OpenWindow()
         {
             var window = GetWindow<TestWindow>();

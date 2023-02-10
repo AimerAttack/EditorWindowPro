@@ -9,6 +9,7 @@ namespace Amazing.Editor.Library
     public static class GUILib
     {
         public static readonly Color s_DefaultColor = new Color(56f/255, 56f/255, 56f/255, 1f);
+        public static readonly float s_SplitSize = 2;
         public const float s_DefaultLineHeight = 1f;
 
         internal static Dictionary<string, GUIContent> tooltipCache = new Dictionary<string, GUIContent>();
