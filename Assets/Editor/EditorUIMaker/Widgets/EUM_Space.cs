@@ -9,8 +9,8 @@ namespace EditorUIMaker.Widgets
         public override string TypeName=> "Space";
         public override void DrawDraging(float x, float y)
         {
-            var rect = new Rect(x, y, 200, 50);
-            GUILib.Frame(rect,GUILib.s_DefaultColor,1);
+            var rect = new Rect(x, y, 200, 20);
+            GUILib.Frame(rect,Color.white,1);
         }
 
         public override void DrawLayout()

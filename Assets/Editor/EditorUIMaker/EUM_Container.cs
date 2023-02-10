@@ -6,6 +6,7 @@ namespace EditorUIMaker
 {
     public class EUM_Container
     {
+        public bool Selected = false;
         public int Depth = 0;
         public Rect Rect;
         public List<EUM_BaseWidget> Widgets = new List<EUM_BaseWidget>();
@@ -32,7 +33,7 @@ namespace EditorUIMaker
         public void DrawArea()
         {
             _ExaminationArea.Rect = Rect;
-            _ExaminationArea.Draw();
+            _ExaminationArea.Draw(Selected);
         }
         
         public bool Contains(Vector2 point)

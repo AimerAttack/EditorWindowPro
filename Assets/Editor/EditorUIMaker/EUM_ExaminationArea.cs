@@ -8,18 +8,22 @@ namespace EditorUIMaker
     {
         public int Depth = 0;
         public Rect Rect;
-        
-        protected virtual Color _Color
-        {
-            get => Color.blue;
-        }
 
         protected float _Size = 2;
         
-        public void Draw()
+        public void Draw(bool selected)
         {
             var oldColor = GUI.color;
-            GUI.color = _Color;
+            if (selected)
+            {
+                GUI.color = Color.green;
+            }
+            else
+            {
+                var color = Color.blue;
+                color.a = EUM_Helper.Instance.Alpha;
+                GUI.color = color;
+            }
 
             var tmpRect = new Rect(Rect);
             //need clip by EUM_Helper.ViewportRect
