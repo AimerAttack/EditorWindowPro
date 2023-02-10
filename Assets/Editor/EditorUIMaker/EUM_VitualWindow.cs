@@ -7,7 +7,7 @@ namespace EditorUIMaker
     {
         private Rect _ContentRect;
         
-        public void DrawWithRect(ref Rect rect)
+        public void Draw(ref Rect rect)
         {
             _ContentRect = rect;
             DrawContent();

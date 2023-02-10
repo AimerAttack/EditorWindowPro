@@ -12,11 +12,11 @@ namespace EditorUIMaker
             _Title = new EUM_Title(new GUIContent("Inspector"));
         }
         
-        public void DrawWithRect(ref Rect rect)
+        public void Draw(ref Rect rect)
         {
             GUILib.Rect(rect,GUILib.s_DefaultColor , 1f);
             
-            _Title.DrawWithRect(ref rect);
+            _Title.Draw(ref rect);
         }
     }
 }

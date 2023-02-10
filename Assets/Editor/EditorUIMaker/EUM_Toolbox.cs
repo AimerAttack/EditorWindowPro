@@ -17,7 +17,6 @@ namespace EditorUIMaker
         private bool _ShowControls;
         private bool _ShowNumericFields;
         private Rect _Rect;
-        private EUM_BaseWidget _FloatingWidget;
 
         private List<EUM_BaseWidget> _Controls = new List<EUM_BaseWidget>();
 
@@ -30,12 +29,12 @@ namespace EditorUIMaker
             _Controls.Add(new EUM_Label());
         }
 
-        public void DrawWithRect(ref Rect rect)
+        public void Draw(ref Rect rect)
         {
             _Rect = rect;
             GUILib.Rect(rect, GUILib.s_DefaultColor, 1f);
 
-            _Title.DrawWithRect(ref rect);
+            _Title.Draw(ref rect);
 
             GUILayout.BeginArea(rect);
 
@@ -44,12 +43,6 @@ namespace EditorUIMaker
 
             GUILib.ScrollView(ref _ScrollPos, DrawControls);
             GUILayout.EndArea();
-
-            if (_FloatingWidget != null)
-            {
-                var floatRect = new Rect(Event.current.mousePosition, new Vector2(100, 30));
-                _FloatingWidget.DrawWithRect(ref floatRect);
-            }
         }
 
         void DrawToggleTab()
@@ -115,7 +108,7 @@ namespace EditorUIMaker
                         DragAndDrop.StartDrag("Create a new control");
                         Event.current.Use();
 
-                        _FloatingWidget = control.Clone();
+                        EUM_Helper.FloatingWidget = control.Clone();
                     }
                 }
             }
@@ -136,7 +129,8 @@ namespace EditorUIMaker
                 case EventType.DragPerform:
                 {
                     object genericData = DragAndDrop.GetGenericData("IsUIEditorControl");
-                    _FloatingWidget = null;
+
+                    EUM_Helper.FloatingWidget = null;
 
                     if (genericData != null && !_Rect.Contains(Event.current.mousePosition))
                     {

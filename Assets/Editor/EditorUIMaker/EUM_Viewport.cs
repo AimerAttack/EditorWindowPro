@@ -16,13 +16,13 @@ namespace EditorUIMaker
             _Paper = new EUM_Paper();
         }
         
-        public void DrawWithRect(ref Rect rect)
+        public void Draw(ref Rect rect)
         {
-            _Title.DrawWithRect(ref rect);
-            _Toolbar.DrawWithRect(ref rect);
+            _Title.Draw(ref rect);
+            _Toolbar.Draw(ref rect);
 
             EUM_Helper.ViewportRect = rect;
-            _Paper.DrawWithRect(ref rect);
+            _Paper.Draw(ref rect);
         }
     }
 }

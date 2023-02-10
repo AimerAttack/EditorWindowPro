@@ -15,7 +15,7 @@ namespace EditorUIMaker
             _Title = title;
         }
         
-        public void DrawWithRect(ref Rect rect)
+        public void Draw(ref Rect rect)
         {
             var titleRect = new Rect(rect.x, rect.y, rect.width, s_TitleHeight);
             GUILib.Rect(titleRect, Color.black, 0.2f);

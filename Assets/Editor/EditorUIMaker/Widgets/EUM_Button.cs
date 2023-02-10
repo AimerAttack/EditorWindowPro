@@ -9,9 +9,14 @@ namespace EditorUIMaker.Widgets
 
         public override string TypeName => "Button";
 
-        public override void DrawWithRect(ref Rect rect)
+        public override void Draw(ref Rect rect)
         {
             GUI.Button(rect, Name);
+        }
+
+        public override void DrawDraging(float x, float y)
+        {
+            GUI.Button(new Rect(x,y,100,20), Name);
         }
 
         public override void DrawLayout()

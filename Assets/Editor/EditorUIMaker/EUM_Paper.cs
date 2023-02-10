@@ -12,11 +12,11 @@ namespace EditorUIMaker
             _VitualWindow = new EUM_VitualWindow();
         }
         
-        public void DrawWithRect(ref Rect rect)
+        public void Draw(ref Rect rect)
         {
             GUILib.Rect(rect, Color.black, 0.8f);
             
-            _VitualWindow.DrawWithRect(ref rect);
+            _VitualWindow.Draw(ref rect);
         }
     }
 }

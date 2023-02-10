@@ -1,3 +1,4 @@
+using EditorUIMaker.Widgets;
 using UnityEngine;
 
 namespace EditorUIMaker
@@ -6,5 +7,6 @@ namespace EditorUIMaker
     {
         public static Rect VitualWindowRect;
         public static Rect ViewportRect;
+        public static EUM_BaseWidget FloatingWidget;
     }
 }

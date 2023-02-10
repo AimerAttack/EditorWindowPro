@@ -35,10 +35,6 @@ namespace EditorUIMaker
 
         void Init()
         {
-            // _Paper = new EUM_Paper();
-            // _Toolbar = new EUM_Toolbar();
-            // _ToolboxControls = new EUM_ToolboxControls();
-
             _Toolbox = new EUM_Toolbox();
             _Viewport = new EUM_Viewport();
             _Inspector = new EUM_Inspector();
@@ -63,18 +59,21 @@ namespace EditorUIMaker
             viewportWidth = Mathf.Max(s_MinViewportWidth, viewportWidth);
             
             var viewportRect = new Rect(toolboxWidth, 0,viewportWidth - s_SplitSize, position.height);
-            _Viewport.DrawWithRect(ref viewportRect);
+            _Viewport.Draw(ref viewportRect);
               
             var inspectorRect = new Rect(viewportRect.x + viewportRect.width + s_SplitSize, 0,inspectorWidth, position.height);
-            _Inspector.DrawWithRect(ref inspectorRect);
+            _Inspector.Draw(ref inspectorRect);
             
             var toolboxRect = new Rect(0, 0, toolboxWidth, position.height);
-            _Toolbox.DrawWithRect(ref toolboxRect);
+            _Toolbox.Draw(ref toolboxRect);
 
             var cursorRect = new Rect(viewportRect.x + viewportRect.width, 0, 2, position.height);
             GUILib.Rect(cursorRect, Color.black, 0.4f);
             var dRect2 = GUILib.Padding(cursorRect, -2f, -2f);
             EditorGUIUtility.AddCursorRect(dRect2, MouseCursor.ResizeHorizontal);
+            
+            DrawDraging();
+            DrawHoverRect();
             
             if (Event.current.type == EventType.MouseDown && dRect2.Contains(Event.current.mousePosition))
             {
@@ -98,6 +97,14 @@ namespace EditorUIMaker
 
         void DrawDraging()
         {
+            if (EUM_Helper.FloatingWidget != null)
+            {
+                EUM_Helper.FloatingWidget.DrawDraging(Event.current.mousePosition.x, Event.current.mousePosition.y);
+            } 
+        }
+
+        void DrawHoverRect()
+        {
             
         }
 
@@ -112,6 +119,15 @@ namespace EditorUIMaker
                 return;
             _Ratio = delta / position.width;
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         void ProcessScrollWheel()
         {
