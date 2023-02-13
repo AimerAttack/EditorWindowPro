@@ -8,7 +8,7 @@ namespace EditorUIMaker
     {
         public bool Selected = false;
         public Rect Rect;
-        public List<EUM_BaseWidget> Widgets = new List<EUM_BaseWidget>();
+        public List<EUM_Widget> Widgets = new List<EUM_Widget>();
 
         private EUM_ExaminationArea _ExaminationArea;
         public EUM_ExaminationArea ExaminationArea => _ExaminationArea;

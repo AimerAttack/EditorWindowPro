@@ -17,7 +17,7 @@ namespace EditorUIMaker
         private bool _ShowControls;
         private bool _ShowNumericFields;
 
-        private List<EUM_BaseWidget> _Controls = new List<EUM_BaseWidget>();
+        private List<EUM_Widget> _Controls = new List<EUM_Widget>();
 
         public EUM_Toolbox()
         {

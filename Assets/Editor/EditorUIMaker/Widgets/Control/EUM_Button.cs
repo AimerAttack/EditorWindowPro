@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EditorUIMaker.Widgets
 {
-    public class EUM_Button : EUM_BaseWidget
+    public class EUM_Button : EUM_Widget
     {
         public string Name = "Button";
 
@@ -19,7 +19,7 @@ namespace EditorUIMaker.Widgets
             GUILib.Button(Name);
         }
         
-        public override EUM_BaseWidget Clone()
+        public override EUM_Widget Clone()
         {
             var widget = new EUM_Button();
             widget.Name = Name;

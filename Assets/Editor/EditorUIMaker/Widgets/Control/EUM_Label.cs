@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EditorUIMaker.Widgets
 {
-    public class EUM_Label : EUM_BaseWidget
+    public class EUM_Label : EUM_Widget
     {
         public override string TypeName => "Label";
         public GUIContent Content = new GUIContent("Label");
@@ -18,7 +18,7 @@ namespace EditorUIMaker.Widgets
             GUILib.Label(Content);
         }
 
-        public override EUM_BaseWidget Clone()
+        public override EUM_Widget Clone()
         {
             var widget = new EUM_Label();
             widget.Content = new GUIContent(Content);

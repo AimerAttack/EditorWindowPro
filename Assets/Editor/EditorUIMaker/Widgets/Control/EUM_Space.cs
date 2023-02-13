@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EditorUIMaker.Widgets
 {
-    public class EUM_Space : EUM_BaseWidget
+    public class EUM_Space : EUM_Widget
     {
         private float _Pixels = 5;
         public override string TypeName => "Space";
@@ -19,7 +19,7 @@ namespace EditorUIMaker.Widgets
             GUILayout.Space(_Pixels);
         }
 
-        public override EUM_BaseWidget Clone()
+        public override EUM_Widget Clone()
         {
             var widget = new EUM_Space();
             widget._Pixels = _Pixels;
