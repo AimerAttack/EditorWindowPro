@@ -1,3 +1,5 @@
+using System;
+using System.Security.Permissions;
 using Amazing.Editor.Library;
 using UnityEditor;
 using UnityEngine;
@@ -6,13 +8,23 @@ namespace EditorUIMaker
 {
     public class EUM_ExaminationArea
     {
-        public int Depth = 0;
+        public bool Enable = false;
+        public int Depth => _DepthOwner.Depth;
         public Rect Rect;
 
         protected float _Size = 2;
+
+        private I_EUM_Depth _DepthOwner;
+
+        public EUM_ExaminationArea(I_EUM_Depth depthOwner)
+        {
+            _DepthOwner = depthOwner;
+        }
         
         public void Draw(bool selected)
         {
+            if(!Enable)
+                return;
             var oldColor = GUI.color;
             if (selected)
             {

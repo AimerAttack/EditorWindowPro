@@ -24,6 +24,7 @@ namespace EditorUIMaker
         public EUM_VitualWindow()
         {
             _Container = new EUM_Container();
+            _Container.ExaminationArea.Enable = true;
             EUM_Helper.Instance.Containers.Add(_Container);
         }
 
