@@ -14,12 +14,12 @@ namespace EditorUIMaker.Widgets
             GUI.Button(new Rect(position.x,position.y,100,20), Name);
         }
 
-        public override void DrawLayout()
+        protected override void OnDrawLayout()
         {
             GUILib.Button(Name);
         }
         
-        public override EUM_Widget Clone()
+        public override EUM_BaseWidget Clone()
         {
             var widget = new EUM_Button();
             widget.Name = Name;

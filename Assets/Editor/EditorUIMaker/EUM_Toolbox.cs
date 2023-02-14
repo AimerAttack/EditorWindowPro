@@ -17,12 +17,16 @@ namespace EditorUIMaker
         private bool _ShowControls;
         private bool _ShowNumericFields;
 
-        private List<EUM_Widget> _Controls = new List<EUM_Widget>();
+        private List<EUM_BaseWidget> _Containers = new List<EUM_BaseWidget>();
+        private List<EUM_BaseWidget> _Controls = new List<EUM_BaseWidget>();
 
         public EUM_Toolbox()
         {
             _Title = new EUM_Title(new GUIContent("Toolbox"));
             _ShowBuildIn = true;
+            
+            _Containers.Add(new EUM_Horizontal());
+            _Containers.Add(new EUM_Vertical());
 
             _Controls.Add(new EUM_Space());
             _Controls.Add(new EUM_Button());
@@ -87,6 +91,23 @@ namespace EditorUIMaker
 
         void DrawContainers()
         {
+            foreach (var control in _Containers)
+            {
+                GUILayout.Label(control.TypeName);
+
+                var lastRect = GUILayoutUtility.GetLastRect();
+                if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+                {
+                    if (lastRect.Contains(Event.current.mousePosition))
+                    {
+                        DragAndDrop.PrepareStartDrag();
+                        DragAndDrop.StartDrag("Create a new control");
+                        Event.current.Use();
+
+                        EUM_Helper.Instance.DraggingWidget = control.Clone();
+                    }
+                }
+            }
         }
 
         void DrawBaseControls()
@@ -138,6 +159,7 @@ namespace EditorUIMaker
                             {
                                 //in container
                                 EUM_Helper.Instance.DraggingOverContainer.Widgets.Add(EUM_Helper.Instance.DraggingWidget);
+                                EUM_Helper.Instance.DraggingWidget.OnAddToContainer(EUM_Helper.Instance.DraggingOverContainer);
                             }
                         }
                     }

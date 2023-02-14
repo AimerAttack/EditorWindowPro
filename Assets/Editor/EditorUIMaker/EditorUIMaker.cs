@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Amazing.Editor.Library;
+using EditorUIMaker.Widgets;
 using UnityEditor;
 using UnityEngine;
 
@@ -66,7 +67,6 @@ namespace EditorUIMaker
 
             var viewportRect = new Rect(toolboxWidth, 0, viewportWidth - s_SplitSize, position.height);
             _Viewport.Draw(ref viewportRect);
-            DrawItems();
 
             var inspectorRect = new Rect(viewportRect.x + viewportRect.width + s_SplitSize, 0, inspectorWidth,
                 position.height);
@@ -82,6 +82,7 @@ namespace EditorUIMaker
 
             DrawDraging();
             DrawHoverRect();
+            CheckSelectRect();
             DrawSelectRect();
 
             if (Event.current.type == EventType.MouseDown && dRect2.Contains(Event.current.mousePosition))
@@ -102,14 +103,6 @@ namespace EditorUIMaker
             }
 
             Repaint();
-        }
-
-        void DrawItems()
-        {
-            foreach (var container in EUM_Helper.Instance.Containers)
-            {
-                container.DrawItems();
-            }
         }
 
         void DrawDraging()
@@ -134,6 +127,8 @@ namespace EditorUIMaker
 
                 foreach (var item in EUM_Helper.Instance.Containers)
                 {
+                    if(!item.InViewport)
+                        continue;
                     if (!item.Contains(Event.current.mousePosition))
                         continue;
                     if (container == null)
@@ -149,7 +144,7 @@ namespace EditorUIMaker
 
                 if (container != null)
                 {
-                    container.DrawArea();
+                    DrawDraggingOverRect(container);
                     if (EUM_Helper.Instance.DraggingOverContainer != container)
                         EUM_Helper.Instance.ResetFade();
                     EUM_Helper.Instance.DraggingOverContainer = container;
@@ -165,60 +160,96 @@ namespace EditorUIMaker
             }
         }
 
+        void DrawDraggingOverRect(EUM_Container container)
+        {
+            GUILib.Frame(container.Rect, Color.blue);
+        }
+
+        void CheckSelectRect()
+        {
+            if(EUM_Helper.Instance.HoverWidget == null)
+                return;
+            //wtodo
+        }
+        
         void DrawSelectRect()
         {
+            if(EUM_Helper.Instance.SelectWidget == null)
+                return;
+            var widget = EUM_Helper.Instance.SelectWidget;
+            GUILib.Frame(widget.Rect, Color.green);
         }
 
         void DrawHoverRect()
         {
             if (EUM_Helper.Instance.DraggingWidget != null)
             {
-                EUM_Helper.Instance.HoverContainer = null;
+                EUM_Helper.Instance.HoverWidget = null;
                 return;
             }
 
             if (!EUM_Helper.Instance.ViewportRect.Contains(Event.current.mousePosition))
             {
-                EUM_Helper.Instance.HoverContainer = null;
+                EUM_Helper.Instance.HoverWidget = null;
                 return;
             }
 
             if (!EUM_Helper.Instance.VitualWindowRect.Contains(Event.current.mousePosition))
             {
-                EUM_Helper.Instance.HoverContainer = null;
+                EUM_Helper.Instance.HoverWidget = null;
                 return;
             }
 
-            EUM_Container container = null;
+            EUM_BaseWidget widget = null;
+            
+            Queue<EUM_BaseWidget> checkList = new Queue<EUM_BaseWidget>();
 
             foreach (var item in EUM_Helper.Instance.Containers)
             {
-                //is root container,dont show
-                if(item.Depth == 0)
+                if(!item.InViewport)
                     continue;
                 if (!item.Contains(Event.current.mousePosition))
                     continue;
-                if (container == null)
+                //在区域内，进而判断是否在子控件内
+                checkList.Enqueue(item);
+                while (checkList.Count > 0)
                 {
-                    container = item;
-                }
-                else
-                {
-                    if (item.Depth > container.Depth)
-                        container = item;
+                    var checkItem = checkList.Dequeue();
+                    //if depth == 0 , is root window,dont check hover
+                    if (checkItem.Depth != 0 && checkItem.Contains(Event.current.mousePosition))
+                    {
+                        if (widget == null)
+                        {
+                            widget = checkItem;
+                        }
+                        else
+                        {
+                            if (checkItem.Depth > widget.Depth)
+                                widget = checkItem;
+                        }
+                    }
+                    
+                    if (checkItem is EUM_Container)
+                    {
+                        var container = checkItem as EUM_Container;
+                        foreach (var child in container.Widgets)
+                        {
+                            checkList.Enqueue(child);
+                        }
+                    }
                 }
             }
 
-            if (container != null)
+            if (widget != null)
             {
-                container.DrawArea();
-                if (EUM_Helper.Instance.HoverContainer != container)
+                GUILib.Frame(widget.Rect,Color.blue,1.5f);
+                if (EUM_Helper.Instance.HoverWidget != widget)
                     EUM_Helper.Instance.ResetFade();
-                EUM_Helper.Instance.HoverContainer = container;
+                EUM_Helper.Instance.HoverWidget = widget;
             }
             else
             {
-                EUM_Helper.Instance.HoverContainer = null;
+                EUM_Helper.Instance.HoverWidget = null;
             }
         }
 
@@ -270,7 +301,6 @@ namespace EditorUIMaker
 
         private void OnDestroy()
         {
-            
         }
     }
 }

@@ -6,7 +6,7 @@ namespace EditorUIMaker
 {
     public class EUM_VitualWindow : I_EUM_Drawable
     {
-        private EUM_Container _Container;
+        private EUM_Window _Window;
         private const float s_TitleHeight = 15;
 
         enum E_ResizeType
@@ -23,9 +23,7 @@ namespace EditorUIMaker
 
         public EUM_VitualWindow()
         {
-            _Container = new EUM_Container();
-            _Container.ExaminationArea.Enable = true;
-            EUM_Helper.Instance.Containers.Add(_Container);
+            _Window = new EUM_Window();
         }
 
         public void Draw(ref Rect rect)
@@ -56,7 +54,7 @@ namespace EditorUIMaker
             var titleRect = new Rect(rect.x, rect.y, rect.width, s_TitleHeight);
             GUI.Label(titleRect, EUM_Helper.Instance.WindowTitle);
 
-            _Container.Rect = EUM_Helper.Instance.VitualWindowRect;
+            _Window.Draw(ref EUM_Helper.Instance.VitualWindowRect);
 
             DrawResizeBar(contentRect,rect);
         }

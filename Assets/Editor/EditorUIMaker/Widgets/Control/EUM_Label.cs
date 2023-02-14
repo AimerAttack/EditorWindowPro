@@ -13,12 +13,12 @@ namespace EditorUIMaker.Widgets
             GUI.Label(new Rect(position.x + 10, position.y - 10, 100, 40), Content);
         }
 
-        public override void DrawLayout()
+        protected override void OnDrawLayout()
         {
             GUILib.Label(Content);
         }
 
-        public override EUM_Widget Clone()
+        public override EUM_BaseWidget Clone()
         {
             var widget = new EUM_Label();
             widget.Content = new GUIContent(Content);

@@ -17,9 +17,10 @@ namespace EditorUIMaker
         public Rect WindowRect;
         public Rect VitualWindowRect;
         public Rect ViewportRect;
-        public EUM_Widget DraggingWidget;
+        public EUM_BaseWidget DraggingWidget;
+        public EUM_BaseWidget SelectWidget;
         public EUM_Container DraggingOverContainer;
-        public EUM_Container HoverContainer;
+        public EUM_BaseWidget HoverWidget;
         public List<EUM_Container> Containers = new List<EUM_Container>();
         public bool Preview;
         public string WindowTitle = "WindowTitle";

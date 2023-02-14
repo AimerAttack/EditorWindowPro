@@ -14,12 +14,12 @@ namespace EditorUIMaker.Widgets
             GUILib.Frame(rect, Color.white, 1);
         }
 
-        public override void DrawLayout()
+        protected override void OnDrawLayout()
         {
             GUILayout.Space(_Pixels);
         }
 
-        public override EUM_Widget Clone()
+        public override EUM_BaseWidget Clone()
         {
             var widget = new EUM_Space();
             widget._Pixels = _Pixels;
