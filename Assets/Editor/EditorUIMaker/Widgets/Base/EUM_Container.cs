@@ -16,6 +16,12 @@ namespace EditorUIMaker
 
         protected void DrawItems()
         {
+            if (!EUM_Helper.Instance.Preview && InViewport)
+            {
+                GUI.enabled = false;
+                GUI.color = new Color(1, 1, 1, 2);
+            }
+
             GUILayout.BeginArea(Rect);
             
             foreach (var widget in Widgets)
@@ -24,6 +30,12 @@ namespace EditorUIMaker
             }
             
             GUILayout.EndArea();
+
+            if (!EUM_Helper.Instance.Preview && InViewport)
+            {
+                GUI.color = Color.white;
+                GUI.enabled = true;
+            }
         }
     }
 }

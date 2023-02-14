@@ -95,16 +95,19 @@ namespace EditorUIMaker
             {
                 GUILayout.Label(control.TypeName);
 
-                var lastRect = GUILayoutUtility.GetLastRect();
-                if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+                if (!EUM_Helper.Instance.Preview)
                 {
-                    if (lastRect.Contains(Event.current.mousePosition))
+                    var lastRect = GUILayoutUtility.GetLastRect();
+                    if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
                     {
-                        DragAndDrop.PrepareStartDrag();
-                        DragAndDrop.StartDrag("Create a new control");
-                        Event.current.Use();
+                        if (lastRect.Contains(Event.current.mousePosition))
+                        {
+                            DragAndDrop.PrepareStartDrag();
+                            DragAndDrop.StartDrag("Create a new control");
+                            Event.current.Use();
 
-                        EUM_Helper.Instance.DraggingWidget = control.Clone();
+                            EUM_Helper.Instance.DraggingWidget = control.Clone();
+                        }
                     }
                 }
             }

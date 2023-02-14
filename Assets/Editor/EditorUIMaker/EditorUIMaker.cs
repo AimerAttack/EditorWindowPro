@@ -80,10 +80,17 @@ namespace EditorUIMaker
             var dRect2 = GUILib.Padding(cursorRect, -2f, -2f);
             EditorGUIUtility.AddCursorRect(dRect2, MouseCursor.ResizeHorizontal);
 
-            DrawDraging();
-            DrawHoverRect();
-            CheckSelectRect();
-            DrawSelectRect();
+            if (!EUM_Helper.Instance.Preview)
+            {
+                DrawDraging();
+                DrawHoverRect();
+                CheckSelectRect();
+                DrawSelectRect();
+            }
+            else
+            {
+                DrawPreviewFrame();
+            }
 
             if (Event.current.type == EventType.MouseDown && dRect2.Contains(Event.current.mousePosition))
             {
@@ -103,6 +110,11 @@ namespace EditorUIMaker
             }
 
             Repaint();
+        }
+
+        void DrawPreviewFrame()
+        {
+            GUILib.Frame(EUM_Helper.Instance.ViewportRect,new Color(255f/255,139f/255,40f/255),2);
         }
 
         void DrawDraging()
@@ -127,7 +139,7 @@ namespace EditorUIMaker
 
                 foreach (var item in EUM_Helper.Instance.Containers)
                 {
-                    if(!item.InViewport)
+                    if (!item.InViewport)
                         continue;
                     if (!item.Contains(Event.current.mousePosition))
                         continue;
@@ -167,14 +179,26 @@ namespace EditorUIMaker
 
         void CheckSelectRect()
         {
-            if(EUM_Helper.Instance.HoverWidget == null)
-                return;
-            //wtodo
+            if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+            {
+                if (EUM_Helper.Instance.HoverWidget == null)
+                {
+                    EUM_Helper.Instance.SelectWidget = null;   
+                }
+                else
+                {
+                    var widget = EUM_Helper.Instance.HoverWidget;
+                    if (widget.Contains(Event.current.mousePosition))
+                    {
+                        EUM_Helper.Instance.SelectWidget = widget;
+                    }
+                }
+            }
         }
-        
+
         void DrawSelectRect()
         {
-            if(EUM_Helper.Instance.SelectWidget == null)
+            if (EUM_Helper.Instance.SelectWidget == null)
                 return;
             var widget = EUM_Helper.Instance.SelectWidget;
             GUILib.Frame(widget.Rect, Color.green);
@@ -201,12 +225,12 @@ namespace EditorUIMaker
             }
 
             EUM_BaseWidget widget = null;
-            
+
             Queue<EUM_BaseWidget> checkList = new Queue<EUM_BaseWidget>();
 
             foreach (var item in EUM_Helper.Instance.Containers)
             {
-                if(!item.InViewport)
+                if (!item.InViewport)
                     continue;
                 if (!item.Contains(Event.current.mousePosition))
                     continue;
@@ -228,7 +252,7 @@ namespace EditorUIMaker
                                 widget = checkItem;
                         }
                     }
-                    
+
                     if (checkItem is EUM_Container)
                     {
                         var container = checkItem as EUM_Container;
@@ -242,7 +266,7 @@ namespace EditorUIMaker
 
             if (widget != null)
             {
-                GUILib.Frame(widget.Rect,Color.blue,1.5f);
+                GUILib.Frame(widget.Rect, Color.blue, 1.5f);
                 if (EUM_Helper.Instance.HoverWidget != widget)
                     EUM_Helper.Instance.ResetFade();
                 EUM_Helper.Instance.HoverWidget = widget;

@@ -6,7 +6,7 @@ namespace EditorUIMaker.Widgets
     {
         public bool InViewport = false;
         public Rect Rect;
-        public Rect CheckRect;
+        public Rect AbsoluteRect;
         public EUM_Container Parent;
         public abstract string TypeName { get; }
 
@@ -17,13 +17,13 @@ namespace EditorUIMaker.Widgets
             if (Event.current.type == EventType.Repaint)
             {
                 var selfRect = GUILayoutUtility.GetLastRect();
-                CheckRect = new Rect(Parent.CheckRect.x + selfRect.x,Parent.CheckRect.y + selfRect.y,selfRect.width, selfRect.height);
-                Rect = CheckRect;
+                AbsoluteRect = new Rect(Parent.AbsoluteRect.x + selfRect.x,Parent.AbsoluteRect.y + selfRect.y,selfRect.width, selfRect.height);
+                Rect = AbsoluteRect;
             }
         }
         public bool Contains(Vector2 point)
         {
-            return CheckRect.Contains(point);
+            return AbsoluteRect.Contains(point);
         }
 
         public int Depth { get; set; }

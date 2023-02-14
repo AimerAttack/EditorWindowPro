@@ -36,7 +36,7 @@ namespace EditorUIMaker
 
         void OnDraw(Rect rect)
         {
-            CheckRect = new Rect(EUM_Helper.Instance.VitualWindowRect.x, EUM_Helper.Instance.VitualWindowRect.y, rect.width, rect.height);
+            AbsoluteRect = new Rect(EUM_Helper.Instance.VitualWindowRect.x, EUM_Helper.Instance.VitualWindowRect.y, rect.width, rect.height);
             DrawItems();
         }
     }
