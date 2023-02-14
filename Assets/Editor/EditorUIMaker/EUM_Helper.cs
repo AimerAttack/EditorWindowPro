@@ -12,6 +12,7 @@ namespace EditorUIMaker
         public static float MinWindowWidth = 100;
         public static float InitWindowWidth = 400;
         public static float InitWindowHeight = 300;
+        public static float MinimumDragToSnapToMoveRotateScaleResize = 2;
         
         public int ZoomIndex;
         public Rect WindowRect;
@@ -22,6 +23,7 @@ namespace EditorUIMaker
         public EUM_Container DraggingOverContainer;
         public EUM_BaseWidget HoverWidget;
         public List<EUM_Container> Containers = new List<EUM_Container>();
+        public Vector2 StartDragCanvasPosition;
         public bool Preview;
         public string WindowTitle = "WindowTitle";
         public float Alpha = 0;

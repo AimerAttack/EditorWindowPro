@@ -30,6 +30,7 @@ namespace EditorUIMaker
 
         private float _Ratio = 0.3f;
         private bool _ResizeView = false;
+        private bool _CheckCanvasDrag = false;
 
         public EditorUIMaker()
         {
@@ -55,6 +56,8 @@ namespace EditorUIMaker
 
         private void OnGUI()
         {
+            ProcessMouseMove();
+            
             _Toolbox.HandleDrag();
 
             EUM_Helper.Instance.Fade();
@@ -314,10 +317,39 @@ namespace EditorUIMaker
         {
             if (Event.current.isMouse)
             {
-                if (Event.current.button == 2)
+                if (_CheckCanvasDrag)
                 {
-                    if (Event.current.type == EventType.MouseDown)
+                    if (Event.current.rawType == EventType.MouseUp)
                     {
+                        _CheckCanvasDrag = false;
+                        Event.current.Use();
+                    }
+                    else
+                    {
+                        var distance = Vector2.Distance(Event.current.mousePosition,
+                            EUM_Helper.Instance.StartDragCanvasPosition);
+                        if (distance > EUM_Helper.MinimumDragToSnapToMoveRotateScaleResize)
+                        {
+                            var deltaX = Event.current.mousePosition.x - EUM_Helper.Instance.StartDragCanvasPosition.x;
+                            var deltaY = Event.current.mousePosition.y - EUM_Helper.Instance.StartDragCanvasPosition.y;
+                            EUM_Helper.Instance.StartDragCanvasPosition.x = Event.current.mousePosition.x;
+                            EUM_Helper.Instance.StartDragCanvasPosition.y = Event.current.mousePosition.y;
+                            EUM_Helper.Instance.WindowRect.x += deltaX;
+                            EUM_Helper.Instance.WindowRect.y += deltaY;
+                        }
+                    }
+                }
+                else
+                {
+                    if (Event.current.button == 1)
+                    {
+                        if (Event.current.type == EventType.MouseDown)
+                        {
+                            EUM_Helper.Instance.StartDragCanvasPosition.x = Event.current.mousePosition.x;
+                            EUM_Helper.Instance.StartDragCanvasPosition.y = Event.current.mousePosition.y;
+                            _CheckCanvasDrag = true;
+                            Event.current.Use();
+                        }
                     }
                 }
             }
