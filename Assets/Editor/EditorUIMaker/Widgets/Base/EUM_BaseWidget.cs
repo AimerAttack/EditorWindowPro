@@ -4,6 +4,7 @@ namespace EditorUIMaker.Widgets
 {
     public abstract class EUM_BaseWidget : I_EUM_LayoutDrawable, I_EUM_Depth, I_EUM_Draggable
     {
+        public int ID;
         public bool InViewport = false;
         public Rect Rect;
         public Rect AbsoluteRect;
@@ -26,6 +27,7 @@ namespace EditorUIMaker.Widgets
         public EUM_BaseWidget()
         {
             _Name = TypeName;
+            ID = EUM_Helper.Instance.WidgetID++;
         }
 
         protected abstract void OnDrawLayout();

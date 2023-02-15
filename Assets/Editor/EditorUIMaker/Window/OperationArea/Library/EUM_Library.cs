@@ -161,8 +161,9 @@ namespace EditorUIMaker
                                 //in container
                                 EUM_Helper.Instance.DraggingOverContainer.Widgets.Add(EUM_Helper.Instance.DraggingWidget);
                                 EUM_Helper.Instance.DraggingWidget.OnAddToContainer(EUM_Helper.Instance.DraggingOverContainer);
-                                EUM_Helper.Instance.OnAddItemToWindow?.Invoke();
+                                EUM_Helper.Instance.OnAddItemToWindow?.Invoke(EUM_Helper.Instance.DraggingWidget);
                                 EUM_Helper.Instance.SelectWidget = EUM_Helper.Instance.DraggingWidget;
+                                EUM_Helper.Instance.OnSelectWidgetChange?.Invoke();
                             }
                         }
                     }

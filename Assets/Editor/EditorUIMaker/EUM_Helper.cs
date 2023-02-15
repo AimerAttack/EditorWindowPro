@@ -16,7 +16,8 @@ namespace EditorUIMaker
         public static float MinimumDragToSnapToMoveRotateScaleResize = 2;
 
         public int WidgetID = 1;
-        public Action OnAddItemToWindow;
+        public Action<EUM_BaseWidget> OnAddItemToWindow;
+        public Action OnSelectWidgetChange;
         public EUM_Window Window;
         public int ZoomIndex;
         public Rect WindowRect;
@@ -27,6 +28,7 @@ namespace EditorUIMaker
         public EUM_Container DraggingOverContainer;
         public EUM_BaseWidget HoverWidget;
         public List<EUM_Container> Containers = new List<EUM_Container>();
+        public Dictionary<int, EUM_BaseWidget> Widgets = new Dictionary<int, EUM_BaseWidget>();
         public Vector2 StartDragCanvasPosition;
         public bool Preview;
         public string WindowTitle = "WindowTitle";

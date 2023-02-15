@@ -203,6 +203,7 @@ namespace EditorUIMaker
         {
             if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
             {
+                var oldSelect = EUM_Helper.Instance.SelectWidget;
                 if (EUM_Helper.Instance.HoverWidget == null)
                 {
                     EUM_Helper.Instance.SelectWidget = null;   
@@ -215,6 +216,8 @@ namespace EditorUIMaker
                         EUM_Helper.Instance.SelectWidget = widget;
                     }
                 }
+                if(EUM_Helper.Instance.SelectWidget != oldSelect)
+                    EUM_Helper.Instance.OnSelectWidgetChange?.Invoke();
             }
         }
 

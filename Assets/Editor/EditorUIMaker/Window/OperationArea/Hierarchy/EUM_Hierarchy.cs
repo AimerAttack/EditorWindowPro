@@ -16,6 +16,7 @@ namespace EditorUIMaker
         {
             _Title = new EUM_Title(new GUIContent("Hierarchy"));
             EUM_Helper.Instance.OnAddItemToWindow += OnAddItemToContainer;
+            EUM_Helper.Instance.OnSelectWidgetChange += OnSelectWidgetChanged;
         }
 
         public void Draw(ref Rect rect)
@@ -34,8 +35,9 @@ namespace EditorUIMaker
             GUILayout.EndArea();
         }
 
-        void OnAddItemToContainer()
+        void OnAddItemToContainer(EUM_BaseWidget widget)
         {
+            EUM_Helper.Instance.Widgets.Add(widget.ID, widget);
             RefreshTreeView();
         }
 
@@ -57,12 +59,24 @@ namespace EditorUIMaker
                     }
                 }
 
-                var id = EUM_Helper.Instance.WidgetID++;
-                var node = new TreeViewItem(id, widget.Depth, widget.Name);
+                var node = new TreeViewItem(widget.ID, widget.Depth, widget.Name);
                 nodes.Add(node);
             }
 
             _TreeView.SetData(nodes);
+        }
+        
+        private void OnSelectWidgetChanged()
+        {
+            var selectWidget = EUM_Helper.Instance.SelectWidget;
+            if (selectWidget == null)
+            {
+                _TreeView.SetSelection(new List<int>());
+            }
+            else
+            {
+                _TreeView.SetSelection(new List<int>() {selectWidget.ID},TreeViewSelectionOptions.FireSelectionChanged | TreeViewSelectionOptions.RevealAndFrame);
+            }
         }
     }
 }

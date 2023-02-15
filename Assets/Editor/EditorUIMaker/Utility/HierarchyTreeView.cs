@@ -67,5 +67,27 @@ namespace EditorUIMaker.Utility
 			
             return root;
         }
+
+        protected override bool CanMultiSelect(TreeViewItem item)
+        {
+            return false;
+        }
+
+        protected override void SelectionChanged(IList<int> selectedIds)
+        {
+            base.SelectionChanged(selectedIds);
+            foreach (var selectedId in selectedIds)
+            {
+                if (EUM_Helper.Instance.Widgets.ContainsKey(selectedId))
+                {
+                    var widget = EUM_Helper.Instance.Widgets[selectedId];
+                    EUM_Helper.Instance.SelectWidget = widget;
+                }
+                else
+                {
+                    EUM_Helper.Instance.SelectWidget = null;
+                }
+            }
+        }
     }
 }
