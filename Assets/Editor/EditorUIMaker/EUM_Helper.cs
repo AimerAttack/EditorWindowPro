@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using EditorUIMaker.Widgets;
 using UnityEngine;
@@ -13,7 +14,10 @@ namespace EditorUIMaker
         public static float InitWindowWidth = 400;
         public static float InitWindowHeight = 300;
         public static float MinimumDragToSnapToMoveRotateScaleResize = 2;
-        
+
+        public int WidgetID = 1;
+        public Action OnAddItemToWindow;
+        public EUM_Window Window;
         public int ZoomIndex;
         public Rect WindowRect;
         public Rect VitualWindowRect;

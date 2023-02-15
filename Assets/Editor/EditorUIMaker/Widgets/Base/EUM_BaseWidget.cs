@@ -9,6 +9,24 @@ namespace EditorUIMaker.Widgets
         public Rect AbsoluteRect;
         public EUM_Container Parent;
         public abstract string TypeName { get; }
+        private string _Name;
+
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                _Name = value;
+            }
+        }
+
+        public EUM_BaseWidget()
+        {
+            _Name = TypeName;
+        }
 
         protected abstract void OnDrawLayout();
         public void DrawLayout()

@@ -14,6 +14,61 @@ namespace Amazing.Editor.Library
 
         internal static Dictionary<string, GUIContent> tooltipCache = new Dictionary<string, GUIContent>();
 
+        public static void Frame(Rect rect, Color color, Rect clipRect, float size = 1, float alpha = 1)
+        {
+            var oldColor = GUI.color;
+            color.a = alpha;
+
+            GUI.color = color;
+           
+
+            //left
+            if (rect.xMin < clipRect.xMin || rect.xMin > clipRect.xMax || rect.yMin > clipRect.yMax || rect.yMax < clipRect.yMin)
+            {
+                //no left
+            }
+            else
+            {
+                GUI.DrawTexture(new Rect(rect.xMin, Mathf.Max(rect.yMin,clipRect.yMin), size, 
+                    Mathf.Min(rect.yMax,clipRect.yMax) - Mathf.Max(rect.yMin,clipRect.yMin)), (Texture) EditorGUIUtility.whiteTexture);
+            } 
+            
+            //right
+            if(rect.xMax > clipRect.xMax || rect.xMax < clipRect.xMin || rect.yMin > clipRect.yMax || rect.yMax < clipRect.yMin)
+            {
+                //no right
+            }
+            else
+            {
+                GUI.DrawTexture(new Rect(rect.xMax, Mathf.Max(rect.yMin,clipRect.yMin), size, 
+                    Mathf.Min(rect.yMax,clipRect.yMax) - Mathf.Max(rect.yMin,clipRect.yMin)), (Texture) EditorGUIUtility.whiteTexture); 
+            }
+            
+            //top
+            if(rect.yMin < clipRect.yMin || rect.yMin > clipRect.yMax || rect.xMax < clipRect.xMin || rect.xMin > clipRect.xMax)
+            {
+                //no top
+            }
+            else
+            {
+                GUI.DrawTexture(new Rect(Mathf.Max(rect.xMin,clipRect.xMin),rect.yMin,
+                    Mathf.Min(rect.xMax,clipRect.xMax) - Mathf.Max(rect.xMin,clipRect.xMin),size), (Texture) EditorGUIUtility.whiteTexture);  
+            }
+            
+            //bottom
+            if(rect.yMax > clipRect.yMax || rect.yMax < clipRect.yMin || rect.xMax < clipRect.xMin || rect.xMin > clipRect.xMax)
+            {
+                //no bottom
+            }
+            else
+            {
+                GUI.DrawTexture(new Rect(Mathf.Max(rect.xMin,clipRect.xMin),rect.yMax,
+                    Mathf.Min(rect.xMax,clipRect.xMax) - Mathf.Max(rect.xMin,clipRect.xMin),size), (Texture) EditorGUIUtility.whiteTexture); 
+            }
+           
+            GUI.color = oldColor; 
+        }
+        
         public static void Frame(Rect rect, Color color,float size=1, float alpha = 1)
         {
             var oldColor = GUI.color;

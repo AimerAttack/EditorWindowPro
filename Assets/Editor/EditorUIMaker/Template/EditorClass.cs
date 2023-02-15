@@ -6,7 +6,7 @@ namespace EditorUIMaker.Template
 {
     public class EditorClass : EditorWindow
     {
-        [MenuItem("Tools/EditorUIMaker/Template")]
+        // [MenuItem("Tools/EditorUIMaker/Template")]
         static void OpenWindow()
         {
             var window = GetWindow<EditorClass>();

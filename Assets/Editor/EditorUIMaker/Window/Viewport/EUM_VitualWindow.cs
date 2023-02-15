@@ -24,6 +24,7 @@ namespace EditorUIMaker
         public EUM_VitualWindow()
         {
             _Window = new EUM_Window();
+            EUM_Helper.Instance.Window = _Window;
         }
 
         public void Draw(ref Rect rect)

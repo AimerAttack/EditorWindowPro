@@ -5,8 +5,6 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Button : EUM_Widget
     {
-        public string Name = "Button";
-
         public override string TypeName => "Button";
 
         public override void DrawDraging(Vector2 position)

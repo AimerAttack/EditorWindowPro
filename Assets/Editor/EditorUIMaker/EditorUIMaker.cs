@@ -196,7 +196,7 @@ namespace EditorUIMaker
 
         void DrawDraggingOverRect(EUM_Container container)
         {
-            GUILib.Frame(container.Rect, Color.blue);
+            GUILib.Frame(container.Rect, Color.blue,EUM_Helper.Instance.ViewportRect);
         }
 
         void CheckSelectRect()
@@ -223,7 +223,7 @@ namespace EditorUIMaker
             if (EUM_Helper.Instance.SelectWidget == null)
                 return;
             var widget = EUM_Helper.Instance.SelectWidget;
-            GUILib.Frame(widget.Rect, Color.green);
+            GUILib.Frame(widget.Rect, Color.green,EUM_Helper.Instance.ViewportRect);
         }
 
         void DrawHoverRect()
@@ -288,7 +288,7 @@ namespace EditorUIMaker
 
             if (widget != null)
             {
-                GUILib.Frame(widget.Rect, Color.blue, 1.5f);
+                GUILib.Frame(widget.Rect, Color.blue, EUM_Helper.Instance.ViewportRect,1.5f);
                 if (EUM_Helper.Instance.HoverWidget != widget)
                     EUM_Helper.Instance.ResetFade();
                 EUM_Helper.Instance.HoverWidget = widget;

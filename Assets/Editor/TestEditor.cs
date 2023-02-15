@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 public class TestEditor : EditorWindow, IEditorWindow
 {
-    // [MenuItem("Tools/组件展示窗口")]
+    [MenuItem("Tools/组件展示窗口")]
     static TestEditor OpenWindow()
     {
         var window = GetWindow<TestEditor>();
@@ -139,7 +139,7 @@ public class TestEditor : EditorWindow, IEditorWindow
             GUILib.HorizontalRect(() => { _TabList.Draw(); });
             GUILib.Line();
 
-            // _TreeView.Draw();
+            _TreeView.Draw();
 
             if (GUILib.Button("test button"))
             {
