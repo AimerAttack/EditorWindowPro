@@ -237,18 +237,6 @@ namespace EditorUIMaker
                 return;
             }
 
-            if (!EUM_Helper.Instance.ViewportRect.Contains(Event.current.mousePosition))
-            {
-                EUM_Helper.Instance.HoverWidget = null;
-                return;
-            }
-
-            if (!EUM_Helper.Instance.VitualWindowRect.Contains(Event.current.mousePosition))
-            {
-                EUM_Helper.Instance.HoverWidget = null;
-                return;
-            }
-
             EUM_BaseWidget widget = null;
 
             Queue<EUM_BaseWidget> checkList = new Queue<EUM_BaseWidget>();
@@ -289,6 +277,11 @@ namespace EditorUIMaker
                 }
             }
 
+            if (widget == null)
+            {
+               
+            }
+
             if (widget != null)
             {
                 GUILib.Frame(widget.Rect, Color.blue, EUM_Helper.Instance.ViewportRect,1.5f);
@@ -298,6 +291,13 @@ namespace EditorUIMaker
             }
             else
             {
+                var treeHoverItem = _OperationArea.Hierarchy.TreeView.HoverItem;
+                if (treeHoverItem != null && EUM_Helper.Instance.Widgets.ContainsKey(treeHoverItem.id))
+                {
+                    widget = EUM_Helper.Instance.Widgets[treeHoverItem.id];
+                    GUILib.Frame(widget.Rect, Color.blue, EUM_Helper.Instance.ViewportRect,1.5f);
+                }
+
                 EUM_Helper.Instance.HoverWidget = null;
             }
         }

@@ -9,6 +9,8 @@ namespace EditorUIMaker
 {
     public class EUM_Hierarchy : I_EUM_Drawable
     {
+        public HierarchyTreeView TreeView => _TreeView;
+        
         private EUM_Title _Title;
         private HierarchyTreeView _TreeView;
 

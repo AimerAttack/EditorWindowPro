@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Amazing.Editor.Library;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
@@ -12,11 +13,68 @@ namespace EditorUIMaker.Utility
         private GUIContent m_Content;
         private float _MinHeight;
 
-        private HierarchyTreeView(GUIContent content,TreeViewState treeViewState,float minHeight)
+        public TreeViewItem HoverItem
+        {
+            get
+            {
+                if (hoveredItem != null)
+                {
+                    var selectWidget = EUM_Helper.Instance.SelectWidget;
+                    if (selectWidget != null)
+                    {
+                        var selectID = selectWidget.ID;
+                        if (hoveredItem.id == selectID)
+                            return null;
+                        else
+                        {
+                            return hoveredItem;
+                        }
+                    }
+                    else
+                    {
+                        return hoveredItem;
+                    }
+                }
+                else
+                {
+                    //检查有没有hover的
+                    var hoverWidget = EUM_Helper.Instance.HoverWidget;
+                    if (hoverWidget != null)
+                    {
+                        var selectWidget = EUM_Helper.Instance.SelectWidget;
+                        if (selectWidget != null)
+                        {
+                            var selectID = selectWidget.ID;
+                            if (hoverWidget.ID == selectID)
+                                return null;
+                            else
+                            {
+                                var item = FindItem(hoverWidget.ID, rootItem);
+                                return item;
+                            }
+                        }
+                        else
+                        {
+                            var item = FindItem(hoverWidget.ID, rootItem);
+                            return item;
+                        }
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+
+                return null;
+            }
+        }
+
+        private HierarchyTreeView(GUIContent content, TreeViewState treeViewState, float minHeight)
             : base(treeViewState)
         {
             _MinHeight = minHeight;
             m_Content = content;
+            enableItemHovering = true;
             Reload();
         }
 
@@ -27,12 +85,13 @@ namespace EditorUIMaker.Utility
             {
                 elements.Add(node);
             }
+
             Reload();
         }
 
-        public static HierarchyTreeView Create(GUIContent content,float minHeight = 0)
+        public static HierarchyTreeView Create(GUIContent content, float minHeight = 0)
         {
-            var tree = new HierarchyTreeView(content,new TreeViewState(),minHeight);
+            var tree = new HierarchyTreeView(content, new TreeViewState(), minHeight);
             tree.m_SearchField = new SearchField();
             tree.m_SearchField.downOrUpArrowKeyPressed += tree.SetFocusAndEnsureSelectedItem;
             return tree;
@@ -62,9 +121,9 @@ namespace EditorUIMaker.Utility
         protected override TreeViewItem BuildRoot()
         {
             var root = new TreeViewItem {id = 0, depth = -1, displayName = "Root"};
-			
-            SetupParentsAndChildrenFromDepths (root, elements);
-			
+
+            SetupParentsAndChildrenFromDepths(root, elements);
+
             return root;
         }
 
@@ -87,6 +146,22 @@ namespace EditorUIMaker.Utility
                 {
                     EUM_Helper.Instance.SelectWidget = null;
                 }
+            }
+        }
+
+        protected override void RowGUI(RowGUIArgs args)
+        {
+            base.RowGUI(args);
+        }
+
+        protected override void AfterRowsGUI()
+        {
+            base.AfterRowsGUI();
+            if (HoverItem != null)
+            {
+                var row = FindRowOfItem(HoverItem);
+                var rect = GetRowRect(row);
+                GUILib.Frame(rect, Color.cyan);
             }
         }
     }

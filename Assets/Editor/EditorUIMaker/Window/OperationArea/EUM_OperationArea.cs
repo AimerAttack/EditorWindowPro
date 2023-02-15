@@ -7,6 +7,7 @@ namespace EditorUIMaker
     public class EUM_OperationArea : I_EUM_Drawable
     {
         public EUM_Library Library => _Library;
+        public EUM_Hierarchy Hierarchy => _Hierarchy;
         
         private EUM_Hierarchy _Hierarchy;
         private EUM_Library _Library;
