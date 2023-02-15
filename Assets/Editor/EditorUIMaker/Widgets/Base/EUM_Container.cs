@@ -14,7 +14,7 @@ namespace EditorUIMaker
             EUM_Helper.Instance.Containers.Add(this);
         }
 
-        protected void DrawItems()
+        protected virtual void DrawItems()
         {
             if (!EUM_Helper.Instance.Preview && InViewport)
             {

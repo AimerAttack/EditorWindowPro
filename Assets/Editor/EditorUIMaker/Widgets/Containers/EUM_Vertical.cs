@@ -14,6 +14,27 @@ namespace EditorUIMaker
             DrawItems();
             GUILayout.EndVertical();
         }
+        
+        protected override void DrawItems()
+        {
+            if (!EUM_Helper.Instance.Preview && InViewport)
+            {
+                GUI.enabled = false;
+                GUI.color = new Color(1, 1, 1, 2);
+            }
+            
+            foreach (var widget in Widgets)
+            {
+                widget.DrawLayout();
+            }
+            
+            if (!EUM_Helper.Instance.Preview && InViewport)
+            {
+                GUI.color = Color.white;
+                GUI.enabled = true;
+            }
+        }
+
 
         public override void DrawDraging(Vector2 position)
         {

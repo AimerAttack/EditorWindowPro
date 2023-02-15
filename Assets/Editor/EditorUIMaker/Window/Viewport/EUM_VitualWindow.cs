@@ -24,6 +24,7 @@ namespace EditorUIMaker
         public EUM_VitualWindow()
         {
             _Window = new EUM_Window();
+            EUM_Helper.Instance.Widgets.Add(_Window.ID, _Window);
             EUM_Helper.Instance.Window = _Window;
         }
 

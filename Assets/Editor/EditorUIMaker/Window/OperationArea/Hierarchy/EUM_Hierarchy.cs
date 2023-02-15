@@ -29,6 +29,7 @@ namespace EditorUIMaker
             if (_TreeView == null)
             {
                 _TreeView = HierarchyTreeView.Create(new GUIContent("Controls"), 70);
+                _TreeView.OnDragItemToContainer += OnDragItemToContainer;
                 _TreeView.SetData(new List<TreeViewItem>());
             }
 
@@ -46,18 +47,20 @@ namespace EditorUIMaker
         void RefreshTreeView()
         {
             var nodes = new List<TreeViewItem>();
+            
 
-            Queue<EUM_BaseWidget> queue = new Queue<EUM_BaseWidget>();
-            queue.Enqueue(EUM_Helper.Instance.Window);
-            while (queue.Count > 0)
+            Stack<EUM_BaseWidget> bucket = new Stack<EUM_BaseWidget>();
+            bucket.Push(EUM_Helper.Instance.Window);
+            while (bucket.Count > 0)
             {
-                var widget = queue.Dequeue();
+                var widget = bucket.Pop();
 
                 if (widget is EUM_Container container)
                 {
-                    foreach (var child in container.Widgets)
+                    for (int i = container.Widgets.Count - 1; i >= 0; i--)
                     {
-                        queue.Enqueue(child);
+                        var child = container.Widgets[i];
+                        bucket.Push(child);
                     }
                 }
 
@@ -79,6 +82,42 @@ namespace EditorUIMaker
             {
                 _TreeView.SetSelection(new List<int>() {selectWidget.ID},TreeViewSelectionOptions.FireSelectionChanged | TreeViewSelectionOptions.RevealAndFrame);
             }
+        }
+
+        void OnDragItemToContainer(int itemID, int parentID, int index)
+        {
+            var parentWidget = EUM_Helper.Instance.Widgets[parentID];
+            if(parentWidget is not EUM_Container container)
+                return;
+            var widget = EUM_Helper.Instance.Widgets[itemID];
+            if (widget.Parent == container)
+            {
+                //同容器之间，切换index
+                var curIndex = widget.Parent.Widgets.IndexOf(widget);
+                if (curIndex != index)
+                {
+                    if (curIndex > index)
+                    {
+                        //往前移动
+                        widget.Parent.Widgets.RemoveAt(curIndex);
+                        widget.Parent.Widgets.Insert(index,widget);
+                    }
+                    else
+                    {
+                        //往后移动
+                        widget.Parent.Widgets.RemoveAt(curIndex);
+                        widget.Parent.Widgets.Insert(index - 1,widget);
+                    }
+                }
+            }
+            else
+            {
+                //不同容器之间，移动
+                widget.Parent.Widgets.Remove(widget);
+                container.Widgets.Insert(index,widget);
+                widget.OnAddToContainer(container);
+            }
+            RefreshTreeView();
         }
     }
 }

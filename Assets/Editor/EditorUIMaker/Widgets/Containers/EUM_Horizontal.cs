@@ -10,9 +10,29 @@ namespace EditorUIMaker
         
         protected override void OnDrawLayout()
         {
-            GUILayout.BeginHorizontal(GUILayout.MinHeight(100));
+            GUILayout.BeginHorizontal();
             DrawItems();
             GUILayout.EndHorizontal();
+        }
+
+        protected override void DrawItems()
+        {
+            if (!EUM_Helper.Instance.Preview && InViewport)
+            {
+                GUI.enabled = false;
+                GUI.color = new Color(1, 1, 1, 2);
+            }
+            
+            foreach (var widget in Widgets)
+            {
+                widget.DrawLayout();
+            }
+            
+            if (!EUM_Helper.Instance.Preview && InViewport)
+            {
+                GUI.color = Color.white;
+                GUI.enabled = true;
+            }
         }
 
         public override void DrawDraging(Vector2 position)
