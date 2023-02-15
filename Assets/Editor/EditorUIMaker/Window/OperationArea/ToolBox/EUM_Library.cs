@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace EditorUIMaker
 {
-    public class EUM_Toolbox : I_EUM_Drawable
+    public class EUM_Library : I_EUM_Drawable
     {
         private EUM_Title _Title;
         private Vector2 _ScrollPos;
@@ -20,9 +20,9 @@ namespace EditorUIMaker
         private List<EUM_BaseWidget> _Containers = new List<EUM_BaseWidget>();
         private List<EUM_BaseWidget> _Controls = new List<EUM_BaseWidget>();
 
-        public EUM_Toolbox()
+        public EUM_Library()
         {
-            _Title = new EUM_Title(new GUIContent("Toolbox"));
+            _Title = new EUM_Title(new GUIContent("Library"));
             _ShowBuildIn = true;
             
             _Containers.Add(new EUM_Horizontal());
@@ -35,8 +35,6 @@ namespace EditorUIMaker
 
         public void Draw(ref Rect rect)
         {
-            GUILib.Rect(rect, GUILib.s_DefaultColor, 1f);
-
             _Title.Draw(ref rect);
 
             GUILayout.BeginArea(rect);

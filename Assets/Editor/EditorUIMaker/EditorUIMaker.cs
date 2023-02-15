@@ -22,14 +22,16 @@ namespace EditorUIMaker
         private const float s_SplitSize = 2f;
         private const float s_MinInspectorWidth = 300;
         private const float s_MinViewportWidth = 200;
-        private const float s_ToolbarWidth = 200;
+        private const float s_MinOperationWidth = 200;
 
-        private EUM_Toolbox _Toolbox;
+        private EUM_OperationArea _OperationArea;
         private EUM_Viewport _Viewport;
         private EUM_Inspector _Inspector;
 
-        private float _Ratio = 0.3f;
-        private bool _ResizeView = false;
+        private float _RatioInspector = 0.2f;
+        private float _RatioOperationArea = 0.1f;
+        private bool _ResizeInspector = false;
+        private bool _ResizeOperationArea = false;
         private bool _CheckCanvasDrag = false;
 
         public EditorUIMaker()
@@ -41,7 +43,7 @@ namespace EditorUIMaker
         {
             EUM_Helper.Instance = new EUM_Helper();
 
-            _Toolbox = new EUM_Toolbox();
+            _OperationArea = new EUM_OperationArea();
             _Viewport = new EUM_Viewport();
             _Inspector = new EUM_Inspector();
         }
@@ -58,30 +60,36 @@ namespace EditorUIMaker
         {
             ProcessMouseMove();
             
-            _Toolbox.HandleDrag();
+            _OperationArea.Library.HandleDrag();
 
             EUM_Helper.Instance.Fade();
 
-            var inspectorWidth = position.width * _Ratio;
+            var inspectorWidth = position.width * _RatioInspector;
             inspectorWidth = Mathf.Max(s_MinInspectorWidth, inspectorWidth);
-            var toolboxWidth = s_ToolbarWidth;
-            var viewportWidth = position.width - inspectorWidth - toolboxWidth;
+            var operationWidth = position.width * Mathf.Min(_RatioOperationArea,0.5f);
+            operationWidth = Mathf.Max(s_MinOperationWidth, operationWidth);
+            var viewportWidth = position.width - inspectorWidth - operationWidth;
             viewportWidth = Mathf.Max(s_MinViewportWidth, viewportWidth);
 
-            var viewportRect = new Rect(toolboxWidth, 0, viewportWidth - s_SplitSize, position.height);
+            var viewportRect = new Rect(operationWidth, 0, viewportWidth - s_SplitSize, position.height);
             _Viewport.Draw(ref viewportRect);
 
             var inspectorRect = new Rect(viewportRect.x + viewportRect.width + s_SplitSize, 0, inspectorWidth,
                 position.height);
             _Inspector.Draw(ref inspectorRect);
 
-            var toolboxRect = new Rect(0, 0, toolboxWidth, position.height);
-            _Toolbox.Draw(ref toolboxRect);
+            var operationRect = new Rect(0, 0, operationWidth, position.height);
+            _OperationArea.Draw(ref operationRect);
 
-            var cursorRect = new Rect(viewportRect.x + viewportRect.width, 0, 2, position.height);
-            GUILib.Rect(cursorRect, Color.black, 0.4f);
-            var dRect2 = GUILib.Padding(cursorRect, -2f, -2f);
-            EditorGUIUtility.AddCursorRect(dRect2, MouseCursor.ResizeHorizontal);
+            var operationSplitRect = new Rect(operationRect.x + operationRect.width, 0, 2, position.height);
+            GUILib.Rect(operationSplitRect, Color.black, 0.4f);
+            var operationSplitCursorRect = GUILib.Padding(operationSplitRect, -2f, -2f);
+            EditorGUIUtility.AddCursorRect(operationSplitCursorRect, MouseCursor.ResizeHorizontal);
+            
+            var inspectorSplitRect = new Rect(viewportRect.x + viewportRect.width, 0, 2, position.height);
+            GUILib.Rect(inspectorSplitRect, Color.black, 0.4f);
+            var inspectorSplitCursorRect = GUILib.Padding(inspectorSplitRect, -2f, -2f);
+            EditorGUIUtility.AddCursorRect(inspectorSplitCursorRect, MouseCursor.ResizeHorizontal);
 
             if (!EUM_Helper.Instance.Preview)
             {
@@ -95,21 +103,32 @@ namespace EditorUIMaker
                 DrawPreviewFrame();
             }
 
-            if (Event.current.type == EventType.MouseDown && dRect2.Contains(Event.current.mousePosition))
+            if (Event.current.type == EventType.MouseDown && inspectorSplitCursorRect.Contains(Event.current.mousePosition))
             {
-                _ResizeView = true;
-                RefreshSplitPosition();
+                _ResizeInspector = true;
+                RefreshInspectorSplitPosition();
+            }
+            if (_ResizeInspector)
+            {
+                RefreshInspectorSplitPosition();
             }
 
-            if (_ResizeView)
+            if(Event.current.type == EventType.MouseDown && operationSplitCursorRect.Contains(Event.current.mousePosition))
             {
-                RefreshSplitPosition();
+                _ResizeOperationArea = true;
+                RefreshOperationSplitPosition();
+            }
+            if (_ResizeOperationArea)
+            {
+                RefreshOperationSplitPosition();
             }
 
             if (Event.current.rawType == EventType.MouseUp)
             {
-                if (_ResizeView)
-                    _ResizeView = false;
+                if (_ResizeInspector)
+                    _ResizeInspector = false;
+                if (_ResizeOperationArea)
+                    _ResizeOperationArea = false;
             }
 
             Repaint();
@@ -279,17 +298,25 @@ namespace EditorUIMaker
                 EUM_Helper.Instance.HoverWidget = null;
             }
         }
-
-        void RefreshSplitPosition()
+        
+        void RefreshOperationSplitPosition()
         {
-            if (position.width <= s_MinInspectorWidth + s_MinViewportWidth + s_ToolbarWidth)
+            if (position.width <= s_MinInspectorWidth + s_MinViewportWidth + s_MinOperationWidth)
                 return;
-            if (Event.current.mousePosition.x <= s_ToolbarWidth + s_MinInspectorWidth)
+            var delta = Event.current.mousePosition.x;
+            if (delta < s_MinOperationWidth)
+                return;
+            _RatioOperationArea = delta / position.width;
+        }
+
+        void RefreshInspectorSplitPosition()
+        {
+            if (position.width <= s_MinInspectorWidth + s_MinViewportWidth + s_MinOperationWidth)
                 return;
             var delta = position.width - Event.current.mousePosition.x;
             if (delta < s_MinInspectorWidth)
                 return;
-            _Ratio = delta / position.width;
+            _RatioInspector = delta / position.width;
         }
 
         void ProcessScrollWheel()
