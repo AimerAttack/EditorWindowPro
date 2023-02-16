@@ -19,6 +19,7 @@ namespace EditorUIMaker
             _Title = new EUM_Title(new GUIContent("Hierarchy"));
             EUM_Helper.Instance.OnAddItemToWindow += OnAddItemToContainer;
             EUM_Helper.Instance.OnSelectWidgetChange += OnSelectWidgetChanged;
+            EUM_Helper.Instance.OnRemoveItemFromWindow += OnRemoveItemFromWindow;
         }
 
         public void Draw(ref Rect rect)
@@ -38,6 +39,11 @@ namespace EditorUIMaker
             GUILayout.EndArea();
         }
 
+        void OnRemoveItemFromWindow()
+        {
+            RefreshTreeView();
+        }
+        
         void OnAddItemToContainer(EUM_BaseWidget widget)
         {
             EUM_Helper.Instance.Widgets.Add(widget.ID, widget);

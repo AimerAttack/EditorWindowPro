@@ -27,6 +27,7 @@ namespace EditorUIMaker
         private EUM_OperationArea _OperationArea;
         private EUM_Viewport _Viewport;
         private EUM_Inspector _Inspector;
+        private EUM_Inputer _Input;
 
         private float _RatioInspector = 0.2f;
         private float _RatioOperationArea = 0.1f;
@@ -46,20 +47,14 @@ namespace EditorUIMaker
             _OperationArea = new EUM_OperationArea();
             _Viewport = new EUM_Viewport();
             _Inspector = new EUM_Inspector();
-        }
-
-        private void OnLostFocus()
-        {
-        }
-
-        private void OnFocus()
-        {
+            _Input = new EUM_Inputer();
         }
 
         private void OnGUI()
         {
             ProcessMouseMove();
             
+            _Input.CheckInput();
             _OperationArea.Library.HandleDrag();
 
             EUM_Helper.Instance.Fade();

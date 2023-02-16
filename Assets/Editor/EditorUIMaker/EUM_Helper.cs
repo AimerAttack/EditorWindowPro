@@ -17,6 +17,7 @@ namespace EditorUIMaker
 
         public int WidgetID = 1;
         public Action<EUM_BaseWidget> OnAddItemToWindow;
+        public Action OnRemoveItemFromWindow;
         public Action OnSelectWidgetChange;
         public EUM_Window Window;
         public int ZoomIndex;

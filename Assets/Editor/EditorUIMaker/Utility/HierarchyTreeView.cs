@@ -64,7 +64,12 @@ namespace EditorUIMaker.Utility
                         else
                         {
                             var item = FindItem(hoverWidget.ID, rootItem);
-                            return item.id != windowID ? item : null;
+                            if(item != null)
+                                return item.id != windowID ? item : null;
+                            else
+                            {
+                                return null;
+                            }
                         }
                     }
                     else
