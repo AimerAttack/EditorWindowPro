@@ -44,8 +44,17 @@ namespace EditorUIMaker
             }
             
             GUILayout.FlexibleSpace();
-            
-            GUILib.Toggle(ref EUM_Helper.Instance.Preview, new GUIContent("Preview"), new GUIStyle("ToolbarButton"));
+
+            if (GUILib.Toggle(ref EUM_Helper.Instance.Preview, new GUIContent("Preview"),
+                    new GUIStyle("ToolbarButton")))
+            {
+                if (EUM_Helper.Instance.Preview)
+                {
+                    EUM_Helper.Instance.SelectWidget = null;
+                    EUM_Helper.Instance.HoverWidget = null;
+                    EUM_Helper.Instance.OnSelectWidgetChange?.Invoke();
+                }
+            }
 
             GUILayout.EndHorizontal();
             GUILayout.EndArea();

@@ -12,6 +12,8 @@ namespace EditorUIMaker.Widgets
         public abstract string TypeName { get; }
         private string _Name;
 
+        // protected abstract T CreateInfo<T>() where T : EUM_BaseInfo;
+        
         public string Name
         {
             get
