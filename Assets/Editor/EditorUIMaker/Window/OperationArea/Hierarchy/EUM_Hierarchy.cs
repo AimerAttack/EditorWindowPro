@@ -85,6 +85,8 @@ namespace EditorUIMaker
         
         private void OnSelectWidgetChanged()
         {
+            EUM_Helper.Instance.ClearFocus();
+            
             var selectWidget = EUM_Helper.Instance.SelectWidget;
             if (selectWidget == null)
             {

@@ -35,6 +35,8 @@ namespace EditorUIMaker
         private bool _ResizeOperationArea = false;
         private bool _CheckCanvasDrag = false;
 
+        private Rect _InspectorRect;
+
         public EditorUIMaker()
         {
             Init();
@@ -100,6 +102,7 @@ namespace EditorUIMaker
                 position.height);
             _Inspector.Draw(ref inspectorRect);
             EUM_Helper.Instance.MouseRects.Add(inspectorRect);
+            _InspectorRect = inspectorRect;
 
             var operationRect = new Rect(0, 0, operationWidth, position.height);
             _OperationArea.Draw(ref operationRect);
@@ -229,6 +232,10 @@ namespace EditorUIMaker
         {
             if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
             {
+                var lostFocusRect = new Rect(0,0,position.width-_InspectorRect.width,position.height);
+                if(lostFocusRect.Contains(Event.current.mousePosition))
+                    EUM_Helper.Instance.ClearFocus();
+                
                 //如果点击鼠标拖拽区域了，则不处理选中逻辑
                 foreach (var mouseRect in EUM_Helper.Instance.MouseRects)
                 {

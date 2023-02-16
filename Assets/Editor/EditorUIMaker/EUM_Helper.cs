@@ -54,6 +54,11 @@ namespace EditorUIMaker
             widget.OnAddToContainer(container);
             OnAddItemToWindow?.Invoke(widget);
         }
+
+        public void ClearFocus()
+        {
+            GUIUtility.keyboardControl = 0;
+        }
         
         public void ResetFade()
         {
