@@ -9,7 +9,7 @@ namespace EditorUIMaker
         public override string TypeName => "Vertical";
         protected override EUM_BaseInfo CreateInfo()
         {
-            return new EUM_BaseInfo();
+            return new EUM_NormalInfo(this);
         }
 
         protected override void OnDrawLayout()
@@ -49,6 +49,7 @@ namespace EditorUIMaker
         public override EUM_BaseWidget Clone()
         {
             var widget = new EUM_Vertical();
+            Info.CopyTo(widget.Info);
             return widget;
         }
     }

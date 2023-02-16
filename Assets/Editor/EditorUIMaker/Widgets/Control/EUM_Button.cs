@@ -8,7 +8,7 @@ namespace EditorUIMaker.Widgets
         public override string TypeName => "Button";
         protected override EUM_BaseInfo CreateInfo()
         {
-            var info = new EUM_Button_Info();
+            var info = new EUM_Button_Info(this);
             return info;
         }
 
@@ -25,7 +25,7 @@ namespace EditorUIMaker.Widgets
         public override EUM_BaseWidget Clone()
         {
             var widget = new EUM_Button();
-            widget.Name = Name;
+            Info.CopyTo(widget.Info);
             return widget;
         }
     }

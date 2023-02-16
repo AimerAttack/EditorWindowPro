@@ -63,7 +63,8 @@ namespace EditorUIMaker
                     if (newValue != value)
                     {
                         fieldInfo.SetValue(info, newValue);
-                        EUM_Helper.Instance.OnItemRename?.Invoke(EUM_Helper.Instance.SelectWidget);
+                        if(fieldInfo.Name == "Name")
+                            EUM_Helper.Instance.OnItemRename?.Invoke(EUM_Helper.Instance.SelectWidget);
                     }
                 }
                 else if (fieldType == typeof(int))
@@ -73,6 +74,14 @@ namespace EditorUIMaker
                     {
                         fieldInfo.SetValue(info, value);
                     }
+                }
+                else if (fieldType == typeof(float))
+                {
+                    var value = (float) fieldInfo.GetValue(info);
+                    if(GUILib.FloatField(ref value,new GUIContent(fieldInfo.Name),GUILayout.ExpandWidth(true)))
+                    {
+                        fieldInfo.SetValue(info, value);
+                    } 
                 }
                 //wtodo
             }

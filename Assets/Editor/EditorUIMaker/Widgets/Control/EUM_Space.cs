@@ -5,11 +5,12 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Space : EUM_Widget
     {
-        private float _Pixels = 5;
+        EUM_Space_Info info => Info as EUM_Space_Info;
         public override string TypeName => "Space";
+
         protected override EUM_BaseInfo CreateInfo()
         {
-            var info = new EUM_Space_Info();
+            var info = new EUM_Space_Info(this);
             return info;
         }
 
@@ -21,13 +22,13 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILayout.Space(_Pixels);
+            GUILayout.Space(info.Height);
         }
 
         public override EUM_BaseWidget Clone()
         {
             var widget = new EUM_Space();
-            widget._Pixels = _Pixels;
+            Info.CopyTo(widget.Info);
             return widget;
         }
     }

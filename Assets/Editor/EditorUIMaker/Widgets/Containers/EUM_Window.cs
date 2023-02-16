@@ -8,7 +8,7 @@ namespace EditorUIMaker
         public override string TypeName => "Window";
         protected override EUM_BaseInfo CreateInfo()
         {
-            return new EUM_BaseInfo();
+            return new EUM_NormalInfo(this);
         }
 
         public EUM_Window()
@@ -28,6 +28,7 @@ namespace EditorUIMaker
         public override EUM_BaseWidget Clone()
         {
             var widget = new EUM_Window();
+            Info.CopyTo(widget.Info);
             return widget;
         }
         

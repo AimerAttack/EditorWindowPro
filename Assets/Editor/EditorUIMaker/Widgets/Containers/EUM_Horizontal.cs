@@ -9,7 +9,7 @@ namespace EditorUIMaker
         public override string TypeName => "Horizontal";
         protected override EUM_BaseInfo CreateInfo()
         {
-            return new EUM_BaseInfo();
+            return new EUM_NormalInfo(this);
         }
 
         protected override void OnDrawLayout()

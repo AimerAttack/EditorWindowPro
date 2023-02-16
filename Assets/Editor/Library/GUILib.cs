@@ -312,6 +312,15 @@ namespace Amazing.Editor.Library
             val = tmp;
             return true;
         }
+        
+        public static bool FloatField(ref float val,GUIContent label,params GUILayoutOption[] options)
+        {
+            var tmp = EditorGUILayout.FloatField(label, val, options);
+            if (Equals(tmp, val))
+                return false;
+            val = tmp;
+            return true;
+        }
 
 
         public static bool SearchBar(ref string _SearchString, params GUILayoutOption[] options)
