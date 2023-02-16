@@ -1,4 +1,5 @@
 using Amazing.Editor.Library;
+using EditorUIMaker.Utility;
 using UnityEngine;
 
 namespace EditorUIMaker.Widgets
@@ -11,6 +12,8 @@ namespace EditorUIMaker.Widgets
             var info = new EUM_Label_Info(this);
             return info;
         }
+
+        private EUM_Label_Info info => Info as EUM_Label_Info;
 
         private string _Content
         {
@@ -35,7 +38,9 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.Label(new GUIContent(_Content));
+            var style = new GUIStyle(GUI.skin.label);
+            style.alignment = info.TextAnchor;
+            GUILayout.Label(new GUIContent(_Content),style);
         }
 
         public override EUM_BaseWidget Clone()

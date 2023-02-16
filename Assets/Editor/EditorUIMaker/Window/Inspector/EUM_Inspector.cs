@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using Amazing.Editor.Library;
 using EditorUIMaker.Widgets;
+using UnityEditor;
 using UnityEngine;
 
 namespace EditorUIMaker
@@ -10,6 +11,7 @@ namespace EditorUIMaker
     {
         private EUM_Title _Title;
         private Vector2 _ScrollPosition;
+        private const float s_PropertyNameWidth = 130;
         
         public EUM_Inspector()
         {
@@ -57,7 +59,7 @@ namespace EditorUIMaker
                 {
                     var value = fieldInfo.GetValue(info) as string;
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label(fieldInfo.Name,GUILayout.Width(130));
+                    GUILayout.Label(fieldInfo.Name);
                     var newValue = GUILayout.TextField(value,GUILayout.ExpandWidth(true));
                     GUILayout.EndHorizontal();
                     if (newValue != value)
@@ -69,19 +71,38 @@ namespace EditorUIMaker
                 }
                 else if (fieldType == typeof(int))
                 {
+                    GUILayout.BeginHorizontal();
                     var value = (int) fieldInfo.GetValue(info);
                     if(GUILib.IntField(ref value,new GUIContent(fieldInfo.Name),GUILayout.ExpandWidth(true)))
                     {
                         fieldInfo.SetValue(info, value);
                     }
+                    GUILayout.EndHorizontal();
                 }
                 else if (fieldType == typeof(float))
                 {
+                    GUILayout.BeginHorizontal();
                     var value = (float) fieldInfo.GetValue(info);
                     if(GUILib.FloatField(ref value,new GUIContent(fieldInfo.Name),GUILayout.ExpandWidth(true)))
                     {
                         fieldInfo.SetValue(info, value);
                     } 
+                    GUILayout.EndHorizontal();
+                }
+                else if (fieldType.BaseType == typeof(Enum))
+                {
+                    var currentValue = fieldInfo.GetValue(info);
+                    var currentString = currentValue.ToString();
+                    var values = Enum.GetValues(fieldType);
+                    GUILayout.BeginHorizontal();
+                    var selectValue = EditorGUILayout.EnumPopup(fieldInfo.Name, (Enum)currentValue,GUILayout.ExpandWidth(true));
+                    GUILayout.EndHorizontal();
+                    var selectString = selectValue.ToString();
+                    if (!selectString.Equals(currentString))
+                    {
+                        var obj = Enum.Parse(fieldType, selectString);
+                        fieldInfo.SetValue(info, obj);
+                    }
                 }
                 //wtodo
             }

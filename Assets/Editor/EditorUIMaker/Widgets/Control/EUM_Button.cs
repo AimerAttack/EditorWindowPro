@@ -21,6 +21,8 @@ namespace EditorUIMaker.Widgets
             }
         }
         
+        private EUM_Button_Info info => Info as EUM_Button_Info;
+        
         public override string TypeName => "Button";
         protected override EUM_BaseInfo CreateInfo()
         {
@@ -35,7 +37,9 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.Button(_Content);
+            var style = new GUIStyle(GUI.skin.button);
+            style.alignment = info.TextAnchor;
+            GUILayout.Button(_Content,style);
         }
         
         public override EUM_BaseWidget Clone()

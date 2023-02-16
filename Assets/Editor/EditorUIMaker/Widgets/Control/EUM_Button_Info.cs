@@ -1,8 +1,11 @@
+using UnityEngine;
+
 namespace EditorUIMaker.Widgets
 {
     public class EUM_Button_Info : EUM_BaseInfo
     {
         public string Text;
+        public TextAnchor TextAnchor = TextAnchor.MiddleCenter;
 
         public EUM_Button_Info(EUM_BaseWidget widget) : base(widget)
         {
@@ -12,7 +15,9 @@ namespace EditorUIMaker.Widgets
         {
             var info = target as EUM_Button_Info;
             CopyBaseInfo(info);
+            
             info.Text = Text;
+            info.TextAnchor = TextAnchor;
         }
     }
 }
