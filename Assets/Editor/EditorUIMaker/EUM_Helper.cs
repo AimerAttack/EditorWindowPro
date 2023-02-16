@@ -15,6 +15,7 @@ namespace EditorUIMaker
         public static float InitWindowHeight = 300;
         public static float MinimumDragToSnapToMoveRotateScaleResize = 2;
 
+        public EUM_BaseWidget ClipboardWidget;
         public string WindowName = "EditorUIMaker";
         public bool Modified = false;
         public int WidgetID = 1;
@@ -43,6 +44,17 @@ namespace EditorUIMaker
         private float _FadeTime = 0.2f;
         private float _StartFadeTime;
 
+        public void AddToContainer(EUM_BaseWidget widget, EUM_Container container)
+        {
+            if (container == null)
+                return;
+            if (container.Widgets.Contains(widget))
+                return;
+            container.Widgets.Add(widget);
+            widget.OnAddToContainer(container);
+            OnAddItemToWindow?.Invoke(widget);
+        }
+        
         public void ResetFade()
         {
             Alpha = 0;

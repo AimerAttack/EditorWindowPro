@@ -82,7 +82,6 @@ namespace EditorUIMaker
             
             ProcessMouseMove();
             
-            _Input.CheckInput();
             _OperationArea.Library.HandleDrag();
 
             EUM_Helper.Instance.Fade();
@@ -156,6 +155,7 @@ namespace EditorUIMaker
                 if (_ResizeOperationArea)
                     _ResizeOperationArea = false;
             }
+            _Input.CheckInput();
 
             Repaint();
         }

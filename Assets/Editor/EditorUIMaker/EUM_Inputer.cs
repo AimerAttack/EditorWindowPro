@@ -18,6 +18,40 @@ namespace EditorUIMaker
                     EUM_Helper.Instance.OnSelectWidgetChange?.Invoke();
                 }
             }
+            
+            if(Event.current.isKey && Event.current.keyCode == KeyCode.C && Event.current.type == EventType.KeyDown && Event.current.control)
+            {
+                if(EUM_Helper.Instance.SelectWidget != null)
+                {
+                    EUM_Helper.Instance.ClipboardWidget = EUM_Helper.Instance.SelectWidget.Clone();
+                }
+            }
+            
+            if(Event.current.isKey && Event.current.keyCode == KeyCode.V && Event.current.type == EventType.KeyDown && Event.current.control)
+            {
+                if(EUM_Helper.Instance.ClipboardWidget == null)
+                    return;
+                var widget = EUM_Helper.Instance.ClipboardWidget.Clone();
+                
+                if(EUM_Helper.Instance.SelectWidget != null)
+                {
+                    if(EUM_Helper.Instance.SelectWidget is EUM_Container)
+                    {
+                        EUM_Helper.Instance.AddToContainer(widget, EUM_Helper.Instance.SelectWidget as EUM_Container);
+                    }
+                    else
+                    {
+                        EUM_Helper.Instance.AddToContainer(widget, EUM_Helper.Instance.SelectWidget.Parent);
+                    }
+                }
+                else
+                {
+                    EUM_Helper.Instance.AddToContainer(widget, EUM_Helper.Instance.Window);
+                }
+
+                EUM_Helper.Instance.SelectWidget = widget;
+                EUM_Helper.Instance.OnSelectWidgetChange?.Invoke();
+            }
         }
     }
 }
