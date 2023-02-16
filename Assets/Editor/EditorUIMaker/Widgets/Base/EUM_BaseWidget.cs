@@ -12,7 +12,8 @@ namespace EditorUIMaker.Widgets
         public abstract string TypeName { get; }
         private string _Name;
 
-        // protected abstract T CreateInfo<T>() where T : EUM_BaseInfo;
+        public EUM_BaseInfo Info;
+        protected abstract EUM_BaseInfo CreateInfo();
         
         public string Name
         {
@@ -30,6 +31,7 @@ namespace EditorUIMaker.Widgets
         {
             _Name = TypeName;
             ID = EUM_Helper.Instance.WidgetID++;
+            Info = CreateInfo();
         }
 
         protected abstract void OnDrawLayout();

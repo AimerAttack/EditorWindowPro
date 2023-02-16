@@ -7,6 +7,11 @@ namespace EditorUIMaker.Widgets
     {
         private float _Pixels = 5;
         public override string TypeName => "Space";
+        protected override EUM_BaseInfo CreateInfo()
+        {
+            var info = new EUM_Space_Info();
+            return info;
+        }
 
         public override void DrawDraging(Vector2 position)
         {

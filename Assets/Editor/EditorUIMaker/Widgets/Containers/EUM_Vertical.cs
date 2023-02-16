@@ -7,7 +7,11 @@ namespace EditorUIMaker
     public class EUM_Vertical : EUM_Container
     {
         public override string TypeName => "Vertical";
-        
+        protected override EUM_BaseInfo CreateInfo()
+        {
+            return new EUM_BaseInfo();
+        }
+
         protected override void OnDrawLayout()
         {
             GUILayout.BeginVertical();

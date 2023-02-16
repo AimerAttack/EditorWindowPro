@@ -22,6 +22,8 @@ namespace EditorUIMaker
         public Action OnRemoveItemFromWindow;
         public Action OnItemIndexChange;
         public Action OnSelectWidgetChange;
+        public Action<EUM_BaseWidget> OnItemRename;
+        public List<Rect> MouseRects = new List<Rect>(10);
         public EUM_Window Window;
         public int ZoomIndex;
         public Rect WindowRect;

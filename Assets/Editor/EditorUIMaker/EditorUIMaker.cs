@@ -78,6 +78,8 @@ namespace EditorUIMaker
 
         private void OnGUI()
         {
+            EUM_Helper.Instance.MouseRects.Clear();
+            
             ProcessMouseMove();
             
             _Input.CheckInput();
@@ -98,6 +100,7 @@ namespace EditorUIMaker
             var inspectorRect = new Rect(viewportRect.x + viewportRect.width + s_SplitSize, 0, inspectorWidth,
                 position.height);
             _Inspector.Draw(ref inspectorRect);
+            EUM_Helper.Instance.MouseRects.Add(inspectorRect);
 
             var operationRect = new Rect(0, 0, operationWidth, position.height);
             _OperationArea.Draw(ref operationRect);
@@ -106,11 +109,13 @@ namespace EditorUIMaker
             GUILib.Rect(operationSplitRect, Color.black, 0.4f);
             var operationSplitCursorRect = GUILib.Padding(operationSplitRect, -2f, -2f);
             EditorGUIUtility.AddCursorRect(operationSplitCursorRect, MouseCursor.ResizeHorizontal);
+            EUM_Helper.Instance.MouseRects.Add(operationSplitCursorRect);
             
             var inspectorSplitRect = new Rect(viewportRect.x + viewportRect.width, 0, 2, position.height);
             GUILib.Rect(inspectorSplitRect, Color.black, 0.4f);
             var inspectorSplitCursorRect = GUILib.Padding(inspectorSplitRect, -2f, -2f);
             EditorGUIUtility.AddCursorRect(inspectorSplitCursorRect, MouseCursor.ResizeHorizontal);
+            EUM_Helper.Instance.MouseRects.Add(inspectorSplitCursorRect);
 
             if (!EUM_Helper.Instance.Preview)
             {
@@ -224,6 +229,13 @@ namespace EditorUIMaker
         {
             if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
             {
+                //如果点击鼠标拖拽区域了，则不处理选中逻辑
+                foreach (var mouseRect in EUM_Helper.Instance.MouseRects)
+                {
+                    if(mouseRect.Contains(Event.current.mousePosition))
+                        return;
+                }
+                
                 var oldSelect = EUM_Helper.Instance.SelectWidget;
                 if (EUM_Helper.Instance.HoverWidget == null)
                 {

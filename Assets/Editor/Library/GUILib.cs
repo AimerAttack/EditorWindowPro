@@ -170,19 +170,6 @@ namespace Amazing.Editor.Library
             GUILayout.EndVertical();
         }
 
-        public static void FlexableHorizontalRect(Action drawContent)
-        {
-            GUILayout.BeginHorizontal(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
-            drawContent?.Invoke();
-            GUILayout.EndHorizontal();
-        }
-
-        public static void FlexableVerticelRect(Action drawContent)
-        {
-            GUILayout.BeginVertical(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
-            drawContent?.Invoke();
-            GUILayout.EndVertical();
-        }
 
         public static bool Popup(ref string val, string[] contents, GUIContent icon,
             params GUILayoutOption[] options)
@@ -316,6 +303,16 @@ namespace Amazing.Editor.Library
         {
             GUILayout.Label(label, options);
         }
+        
+        public static bool IntField(ref int val,GUIContent label,params GUILayoutOption[] options)
+        {
+            var tmp = EditorGUILayout.IntField(label, val, options);
+            if (Equals(tmp, val))
+                return false;
+            val = tmp;
+            return true;
+        }
+
 
         public static bool SearchBar(ref string _SearchString, params GUILayoutOption[] options)
         {

@@ -35,6 +35,8 @@ namespace EditorUIMaker
 
         public void Draw(ref Rect rect)
         {
+            EUM_Helper.Instance.MouseRects.Add(rect);
+            
             _Title.Draw(ref rect);
 
             GUILayout.BeginArea(rect);

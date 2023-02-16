@@ -82,6 +82,12 @@ namespace EditorUIMaker.Utility
             }
         }
 
+        public void SetName(int id, string name)
+        {
+            var item = FindItem(id, rootItem);
+            item.displayName = name;
+        }
+
         private HierarchyTreeView(GUIContent content, TreeViewState treeViewState, float minHeight)
             : base(treeViewState)
         {

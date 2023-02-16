@@ -6,6 +6,10 @@ namespace EditorUIMaker
     public class EUM_Window : EUM_Container,I_EUM_Drawable
     {
         public override string TypeName => "Window";
+        protected override EUM_BaseInfo CreateInfo()
+        {
+            return new EUM_BaseInfo();
+        }
 
         public EUM_Window()
         {

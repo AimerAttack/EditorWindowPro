@@ -7,7 +7,11 @@ namespace EditorUIMaker
     public class EUM_Horizontal : EUM_Container
     {
         public override string TypeName => "Horizontal";
-        
+        protected override EUM_BaseInfo CreateInfo()
+        {
+            return new EUM_BaseInfo();
+        }
+
         protected override void OnDrawLayout()
         {
             GUILayout.BeginHorizontal();

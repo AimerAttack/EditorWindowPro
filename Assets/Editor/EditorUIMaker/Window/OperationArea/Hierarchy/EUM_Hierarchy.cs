@@ -20,6 +20,12 @@ namespace EditorUIMaker
             EUM_Helper.Instance.OnAddItemToWindow += OnAddItemToContainer;
             EUM_Helper.Instance.OnSelectWidgetChange += OnSelectWidgetChanged;
             EUM_Helper.Instance.OnRemoveItemFromWindow += OnRemoveItemFromWindow;
+            EUM_Helper.Instance.OnItemRename += OnItemRename;
+        }
+
+        void OnItemRename(EUM_BaseWidget widget)
+        {
+            _TreeView.SetName(widget.ID,widget.Info.Name);
         }
 
         public void Draw(ref Rect rect)

@@ -6,6 +6,12 @@ namespace EditorUIMaker.Widgets
     public class EUM_Label : EUM_Widget
     {
         public override string TypeName => "Label";
+        protected override EUM_BaseInfo CreateInfo()
+        {
+            var info = new EUM_Label_Info();
+            return info;
+        }
+
         public GUIContent Content = new GUIContent("Label");
 
         public override void DrawDraging(Vector2 position)

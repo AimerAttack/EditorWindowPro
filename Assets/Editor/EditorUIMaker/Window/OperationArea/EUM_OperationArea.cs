@@ -46,6 +46,7 @@ namespace EditorUIMaker
             GUILib.Rect(inspectorSplitRect, Color.black, 0.4f);
             var splitCursorRect = GUILib.Padding(inspectorSplitRect, -2f, -2f);
             EditorGUIUtility.AddCursorRect(splitCursorRect, MouseCursor.ResizeVertical);
+            EUM_Helper.Instance.MouseRects.Add(inspectorSplitRect);
 
             if (Event.current.type == EventType.MouseDown &&
                 splitCursorRect.Contains(Event.current.mousePosition))
