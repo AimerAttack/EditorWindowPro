@@ -20,6 +20,12 @@ namespace EditorUIMaker
             GUILayout.EndScrollView();
         }
 
+        protected override void FixAbsoluteRect()
+        {
+            AbsoluteRect.xMin -= _ScrollPosition.x;
+            AbsoluteRect.yMin -= _ScrollPosition.y;
+        }
+
         public override void DrawDraging(Vector2 position)
         {
             var rect = new Rect(position.x, position.y, 200, 20);

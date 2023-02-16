@@ -43,8 +43,14 @@ namespace EditorUIMaker.Widgets
                 var selfRect = GUILayoutUtility.GetLastRect();
                 AbsoluteRect = new Rect(Parent.AbsoluteRect.x + selfRect.x,Parent.AbsoluteRect.y + selfRect.y,selfRect.width, selfRect.height);
                 Rect = AbsoluteRect;
+                FixAbsoluteRect();
             }
         }
+
+        protected virtual void FixAbsoluteRect()
+        {
+        }
+        
         public bool Contains(Vector2 point)
         {
             return AbsoluteRect.Contains(point);
