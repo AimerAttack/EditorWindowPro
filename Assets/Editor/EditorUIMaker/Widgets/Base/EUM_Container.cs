@@ -21,16 +21,12 @@ namespace EditorUIMaker
                 GUI.enabled = false;
                 GUI.color = new Color(1, 1, 1, 2);
             }
-
-            GUILayout.BeginArea(Rect);
             
             foreach (var widget in Widgets)
             {
                 widget.DrawLayout();
             }
             
-            GUILayout.EndArea();
-
             if (!EUM_Helper.Instance.Preview && InViewport)
             {
                 GUI.color = Color.white;

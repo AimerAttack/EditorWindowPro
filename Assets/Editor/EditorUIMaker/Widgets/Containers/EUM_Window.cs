@@ -44,5 +44,29 @@ namespace EditorUIMaker
             AbsoluteRect = new Rect(EUM_Helper.Instance.VitualWindowRect.x, EUM_Helper.Instance.VitualWindowRect.y, rect.width, rect.height);
             DrawItems();
         }
+        
+        protected override void DrawItems()
+        {
+            if (!EUM_Helper.Instance.Preview && InViewport)
+            {
+                GUI.enabled = false;
+                GUI.color = new Color(1, 1, 1, 2);
+            }
+
+            GUILayout.BeginArea(Rect);
+            
+            foreach (var widget in Widgets)
+            {
+                widget.DrawLayout();
+            }
+            
+            GUILayout.EndArea();
+
+            if (!EUM_Helper.Instance.Preview && InViewport)
+            {
+                GUI.color = Color.white;
+                GUI.enabled = true;
+            }
+        }
     }
 }

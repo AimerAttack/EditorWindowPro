@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace EditorUIMaker
 {
-    public class EUM_Horizontal : EUM_Container
+    public class EUM_ScrollView : EUM_Container
     {
-        public override string TypeName => "Horizontal";
+        private Vector2 _ScrollPosition;
+        public override string TypeName => "ScrollView";
         protected override EUM_BaseInfo CreateInfo()
         {
             return new EUM_NormalInfo(this);
@@ -14,9 +15,9 @@ namespace EditorUIMaker
 
         protected override void OnDrawLayout()
         {
-            GUILayout.BeginHorizontal();
+            _ScrollPosition = GUILayout.BeginScrollView(_ScrollPosition);
             DrawItems();
-            GUILayout.EndHorizontal();
+            GUILayout.EndScrollView();
         }
 
         public override void DrawDraging(Vector2 position)
@@ -29,7 +30,7 @@ namespace EditorUIMaker
 
         public override EUM_BaseWidget Clone()
         {
-            var widget = new EUM_Horizontal();
+            var widget = new EUM_ScrollView();
             Info.CopyTo(widget.Info);
             return widget;
         }

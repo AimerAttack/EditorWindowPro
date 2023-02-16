@@ -18,6 +18,8 @@ namespace EditorUIMaker.Widgets
         {
             var rect = new Rect(position.x, position.y, 200, 20);
             GUILib.Frame(rect, Color.white, 1);
+            rect.x += 60;
+            GUI.Label(rect,TypeName);
         }
 
         protected override void OnDrawLayout()

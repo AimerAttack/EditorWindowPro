@@ -27,6 +27,7 @@ namespace EditorUIMaker
             
             _Containers.Add(new EUM_Horizontal());
             _Containers.Add(new EUM_Vertical());
+            _Containers.Add(new EUM_ScrollView());
 
             _Controls.Add(new EUM_Space());
             _Controls.Add(new EUM_Button());
@@ -93,7 +94,10 @@ namespace EditorUIMaker
         {
             foreach (var control in _Containers)
             {
+                GUILayout.BeginHorizontal();
+                GUILayout.Space(20);
                 GUILayout.Label(control.TypeName);
+                GUILayout.EndHorizontal();
 
                 if (!EUM_Helper.Instance.Preview)
                 {
@@ -117,7 +121,10 @@ namespace EditorUIMaker
         {
             foreach (var control in _Controls)
             {
+                GUILayout.BeginHorizontal();
+                GUILayout.Space(20);
                 GUILayout.Label(control.TypeName);
+                GUILayout.EndHorizontal();
 
                 var lastRect = GUILayoutUtility.GetLastRect();
                 if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
