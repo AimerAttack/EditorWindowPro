@@ -15,9 +15,12 @@ namespace EditorUIMaker
         public static float InitWindowHeight = 300;
         public static float MinimumDragToSnapToMoveRotateScaleResize = 2;
 
+        public string WindowName = "EditorUIMaker";
+        public bool Modified = false;
         public int WidgetID = 1;
         public Action<EUM_BaseWidget> OnAddItemToWindow;
         public Action OnRemoveItemFromWindow;
+        public Action OnItemIndexChange;
         public Action OnSelectWidgetChange;
         public EUM_Window Window;
         public int ZoomIndex;

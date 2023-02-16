@@ -124,6 +124,7 @@ namespace EditorUIMaker
                 widget.OnAddToContainer(container);
             }
             RefreshTreeView();
+            EUM_Helper.Instance.OnItemIndexChange?.Invoke();
         }
     }
 }

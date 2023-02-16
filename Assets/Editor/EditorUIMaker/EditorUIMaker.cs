@@ -14,7 +14,7 @@ namespace EditorUIMaker
         static void OpenWindow()
         {
             var window = GetWindow<EditorUIMaker>();
-            window.titleContent = new GUIContent("EditorUIMaker");
+            window.titleContent = new GUIContent(EUM_Helper.Instance.WindowName);
             window.Show();
             window.Focus();
         }
@@ -48,7 +48,33 @@ namespace EditorUIMaker
             _Viewport = new EUM_Viewport();
             _Inspector = new EUM_Inspector();
             _Input = new EUM_Inputer();
+
+            EUM_Helper.Instance.OnRemoveItemFromWindow += OnRemoveItemFromWindow;
+            EUM_Helper.Instance.OnAddItemToWindow += OnAddItemToWindow;
+            EUM_Helper.Instance.OnItemIndexChange += OnItemIndexChange;
         }
+
+        void OnItemIndexChange()
+        {
+            OnModified();
+        }
+
+        void OnAddItemToWindow(EUM_BaseWidget widget)
+        {
+            OnModified();
+        }
+
+        void OnRemoveItemFromWindow()
+        {
+            OnModified();
+        }
+
+        void OnModified()
+        {
+            EUM_Helper.Instance.Modified = true;
+            titleContent = new GUIContent(EUM_Helper.Instance.WindowName + " *");
+        }
+        
 
         private void OnGUI()
         {
@@ -382,6 +408,12 @@ namespace EditorUIMaker
 
         private void OnDestroy()
         {
+            if (!EUM_Helper.Instance.Modified)
+                return;
+            if (EditorUtility.DisplayDialog("提示", "当前UI编辑器有未保存的修改，是否保存？", "保存", "不保存"))
+            {
+                
+            }
         }
     }
 }
