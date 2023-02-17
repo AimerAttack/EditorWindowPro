@@ -42,6 +42,7 @@ namespace EditorUIMaker
             Init();
         }
 
+        
         void Init()
         {
             EUM_Helper.Instance = new EUM_Helper();
@@ -232,10 +233,8 @@ namespace EditorUIMaker
         {
             if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
             {
-                var lostFocusRect = new Rect(0,0,position.width-_InspectorRect.width,position.height);
-                if(lostFocusRect.Contains(Event.current.mousePosition))
-                    EUM_Helper.Instance.ClearFocus();
-                
+                GUIUtility.keyboardControl = 0;
+               
                 //如果点击鼠标拖拽区域了，则不处理选中逻辑
                 foreach (var mouseRect in EUM_Helper.Instance.MouseRects)
                 {
