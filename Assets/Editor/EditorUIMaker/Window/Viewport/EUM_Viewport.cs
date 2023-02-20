@@ -4,10 +4,10 @@ using UnityEngine;
 namespace EditorUIMaker
 {
     public class EUM_Viewport : I_EUM_Drawable
-    {
-        private EUM_Title _Title;
-        private EUM_Toolbar _Toolbar;
-        private EUM_Paper _Paper;
+    { 
+        public EUM_Title _Title;
+        public EUM_Toolbar _Toolbar;
+        public EUM_Paper _Paper;
         
         public EUM_Viewport()
         {

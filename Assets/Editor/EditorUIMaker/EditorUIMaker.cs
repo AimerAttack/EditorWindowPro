@@ -3,49 +3,49 @@ using System.Collections;
 using System.Collections.Generic;
 using Amazing.Editor.Library;
 using EditorUIMaker.Widgets;
+using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 
 namespace EditorUIMaker
 {
-    public class EditorUIMaker : EditorWindow
+    public class EditorUIMaker : OdinEditorWindow
     {
         [MenuItem("Tools/EditorUIMaker")]
         static void OpenWindow()
         {
             var window = GetWindow<EditorUIMaker>();
+            window.Init();
             window.titleContent = new GUIContent(EUM_Helper.Instance.WindowName);
             window.Show();
             window.Focus();
         }
 
-        private const float s_SplitSize = 2f;
-        private const float s_MinInspectorWidth = 300;
-        private const float s_MinViewportWidth = 200;
-        private const float s_MinOperationWidth = 200;
 
-        private EUM_OperationArea _OperationArea;
-        private EUM_Viewport _Viewport;
-        private EUM_Inspector _Inspector;
-        private EUM_Inputer _Input;
 
-        private float _RatioInspector = 0.2f;
-        private float _RatioOperationArea = 0.1f;
-        private bool _ResizeInspector = false;
-        private bool _ResizeOperationArea = false;
-        private bool _CheckCanvasDrag = false;
+        public const float s_SplitSize = 2f;
+        public const float s_MinInspectorWidth = 300;
+        public const float s_MinViewportWidth = 200;
+        public const float s_MinOperationWidth = 200;
 
-        private Rect _InspectorRect;
+        public EUM_OperationArea _OperationArea;
+        public EUM_Viewport _Viewport;
+        public EUM_Inspector _Inspector;
+        public EUM_Inputer _Input;
 
-        public EditorUIMaker()
-        {
-            Init();
-        }
+        public float _RatioInspector = 0.2f;
+        public float _RatioOperationArea = 0.1f;
+        public bool _ResizeInspector = false;
+        public bool _ResizeOperationArea = false;
+        public bool _CheckCanvasDrag = false;
 
-        
+        public Rect _InspectorRect;
+        public EUM_Helper _Helper;
+ 
         void Init()
         {
-            EUM_Helper.Instance = new EUM_Helper();
+            _Helper = new EUM_Helper();
+            EUM_Helper.Instance = _Helper;
 
             _OperationArea = new EUM_OperationArea();
             _Viewport = new EUM_Viewport();
@@ -57,6 +57,23 @@ namespace EditorUIMaker
             EUM_Helper.Instance.OnItemIndexChange += OnItemIndexChange;
         }
 
+        void OnEnable()
+        {
+            AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
+        }
+        
+        void OnDisable()
+        {
+            AssemblyReloadEvents.afterAssemblyReload -= OnAfterAssemblyReload;
+        }
+        
+        
+        public void OnAfterAssemblyReload()
+        {
+            EUM_Helper.Instance = _Helper;
+            Debug.Log(string.Format("OnAfterAssemblyReload,helper:{0}",_Helper == null ? "is null" : "not null"));
+        }
+        
         void OnItemIndexChange()
         {
             OnModified();
@@ -77,10 +94,11 @@ namespace EditorUIMaker
             EUM_Helper.Instance.Modified = true;
             titleContent = new GUIContent(EUM_Helper.Instance.WindowName + " *");
         }
-        
 
-        private void OnGUI()
+        protected override void OnGUI()
         {
+            if(EUM_Helper.Instance == null)
+                Debug.Log("Instance is null");
             EUM_Helper.Instance.MouseRects.Clear();
             
             ProcessMouseMove();
@@ -330,12 +348,12 @@ namespace EditorUIMaker
             }
             else
             {
-                var treeHoverItem = _OperationArea.Hierarchy.TreeView.HoverItem;
-                if (treeHoverItem != null && EUM_Helper.Instance.Widgets.ContainsKey(treeHoverItem.id))
-                {
-                    widget = EUM_Helper.Instance.Widgets[treeHoverItem.id];
-                    GUILib.Frame(widget.Rect, Color.blue, EUM_Helper.Instance.ViewportRect,1.5f);
-                }
+                // var treeHoverItem = _OperationArea.Hierarchy.TreeView.HoverItem;
+                // if (treeHoverItem != null && EUM_Helper.Instance.Widgets.ContainsKey(treeHoverItem.id))
+                // {
+                //     widget = EUM_Helper.Instance.Widgets[treeHoverItem.id];
+                //     GUILib.Frame(widget.Rect, Color.blue, EUM_Helper.Instance.ViewportRect,1.5f);
+                // }
 
                 EUM_Helper.Instance.HoverWidget = null;
             }

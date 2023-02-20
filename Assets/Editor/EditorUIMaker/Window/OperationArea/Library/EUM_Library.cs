@@ -9,16 +9,16 @@ namespace EditorUIMaker
 {
     public class EUM_Library : I_EUM_Drawable
     {
-        private EUM_Title _Title;
-        private Vector2 _ScrollPos;
-        private bool _ShowBuildIn;
-        private bool _ShowCustom;
-        private bool _ShowContainers;
-        private bool _ShowControls;
-        private bool _ShowNumericFields;
+        public EUM_Title _Title;
+        public Vector2 _ScrollPos;
+        public bool _ShowBuildIn;
+        public bool _ShowCustom;
+        public bool _ShowContainers;
+        public bool _ShowControls;
+        public bool _ShowNumericFields;
 
-        private List<EUM_BaseWidget> _Containers = new List<EUM_BaseWidget>();
-        private List<EUM_BaseWidget> _Controls = new List<EUM_BaseWidget>();
+        public List<EUM_BaseWidget> _Containers = new List<EUM_BaseWidget>();
+        public List<EUM_BaseWidget> _Controls = new List<EUM_BaseWidget>();
 
         public EUM_Library()
         {

@@ -5,7 +5,7 @@ namespace EditorUIMaker
 {
     public class EUM_Paper : I_EUM_Drawable
     {
-        private EUM_VitualWindow _VitualWindow;
+        public EUM_VitualWindow _VitualWindow;
 
         public EUM_Paper()
         {

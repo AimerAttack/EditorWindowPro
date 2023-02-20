@@ -10,13 +10,13 @@ namespace EditorUIMaker.Utility
 {
     public class HierarchyTreeView : TreeView
     {
-        const string k_GenericDragID = "GenericDragColumnDragging";
+        public const string k_GenericDragID = "GenericDragColumnDragging";
         
-        SearchField m_SearchField;
-        private List<TreeViewItem> elements = new List<TreeViewItem>();
-        private GUIContent m_Content;
-        private float _MinHeight;
-        private bool _Dragging = false;
+        public SearchField m_SearchField;
+        public List<TreeViewItem> elements = new List<TreeViewItem>();
+        public GUIContent m_Content;
+        public float _MinHeight;
+        public bool _Dragging = false;
 
         public TreeViewItem HoverItem
         {
@@ -110,7 +110,7 @@ namespace EditorUIMaker.Utility
                 elements.Add(node);
             }
 
-            Reload();
+            // Reload();
         }
 
         public static HierarchyTreeView Create(GUIContent content, float minHeight = 0)

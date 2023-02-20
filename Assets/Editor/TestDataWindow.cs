@@ -103,8 +103,6 @@ namespace Editor
 
     }
 
-  
-    
     
     public class SelectInfo
     {
@@ -118,7 +116,6 @@ namespace Editor
 
     public class MyClass
     {
-        [SerializeField]
         public static MyClass Instance;
         
         public MyClass()

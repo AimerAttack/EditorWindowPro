@@ -9,9 +9,9 @@ namespace EditorUIMaker
 {
     public class EUM_Inspector : I_EUM_Drawable
     {
-        private EUM_Title _Title;
-        private Vector2 _ScrollPosition;
-        private const float s_PropertyNameWidth = 130;
+        public EUM_Title _Title;
+        public Vector2 _ScrollPosition;
+        public const float s_PropertyNameWidth = 130;
         
         public EUM_Inspector()
         {

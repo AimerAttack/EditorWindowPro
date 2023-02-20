@@ -6,24 +6,21 @@ namespace EditorUIMaker
 {
     public class EUM_OperationArea : I_EUM_Drawable
     {
-        public EUM_Library Library => _Library;
-        public EUM_Hierarchy Hierarchy => _Hierarchy;
-        
-        private EUM_Hierarchy _Hierarchy;
-        private EUM_Library _Library;
+        public EUM_Hierarchy Hierarchy;
+        public EUM_Library Library;
 
-        private float _SplitRatio = 0.5f;
-        private bool _Spliting = false;
-        private const float s_MinRatio = 0.1f;
-        private const float s_MaxRatio = 0.8f;
+        public float _SplitRatio = 0.5f;
+        public bool _Spliting = false;
+        public const float s_MinRatio = 0.1f;
+        public const float s_MaxRatio = 0.8f;
         
-        private Rect _HierarchyRect;
-        private Rect _WindowRect;
+        public Rect _HierarchyRect;
+        public Rect _WindowRect;
         
         public EUM_OperationArea()
         {
-            _Hierarchy = new EUM_Hierarchy();
-            _Library = new EUM_Library();
+            Hierarchy = new EUM_Hierarchy();
+            Library = new EUM_Library();
         }
         
         public void Draw(ref Rect rect)
@@ -34,8 +31,8 @@ namespace EditorUIMaker
             _HierarchyRect = new Rect(rect.x, 0, rect.width, rect.height * _SplitRatio);
             var toolboxRect = new Rect(rect.x, _HierarchyRect.yMax, rect.width , rect.height - _HierarchyRect.height);
             
-            _Hierarchy.Draw(ref _HierarchyRect);
-            _Library.Draw(ref toolboxRect);
+            Hierarchy.Draw(ref _HierarchyRect);
+            Library.Draw(ref toolboxRect);
             
             DrawSpliter();
         }

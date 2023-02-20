@@ -9,10 +9,8 @@ namespace EditorUIMaker
 {
     public class EUM_Hierarchy : I_EUM_Drawable
     {
-        public HierarchyTreeView TreeView => _TreeView;
-        
-        private EUM_Title _Title;
-        private HierarchyTreeView _TreeView;
+        public EUM_Title _Title;
+        public HierarchyTreeView TreeView;
 
         public EUM_Hierarchy()
         {
@@ -25,7 +23,7 @@ namespace EditorUIMaker
 
         void OnItemRename(EUM_BaseWidget widget)
         {
-            _TreeView.SetName(widget.ID,widget.Info.DisplayName);
+            TreeView.SetName(widget.ID,widget.Info.DisplayName);
         }
 
         public void Draw(ref Rect rect)
@@ -33,14 +31,14 @@ namespace EditorUIMaker
             _Title.Draw(ref rect);
             GUILayout.BeginArea(rect);
             GUILayout.BeginVertical();
-            if (_TreeView == null)
+            if (TreeView == null)
             {
-                _TreeView = HierarchyTreeView.Create(new GUIContent("Controls"), 70);
-                _TreeView.OnDragItemToContainer += OnDragItemToContainer;
-                _TreeView.SetData(new List<TreeViewItem>());
+                TreeView = HierarchyTreeView.Create(new GUIContent("Controls"), 70);
+                TreeView.OnDragItemToContainer += OnDragItemToContainer;
+                TreeView.SetData(new List<TreeViewItem>());
             }
 
-            _TreeView.Draw();
+            // TreeView.Draw();
             GUILayout.EndVertical();
             GUILayout.EndArea();
         }
@@ -80,21 +78,22 @@ namespace EditorUIMaker
                 nodes.Add(node);
             }
 
-            _TreeView.SetData(nodes);
+            TreeView.SetData(nodes);
         }
         
         private void OnSelectWidgetChanged()
         {
             EUM_Helper.Instance.ClearFocus();
+            return;
             
             var selectWidget = EUM_Helper.Instance.SelectWidget;
             if (selectWidget == null)
             {
-                _TreeView.SetSelection(new List<int>());
+                TreeView.SetSelection(new List<int>());
             }
             else
             {
-                _TreeView.SetSelection(new List<int>() {selectWidget.ID},TreeViewSelectionOptions.FireSelectionChanged | TreeViewSelectionOptions.RevealAndFrame);
+                TreeView.SetSelection(new List<int>() {selectWidget.ID},TreeViewSelectionOptions.FireSelectionChanged | TreeViewSelectionOptions.RevealAndFrame);
             }
         }
 

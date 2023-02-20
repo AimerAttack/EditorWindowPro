@@ -41,8 +41,8 @@ namespace EditorUIMaker
         public string WindowTitle = "WindowTitle";
         public float Alpha = 0;
 
-        private float _FadeTime = 0.2f;
-        private float _StartFadeTime;
+        public float _FadeTime = 0.2f;
+        public float _StartFadeTime;
 
         public void AddToContainer(EUM_BaseWidget widget, EUM_Container container)
         {

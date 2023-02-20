@@ -8,7 +8,7 @@ namespace EditorUIMaker
     {
         public const float s_TitleHeight = 16;
 
-        private GUIContent _Title;
+        public GUIContent _Title;
 
         public EUM_Title(GUIContent title)
         {
