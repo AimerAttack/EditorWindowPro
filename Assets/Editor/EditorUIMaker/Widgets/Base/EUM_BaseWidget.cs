@@ -15,6 +15,7 @@ namespace EditorUIMaker.Widgets
         public EUM_BaseInfo Info;
         protected abstract EUM_BaseInfo CreateInfo();
         
+        [SerializeField]
         public string Name
         {
             get
@@ -56,6 +57,7 @@ namespace EditorUIMaker.Widgets
             return AbsoluteRect.Contains(point);
         }
 
+        [SerializeField]
         public int Depth { get; set; }
 
         public abstract void DrawDraging(Vector2 position);
@@ -68,6 +70,5 @@ namespace EditorUIMaker.Widgets
             Depth = container.Depth + 1;
             InViewport = true;
         }
-
     }
 }

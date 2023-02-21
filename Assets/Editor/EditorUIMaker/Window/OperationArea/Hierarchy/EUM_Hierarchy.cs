@@ -23,7 +23,7 @@ namespace EditorUIMaker
 
         void OnItemRename(EUM_BaseWidget widget)
         {
-            TreeView.SetName(widget.ID,widget.Info.DisplayName);
+            // TreeView.SetName(widget.ID,widget.Info.DisplayName);
         }
 
         public void Draw(ref Rect rect)

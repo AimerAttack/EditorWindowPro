@@ -67,11 +67,9 @@ namespace EditorUIMaker
             AssemblyReloadEvents.afterAssemblyReload -= OnAfterAssemblyReload;
         }
         
-        
         public void OnAfterAssemblyReload()
         {
             EUM_Helper.Instance = _Helper;
-            Debug.Log(string.Format("OnAfterAssemblyReload,helper:{0}",_Helper == null ? "is null" : "not null"));
         }
         
         void OnItemIndexChange()
