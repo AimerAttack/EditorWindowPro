@@ -8,11 +8,11 @@ namespace EditorUIMaker
     {
         public const float s_TitleHeight = 16;
 
-        public GUIContent _Title;
+        public GUIContent Title;
 
         public EUM_Title(GUIContent title)
         {
-            _Title = title;
+            Title = title;
         }
         
         public void Draw(ref Rect rect)
@@ -21,7 +21,7 @@ namespace EditorUIMaker
             GUILib.Rect(titleRect, Color.black, 1f);
 
             titleRect.xMin += 4f;
-            GUI.Label(titleRect, _Title);
+            GUI.Label(titleRect, Title);
 
             rect.yMin += s_TitleHeight;
         }

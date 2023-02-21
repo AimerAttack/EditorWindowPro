@@ -9,59 +9,59 @@ namespace EditorUIMaker
 {
     public class EUM_Library : I_EUM_Drawable
     {
-        public EUM_Title _Title;
-        public Vector2 _ScrollPos;
-        public bool _ShowBuildIn;
-        public bool _ShowCustom;
-        public bool _ShowContainers;
-        public bool _ShowControls;
-        public bool _ShowNumericFields;
+        public EUM_Title Title;
+        public Vector2 ScrollPos;
+        public bool ShowBuildIn;
+        public bool ShowCustom;
+        public bool ShowContainers;
+        public bool ShowControls;
+        public bool ShowNumericFields;
 
-        public List<EUM_BaseWidget> _Containers = new List<EUM_BaseWidget>();
-        public List<EUM_BaseWidget> _Controls = new List<EUM_BaseWidget>();
+        public List<EUM_BaseWidget> Containers = new List<EUM_BaseWidget>();
+        public List<EUM_BaseWidget> Controls = new List<EUM_BaseWidget>();
 
         public EUM_Library()
         {
-            _Title = new EUM_Title(new GUIContent("Library"));
-            _ShowBuildIn = true;
+            Title = new EUM_Title(new GUIContent("Library"));
+            ShowBuildIn = true;
             
-            _Containers.Add(new EUM_Horizontal());
-            _Containers.Add(new EUM_Vertical());
-            _Containers.Add(new EUM_ScrollView());
+            Containers.Add(new EUM_Horizontal());
+            Containers.Add(new EUM_Vertical());
+            Containers.Add(new EUM_ScrollView());
 
-            _Controls.Add(new EUM_Space());
-            _Controls.Add(new EUM_Button());
-            _Controls.Add(new EUM_Label());
+            Controls.Add(new EUM_Space());
+            Controls.Add(new EUM_Button());
+            Controls.Add(new EUM_Label());
         }
 
         public void Draw(ref Rect rect)
         {
             EUM_Helper.Instance.MouseRects.Add(rect);
             
-            _Title.Draw(ref rect);
+            Title.Draw(ref rect);
 
             GUILayout.BeginArea(rect);
 
             GUILayout.Space(10);
             GUILib.HorizontalRect(DrawToggleTab);
 
-            GUILib.ScrollView(ref _ScrollPos, DrawControls);
+            GUILib.ScrollView(ref ScrollPos, DrawControls);
             GUILayout.EndArea();
         }
 
         void DrawToggleTab()
         {
             GUILayout.FlexibleSpace();
-            if (GUILib.Toggle(ref _ShowBuildIn, new GUIContent("BuildIn"), new GUIStyle("Button")))
+            if (GUILib.Toggle(ref ShowBuildIn, new GUIContent("BuildIn"), new GUIStyle("Button")))
             {
-                if (_ShowBuildIn)
-                    _ShowCustom = false;
+                if (ShowBuildIn)
+                    ShowCustom = false;
             }
 
-            if (GUILib.Toggle(ref _ShowCustom, new GUIContent("Custom"), new GUIStyle("Button")))
+            if (GUILib.Toggle(ref ShowCustom, new GUIContent("Custom"), new GUIStyle("Button")))
             {
-                if (_ShowCustom)
-                    _ShowBuildIn = false;
+                if (ShowCustom)
+                    ShowBuildIn = false;
             }
 
             GUILayout.FlexibleSpace();
@@ -69,30 +69,30 @@ namespace EditorUIMaker
 
         void DrawControls()
         {
-            if (_ShowBuildIn)
+            if (ShowBuildIn)
                 DrawBuildIn();
-            if (_ShowCustom)
+            if (ShowCustom)
                 DrawCustom();
         }
 
         void DrawBuildIn()
         {
-            GUILib.Toggle(ref _ShowContainers, new GUIContent("Containers"), new GUIStyle("FoldoutHeader"));
-            if (_ShowContainers)
+            GUILib.Toggle(ref ShowContainers, new GUIContent("Containers"), new GUIStyle("FoldoutHeader"));
+            if (ShowContainers)
                 DrawContainers();
 
-            GUILib.Toggle(ref _ShowControls, new GUIContent("Controls"), new GUIStyle("FoldoutHeader"));
-            if (_ShowControls)
+            GUILib.Toggle(ref ShowControls, new GUIContent("Controls"), new GUIStyle("FoldoutHeader"));
+            if (ShowControls)
                 DrawBaseControls();
 
-            GUILib.Toggle(ref _ShowNumericFields, new GUIContent("NumericFields"), new GUIStyle("FoldoutHeader"));
-            if (_ShowNumericFields)
+            GUILib.Toggle(ref ShowNumericFields, new GUIContent("NumericFields"), new GUIStyle("FoldoutHeader"));
+            if (ShowNumericFields)
                 DrawNumericFields();
         }
 
         void DrawContainers()
         {
-            foreach (var control in _Containers)
+            foreach (var control in Containers)
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Space(20);
@@ -119,7 +119,7 @@ namespace EditorUIMaker
 
         void DrawBaseControls()
         {
-            foreach (var control in _Controls)
+            foreach (var control in Controls)
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Space(20);

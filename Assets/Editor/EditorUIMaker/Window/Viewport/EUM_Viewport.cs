@@ -5,15 +5,15 @@ namespace EditorUIMaker
 {
     public class EUM_Viewport : I_EUM_Drawable
     { 
-        public EUM_Title _Title;
-        public EUM_Toolbar _Toolbar;
-        public EUM_Paper _Paper;
+        public EUM_Title Title;
+        public EUM_Toolbar Toolbar;
+        public EUM_Paper Paper;
         
         public EUM_Viewport()
         {
-            _Title = new EUM_Title(new GUIContent("Viewport"));
-            _Toolbar = new EUM_Toolbar();
-            _Paper = new EUM_Paper();
+            Title = new EUM_Title(new GUIContent("Viewport"));
+            Toolbar = new EUM_Toolbar();
+            Paper = new EUM_Paper();
         }
         
         public void Draw(ref Rect rect)
@@ -23,10 +23,10 @@ namespace EditorUIMaker
             paperRect.yMin += EUM_Toolbar.s_Height;
             
             EUM_Helper.Instance.ViewportRect = paperRect;
-            _Paper.Draw(ref paperRect);
+            Paper.Draw(ref paperRect);
             
-            _Title.Draw(ref rect);
-            _Toolbar.Draw(ref rect);
+            Title.Draw(ref rect);
+            Toolbar.Draw(ref rect);
         }
         
         public void DrawRect(Rect rect)

@@ -9,13 +9,13 @@ namespace EditorUIMaker
         public EUM_Hierarchy Hierarchy;
         public EUM_Library Library;
 
-        public float _SplitRatio = 0.5f;
-        public bool _Spliting = false;
+        public float SplitRatio = 0.5f;
+        public bool Spliting = false;
         public const float s_MinRatio = 0.1f;
         public const float s_MaxRatio = 0.8f;
         
-        public Rect _HierarchyRect;
-        public Rect _WindowRect;
+        public Rect HierarchyRect;
+        public Rect WindowRect;
         
         public EUM_OperationArea()
         {
@@ -25,13 +25,13 @@ namespace EditorUIMaker
         
         public void Draw(ref Rect rect)
         {
-            _WindowRect = rect;
+            WindowRect = rect;
             GUILib.Rect(rect, GUILib.s_DefaultColor, 1f); 
             
-            _HierarchyRect = new Rect(rect.x, 0, rect.width, rect.height * _SplitRatio);
-            var toolboxRect = new Rect(rect.x, _HierarchyRect.yMax, rect.width , rect.height - _HierarchyRect.height);
+            HierarchyRect = new Rect(rect.x, 0, rect.width, rect.height * SplitRatio);
+            var toolboxRect = new Rect(rect.x, HierarchyRect.yMax, rect.width , rect.height - HierarchyRect.height);
             
-            Hierarchy.Draw(ref _HierarchyRect);
+            Hierarchy.Draw(ref HierarchyRect);
             Library.Draw(ref toolboxRect);
             
             DrawSpliter();
@@ -39,7 +39,7 @@ namespace EditorUIMaker
 
         void DrawSpliter()
         {
-            var inspectorSplitRect = new Rect(_HierarchyRect.x, _HierarchyRect.yMax, _HierarchyRect.width, 2f);
+            var inspectorSplitRect = new Rect(HierarchyRect.x, HierarchyRect.yMax, HierarchyRect.width, 2f);
             GUILib.Rect(inspectorSplitRect, Color.black, 0.4f);
             var splitCursorRect = GUILib.Padding(inspectorSplitRect, -2f, -2f);
             EditorGUIUtility.AddCursorRect(splitCursorRect, MouseCursor.ResizeVertical);
@@ -48,28 +48,28 @@ namespace EditorUIMaker
             if (Event.current.type == EventType.MouseDown &&
                 splitCursorRect.Contains(Event.current.mousePosition))
             {
-                _Spliting = true;
+                Spliting = true;
                 RefreshSplitor();
             }
 
-            if (_Spliting)
+            if (Spliting)
             {
                 RefreshSplitor();
             }
 
             if (Event.current.rawType == EventType.MouseUp)
             {
-                if(_Spliting)
-                    _Spliting = false;
+                if(Spliting)
+                    Spliting = false;
             }
         }
 
         void RefreshSplitor()
         {
             var delta = Event.current.mousePosition.y;
-            var ratio = delta / _WindowRect.height;
+            var ratio = delta / WindowRect.height;
             ratio = Mathf.Clamp(ratio, s_MinRatio, s_MaxRatio);
-            _SplitRatio = ratio;
+            SplitRatio = ratio;
         }
     }
 }

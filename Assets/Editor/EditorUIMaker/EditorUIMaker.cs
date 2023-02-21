@@ -28,16 +28,16 @@ namespace EditorUIMaker
         public const float s_MinViewportWidth = 200;
         public const float s_MinOperationWidth = 200;
 
-        public EUM_OperationArea _OperationArea;
-        public EUM_Viewport _Viewport;
-        public EUM_Inspector _Inspector;
-        public EUM_Inputer _Input;
+        public EUM_OperationArea OperationArea;
+        public EUM_Viewport Viewport;
+        public EUM_Inspector Inspector;
+        public EUM_Inputer Input;
 
-        public float _RatioInspector = 0.2f;
-        public float _RatioOperationArea = 0.1f;
-        public bool _ResizeInspector = false;
-        public bool _ResizeOperationArea = false;
-        public bool _CheckCanvasDrag = false;
+        public float RatioInspector = 0.2f;
+        public float RatioOperationArea = 0.1f;
+        public bool ResizeInspector = false;
+        public bool ResizeOperationArea = false;
+        public bool CheckCanvasDrag = false;
 
         public Rect _InspectorRect;
         public EUM_Helper _Helper;
@@ -47,10 +47,10 @@ namespace EditorUIMaker
             _Helper = new EUM_Helper();
             EUM_Helper.Instance = _Helper;
 
-            _OperationArea = new EUM_OperationArea();
-            _Viewport = new EUM_Viewport();
-            _Inspector = new EUM_Inspector();
-            _Input = new EUM_Inputer();
+            OperationArea = new EUM_OperationArea();
+            Viewport = new EUM_Viewport();
+            Inspector = new EUM_Inspector();
+            Input = new EUM_Inputer();
 
             EUM_Helper.Instance.OnRemoveItemFromWindow += OnRemoveItemFromWindow;
             EUM_Helper.Instance.OnAddItemToWindow += OnAddItemToWindow;
@@ -102,28 +102,28 @@ namespace EditorUIMaker
             
             ProcessMouseMove();
             
-            _OperationArea.Library.HandleDrag();
+            OperationArea.Library.HandleDrag();
 
             EUM_Helper.Instance.Fade();
 
-            var inspectorWidth = position.width * _RatioInspector;
+            var inspectorWidth = position.width * RatioInspector;
             inspectorWidth = Mathf.Max(s_MinInspectorWidth, inspectorWidth);
-            var operationWidth = position.width * Mathf.Min(_RatioOperationArea,0.5f);
+            var operationWidth = position.width * Mathf.Min(RatioOperationArea,0.5f);
             operationWidth = Mathf.Max(s_MinOperationWidth, operationWidth);
             var viewportWidth = position.width - inspectorWidth - operationWidth;
             viewportWidth = Mathf.Max(s_MinViewportWidth, viewportWidth);
 
             var viewportRect = new Rect(operationWidth, 0, viewportWidth - s_SplitSize, position.height);
-            _Viewport.Draw(ref viewportRect);
+            Viewport.Draw(ref viewportRect);
 
             var inspectorRect = new Rect(viewportRect.x + viewportRect.width + s_SplitSize, 0, inspectorWidth,
                 position.height);
-            _Inspector.Draw(ref inspectorRect);
+            Inspector.Draw(ref inspectorRect);
             EUM_Helper.Instance.MouseRects.Add(inspectorRect);
             _InspectorRect = inspectorRect;
 
             var operationRect = new Rect(0, 0, operationWidth, position.height);
-            _OperationArea.Draw(ref operationRect);
+            OperationArea.Draw(ref operationRect);
 
             var operationSplitRect = new Rect(operationRect.x + operationRect.width, 0, 2, position.height);
             GUILib.Rect(operationSplitRect, Color.black, 0.4f);
@@ -151,32 +151,32 @@ namespace EditorUIMaker
 
             if (Event.current.type == EventType.MouseDown && inspectorSplitCursorRect.Contains(Event.current.mousePosition))
             {
-                _ResizeInspector = true;
+                ResizeInspector = true;
                 RefreshInspectorSplitPosition();
             }
-            if (_ResizeInspector)
+            if (ResizeInspector)
             {
                 RefreshInspectorSplitPosition();
             }
 
             if(Event.current.type == EventType.MouseDown && operationSplitCursorRect.Contains(Event.current.mousePosition))
             {
-                _ResizeOperationArea = true;
+                ResizeOperationArea = true;
                 RefreshOperationSplitPosition();
             }
-            if (_ResizeOperationArea)
+            if (ResizeOperationArea)
             {
                 RefreshOperationSplitPosition();
             }
 
             if (Event.current.rawType == EventType.MouseUp)
             {
-                if (_ResizeInspector)
-                    _ResizeInspector = false;
-                if (_ResizeOperationArea)
-                    _ResizeOperationArea = false;
+                if (ResizeInspector)
+                    ResizeInspector = false;
+                if (ResizeOperationArea)
+                    ResizeOperationArea = false;
             }
-            _Input.CheckInput();
+            Input.CheckInput();
 
             Repaint();
         }
@@ -347,7 +347,7 @@ namespace EditorUIMaker
             }
             else
             {
-                var treeHoverItem = _OperationArea.Hierarchy.TreeView.HoverItem;
+                var treeHoverItem = OperationArea.Hierarchy.TreeView.HoverItem;
                 if (treeHoverItem != null && EUM_Helper.Instance.Widgets.ContainsKey(treeHoverItem.id))
                 {
                     widget = EUM_Helper.Instance.Widgets[treeHoverItem.id];
@@ -366,7 +366,7 @@ namespace EditorUIMaker
             var delta = Event.current.mousePosition.x;
             if (delta < s_MinOperationWidth)
                 return;
-            _RatioOperationArea = delta / position.width;
+            RatioOperationArea = delta / position.width;
         }
 
         void RefreshInspectorSplitPosition()
@@ -376,7 +376,7 @@ namespace EditorUIMaker
             var delta = position.width - Event.current.mousePosition.x;
             if (delta < s_MinInspectorWidth)
                 return;
-            _RatioInspector = delta / position.width;
+            RatioInspector = delta / position.width;
         }
 
         void ProcessScrollWheel()
@@ -404,11 +404,11 @@ namespace EditorUIMaker
         {
             if (Event.current.isMouse)
             {
-                if (_CheckCanvasDrag)
+                if (CheckCanvasDrag)
                 {
                     if (Event.current.rawType == EventType.MouseUp)
                     {
-                        _CheckCanvasDrag = false;
+                        CheckCanvasDrag = false;
                         Event.current.Use();
                     }
                     else
@@ -434,7 +434,7 @@ namespace EditorUIMaker
                         {
                             EUM_Helper.Instance.StartDragCanvasPosition.x = Event.current.mousePosition.x;
                             EUM_Helper.Instance.StartDragCanvasPosition.y = Event.current.mousePosition.y;
-                            _CheckCanvasDrag = true;
+                            CheckCanvasDrag = true;
                             Event.current.Use();
                         }
                     }

@@ -9,14 +9,14 @@ namespace EditorUIMaker
 {
     public class EUM_Hierarchy : I_EUM_Drawable
     {
-        public EUM_Title _Title;
+        public EUM_Title Title;
         public HierarchyTreeView TreeView;
 
         private bool _Inited;
 
         public EUM_Hierarchy()
         {
-            _Title = new EUM_Title(new GUIContent("Hierarchy"));
+            Title = new EUM_Title(new GUIContent("Hierarchy"));
             EUM_Helper.Instance.OnAddItemToWindow += OnAddItemToContainer;
             EUM_Helper.Instance.OnSelectWidgetChange += OnSelectWidgetChanged;
             EUM_Helper.Instance.OnRemoveItemFromWindow += OnRemoveItemFromWindow;
@@ -43,7 +43,7 @@ namespace EditorUIMaker
         
         public void Draw(ref Rect rect)
         {
-            _Title.Draw(ref rect);
+            Title.Draw(ref rect);
             GUILayout.BeginArea(rect);
             GUILayout.BeginVertical();
             

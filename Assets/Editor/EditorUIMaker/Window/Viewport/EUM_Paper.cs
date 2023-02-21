@@ -5,18 +5,18 @@ namespace EditorUIMaker
 {
     public class EUM_Paper : I_EUM_Drawable
     {
-        public EUM_VitualWindow _VitualWindow;
+        public EUM_VitualWindow VitualWindow;
 
         public EUM_Paper()
         {
-            _VitualWindow = new EUM_VitualWindow();
+            VitualWindow = new EUM_VitualWindow();
         }
         
         public void Draw(ref Rect rect)
         {
             GUILib.Rect(rect, Color.black, 0.8f);
             
-            _VitualWindow.Draw(ref rect);
+            VitualWindow.Draw(ref rect);
         }
     }
 }

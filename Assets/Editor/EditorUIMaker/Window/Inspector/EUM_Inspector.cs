@@ -9,20 +9,20 @@ namespace EditorUIMaker
 {
     public class EUM_Inspector : I_EUM_Drawable
     {
-        public EUM_Title _Title;
-        public Vector2 _ScrollPosition;
+        public EUM_Title Title;
+        public Vector2 ScrollPosition;
         public const float s_PropertyNameWidth = 130;
         
         public EUM_Inspector()
         {
-            _Title = new EUM_Title(new GUIContent("Inspector"));
+            Title = new EUM_Title(new GUIContent("Inspector"));
         }
         
         public void Draw(ref Rect rect)
         {
             GUILib.Rect(rect,GUILib.s_DefaultColor , 1f);
             
-            _Title.Draw(ref rect);
+            Title.Draw(ref rect);
             
             DrawProperty(rect);
         }
@@ -33,7 +33,7 @@ namespace EditorUIMaker
                 return;
             
             GUILayout.BeginArea(rect);
-            _ScrollPosition = GUILayout.BeginScrollView(_ScrollPosition);
+            ScrollPosition = GUILayout.BeginScrollView(ScrollPosition);
             var info = EUM_Helper.Instance.SelectWidget.Info;
             var type = info.GetType();
             FieldInfo[] allFieldInfo = type.GetFields( BindingFlags.Instance | BindingFlags.Public);

@@ -12,17 +12,17 @@ namespace EditorUIMaker.Utility
     {
         public const string k_GenericDragID = "GenericDragColumnDragging";
         
-        public SearchField m_SearchField;
-        public List<TreeViewItem> elements = new List<TreeViewItem>();
-        public GUIContent m_Content;
-        public float _MinHeight;
-        public bool _Dragging = false;
+        public SearchField SearchField;
+        public List<TreeViewItem> Elements = new List<TreeViewItem>();
+        public GUIContent Content;
+        public float MinHeight;
+        public bool Dragging = false;
 
         public TreeViewItem HoverItem
         {
             get
             {
-                if (_Dragging)
+                if (Dragging)
                     return null;
                 var windowID = EUM_Helper.Instance.Window.ID;
                 if (hoveredItem != null)
@@ -96,18 +96,18 @@ namespace EditorUIMaker.Utility
         private HierarchyTreeView(GUIContent content, TreeViewState treeViewState, float minHeight)
             : base(treeViewState)
         {
-            _MinHeight = minHeight;
-            m_Content = content;
+            MinHeight = minHeight;
+            Content = content;
             enableItemHovering = true;
             Reload();
         }
 
         public void SetData(List<TreeViewItem> nodes)
         {
-            elements.Clear();
+            Elements.Clear();
             foreach (var node in nodes)
             {
-                elements.Add(node);
+                Elements.Add(node);
             }
 
             Reload();
@@ -116,8 +116,8 @@ namespace EditorUIMaker.Utility
         public static HierarchyTreeView Create(GUIContent content, float minHeight = 0)
         {
             var tree = new HierarchyTreeView(content, new TreeViewState(), minHeight);
-            tree.m_SearchField = new SearchField();
-            tree.m_SearchField.downOrUpArrowKeyPressed += tree.SetFocusAndEnsureSelectedItem;
+            tree.SearchField = new SearchField();
+            tree.SearchField.downOrUpArrowKeyPressed += tree.SetFocusAndEnsureSelectedItem;
             return tree;
         }
 
@@ -130,15 +130,15 @@ namespace EditorUIMaker.Utility
         void DoToolbar()
         {
             GUILayout.BeginHorizontal(EditorStyles.toolbar);
-            GUILayout.Label(m_Content);
+            GUILayout.Label(Content);
             GUILayout.FlexibleSpace();
-            searchString = m_SearchField.OnToolbarGUI(searchString);
+            searchString = SearchField.OnToolbarGUI(searchString);
             GUILayout.EndHorizontal();
         }
 
         void DoTreeView()
         {
-            Rect rect = GUILayoutUtility.GetRect(0, 100000, _MinHeight, 100000);
+            Rect rect = GUILayoutUtility.GetRect(0, 100000, MinHeight, 100000);
             OnGUI(rect);
         }
 
@@ -146,7 +146,7 @@ namespace EditorUIMaker.Utility
         {
             var root = new TreeViewItem {id = 0, depth = -1, displayName = "Root"};
 
-            SetupParentsAndChildrenFromDepths(root, elements);
+            SetupParentsAndChildrenFromDepths(root, Elements);
 
             return root;
         }
@@ -204,7 +204,7 @@ namespace EditorUIMaker.Utility
             DragAndDrop.objectReferences = new UnityEngine.Object[] { }; // this IS required for dragging to work
             string title = draggedRows.Count == 1 ? draggedRows[0].displayName : "< Multiple >";
             DragAndDrop.StartDrag(title);
-            _Dragging = true;
+            Dragging = true;
         }
 
         protected override DragAndDropVisualMode HandleDragAndDrop(DragAndDropArgs args)
@@ -225,7 +225,7 @@ namespace EditorUIMaker.Utility
                     {
                         OnDropDraggedElementsAtIndex(draggedRows, args.parentItem,
                             args.insertAtIndex == -1 ? 0 : args.insertAtIndex);
-                        _Dragging = false;
+                        Dragging = false;
                     }
 
                     return validDrag ? DragAndDropVisualMode.Move : DragAndDropVisualMode.None;
@@ -235,7 +235,7 @@ namespace EditorUIMaker.Utility
                 {
                     if (args.performDrop)
                     {
-                        _Dragging = false;
+                        Dragging = false;
                     }
 
                     return DragAndDropVisualMode.Move;

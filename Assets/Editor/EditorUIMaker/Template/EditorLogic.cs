@@ -2,7 +2,7 @@ using System;
 
 namespace EditorUIMaker.Template
 {
-    public class EditorLogic
+    public partial class EditorLogic
     {
         public bool Toggle1;
         public int IntSlider1;
