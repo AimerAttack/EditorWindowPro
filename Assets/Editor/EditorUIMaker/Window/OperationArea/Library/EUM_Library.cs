@@ -107,7 +107,8 @@ namespace EditorUIMaker
                         if (lastRect.Contains(Event.current.mousePosition))
                         {
                             DragAndDrop.PrepareStartDrag();
-                            DragAndDrop.StartDrag("Create a new control");
+                            DragAndDrop.SetGenericData("dragflag", "");
+                            DragAndDrop.StartDrag("");
                             Event.current.Use();
 
                             EUM_Helper.Instance.DraggingWidget = control.Clone();
