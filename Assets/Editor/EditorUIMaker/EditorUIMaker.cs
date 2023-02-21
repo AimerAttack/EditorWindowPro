@@ -70,6 +70,7 @@ namespace EditorUIMaker
         public void OnAfterAssemblyReload()
         {
             EUM_Helper.Instance = _Helper;
+            EUM_Helper.Instance.OnAfterReloadDomain?.Invoke();
         }
         
         void OnItemIndexChange()
@@ -346,16 +347,17 @@ namespace EditorUIMaker
             }
             else
             {
-                // var treeHoverItem = _OperationArea.Hierarchy.TreeView.HoverItem;
-                // if (treeHoverItem != null && EUM_Helper.Instance.Widgets.ContainsKey(treeHoverItem.id))
-                // {
-                //     widget = EUM_Helper.Instance.Widgets[treeHoverItem.id];
-                //     GUILib.Frame(widget.Rect, Color.blue, EUM_Helper.Instance.ViewportRect,1.5f);
-                // }
+                var treeHoverItem = _OperationArea.Hierarchy.TreeView.HoverItem;
+                if (treeHoverItem != null && EUM_Helper.Instance.Widgets.ContainsKey(treeHoverItem.id))
+                {
+                    widget = EUM_Helper.Instance.Widgets[treeHoverItem.id];
+                    GUILib.Frame(widget.Rect, Color.blue, EUM_Helper.Instance.ViewportRect,1.5f);
+                }
 
                 EUM_Helper.Instance.HoverWidget = null;
             }
         }
+        
         
         void RefreshOperationSplitPosition()
         {

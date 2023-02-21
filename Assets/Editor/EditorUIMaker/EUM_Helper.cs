@@ -24,6 +24,7 @@ namespace EditorUIMaker
         public Action OnItemIndexChange;
         public Action OnSelectWidgetChange;
         public Action<EUM_BaseWidget> OnItemRename;
+        public Action OnAfterReloadDomain;
         public List<Rect> MouseRects = new List<Rect>(10);
         public EUM_Window Window;
         public int ZoomIndex;

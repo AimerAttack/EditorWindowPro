@@ -110,7 +110,7 @@ namespace EditorUIMaker.Utility
                 elements.Add(node);
             }
 
-            // Reload();
+            Reload();
         }
 
         public static HierarchyTreeView Create(GUIContent content, float minHeight = 0)

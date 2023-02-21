@@ -12,6 +12,8 @@ namespace EditorUIMaker
         public EUM_Title _Title;
         public HierarchyTreeView TreeView;
 
+        private bool _Inited;
+
         public EUM_Hierarchy()
         {
             _Title = new EUM_Title(new GUIContent("Hierarchy"));
@@ -23,22 +25,31 @@ namespace EditorUIMaker
 
         void OnItemRename(EUM_BaseWidget widget)
         {
-            // TreeView.SetName(widget.ID,widget.Info.DisplayName);
+            TreeView.SetName(widget.ID,widget.Info.DisplayName);
         }
 
+        void InitIfNeed()
+        {
+            if(_Inited)
+                return;
+            _Inited = true;
+            
+            TreeView = HierarchyTreeView.Create(new GUIContent("Controls"), 70);
+            TreeView.OnDragItemToContainer += OnDragItemToContainer;
+            RefreshTreeView();
+            OnSelectWidgetChanged();
+        }
+        
+        
         public void Draw(ref Rect rect)
         {
             _Title.Draw(ref rect);
             GUILayout.BeginArea(rect);
             GUILayout.BeginVertical();
-            if (TreeView == null)
-            {
-                TreeView = HierarchyTreeView.Create(new GUIContent("Controls"), 70);
-                TreeView.OnDragItemToContainer += OnDragItemToContainer;
-                TreeView.SetData(new List<TreeViewItem>());
-            }
+            
+            InitIfNeed();
 
-            // TreeView.Draw();
+            TreeView.Draw();
             GUILayout.EndVertical();
             GUILayout.EndArea();
         }
@@ -84,7 +95,6 @@ namespace EditorUIMaker
         private void OnSelectWidgetChanged()
         {
             EUM_Helper.Instance.ClearFocus();
-            return;
             
             var selectWidget = EUM_Helper.Instance.SelectWidget;
             if (selectWidget == null)
