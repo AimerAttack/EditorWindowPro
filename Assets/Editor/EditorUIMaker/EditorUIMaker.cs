@@ -67,7 +67,6 @@ namespace EditorUIMaker
         public float RatioOperationArea = 0.1f;
         public bool ResizeInspector = false;
         public bool ResizeOperationArea = false;
-        public bool CheckCanvasDrag = false;
 
         public Rect _InspectorRect;
         public EUM_Helper _Helper;
@@ -77,14 +76,17 @@ namespace EditorUIMaker
             _Helper = new EUM_Helper();
             EUM_Helper.Instance = _Helper;
 
-            OperationArea = new EUM_OperationArea();
+
             Viewport = new EUM_Viewport();
+            OperationArea = new EUM_OperationArea();
             Inspector = new EUM_Inspector();
             Input = new EUM_Inputer();
 
             EUM_Helper.Instance.OnRemoveItemFromWindow += OnRemoveItemFromWindow;
             EUM_Helper.Instance.OnAddItemToWindow += OnAddItemToWindow;
             EUM_Helper.Instance.OnItemIndexChange += OnItemIndexChange;
+            
+            EUM_Helper.Instance.ClearData();
         }
 
         void OnEnable()
@@ -126,8 +128,6 @@ namespace EditorUIMaker
 
         protected override void OnGUI()
         {
-            if (EUM_Helper.Instance == null)
-                Debug.Log("Instance is null");
             EUM_Helper.Instance.MouseRects.Clear();
 
             ProcessMouseMove();
@@ -439,11 +439,11 @@ namespace EditorUIMaker
         {
             if (Event.current.isMouse)
             {
-                if (CheckCanvasDrag)
+                if (EUM_Helper.Instance.CheckCanvasDrag)
                 {
                     if (Event.current.rawType == EventType.MouseUp)
                     {
-                        CheckCanvasDrag = false;
+                        EUM_Helper.Instance.CheckCanvasDrag = false;
                         Event.current.Use();
                     }
                     else
@@ -469,7 +469,7 @@ namespace EditorUIMaker
                         {
                             EUM_Helper.Instance.StartDragCanvasPosition.x = Event.current.mousePosition.x;
                             EUM_Helper.Instance.StartDragCanvasPosition.y = Event.current.mousePosition.y;
-                            CheckCanvasDrag = true;
+                            EUM_Helper.Instance.CheckCanvasDrag = true;
                             Event.current.Use();
                         }
                     }

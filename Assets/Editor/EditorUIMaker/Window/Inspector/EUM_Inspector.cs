@@ -12,40 +12,68 @@ namespace EditorUIMaker
         public EUM_Title Title;
         public Vector2 ScrollPosition;
         public const float s_PropertyNameWidth = 130;
-        
+
         public EUM_Inspector()
         {
             Title = new EUM_Title(new GUIContent("Inspector"));
         }
-        
+
         public void Draw(ref Rect rect)
         {
-            GUILib.Rect(rect,GUILib.s_DefaultColor , 1f);
-            
+            GUILib.Rect(rect, GUILib.s_DefaultColor, 1f);
+
             Title.Draw(ref rect);
-            
+
             DrawProperty(rect);
         }
 
         void DrawProperty(Rect rect)
         {
-            if(EUM_Helper.Instance.SelectWidget == null)
+            if (EUM_Helper.Instance.SelectWidget == null)
                 return;
-            
+
             GUILayout.BeginArea(rect);
             ScrollPosition = GUILayout.BeginScrollView(ScrollPosition);
             var info = EUM_Helper.Instance.SelectWidget.Info;
             var type = info.GetType();
-            FieldInfo[] allFieldInfo = type.GetFields( BindingFlags.Instance | BindingFlags.Public);
+
+            var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            Array.Sort(properties, (left, right) =>
+            {
+                var leftFromBase = left.DeclaringType == typeof(EUM_BaseInfo);
+                var rightFromBase = right.DeclaringType == typeof(EUM_BaseInfo);
+                if (leftFromBase && rightFromBase)
+                    return 0;
+                else if (leftFromBase)
+                    return -1;
+                else if (rightFromBase)
+                    return 1;
+                else
+                    return 0;
+            });
+
+            for (int index = 0; index < properties.Length; index++)
+            {
+                var fieldInfo = properties[index];
+                var fieldType = fieldInfo.GetType();
+                var value = fieldInfo.GetValue(info);
+                GUILayout.BeginHorizontal();
+                GUILayout.Label(fieldInfo.Name);
+                GUILayout.Label(value.ToString(),GUILayout.ExpandWidth(true)); 
+                GUILayout.EndHorizontal();
+            }
+
+
+            FieldInfo[] allFieldInfo = type.GetFields(BindingFlags.Instance | BindingFlags.Public);
             Array.Sort(allFieldInfo, (left, right) =>
             {
                 var leftFromBase = left.DeclaringType == typeof(EUM_BaseInfo);
                 var rightFromBase = right.DeclaringType == typeof(EUM_BaseInfo);
-                if(leftFromBase && rightFromBase)
+                if (leftFromBase && rightFromBase)
                     return 0;
-                else if(leftFromBase)
+                else if (leftFromBase)
                     return -1;
-                else if(rightFromBase)
+                else if (rightFromBase)
                     return 1;
                 else
                     return 0;
@@ -60,19 +88,19 @@ namespace EditorUIMaker
                     var value = fieldInfo.GetValue(info) as string;
                     GUILayout.BeginHorizontal();
                     GUILayout.Label(fieldInfo.Name);
-                    var newValue = GUILayout.TextField(value,GUILayout.ExpandWidth(true));
+                    var newValue = GUILayout.TextField(value, GUILayout.ExpandWidth(true));
                     GUILayout.EndHorizontal();
                     if (newValue != value)
                     {
                         fieldInfo.SetValue(info, newValue);
-                        if(fieldInfo.Name == "Name")
+                        if (fieldInfo.Name == "Name")
                             EUM_Helper.Instance.OnItemRename?.Invoke(EUM_Helper.Instance.SelectWidget);
                     }
                 }
                 else if (fieldType == typeof(int))
                 {
                     var value = (int) fieldInfo.GetValue(info);
-                    if(GUILib.IntField(ref value,new GUIContent(fieldInfo.Name),GUILayout.ExpandWidth(true)))
+                    if (GUILib.IntField(ref value, new GUIContent(fieldInfo.Name), GUILayout.ExpandWidth(true)))
                     {
                         fieldInfo.SetValue(info, value);
                     }
@@ -80,17 +108,18 @@ namespace EditorUIMaker
                 else if (fieldType == typeof(float))
                 {
                     var value = (float) fieldInfo.GetValue(info);
-                    if(GUILib.FloatField(ref value,new GUIContent(fieldInfo.Name),GUILayout.ExpandWidth(true)))
+                    if (GUILib.FloatField(ref value, new GUIContent(fieldInfo.Name), GUILayout.ExpandWidth(true)))
                     {
                         fieldInfo.SetValue(info, value);
-                    } 
+                    }
                 }
                 else if (fieldType.BaseType == typeof(Enum))
                 {
                     var currentValue = fieldInfo.GetValue(info);
                     var currentString = currentValue.ToString();
                     var values = Enum.GetValues(fieldType);
-                    var selectValue = EditorGUILayout.EnumPopup(fieldInfo.Name, (Enum)currentValue,GUILayout.ExpandWidth(true));
+                    var selectValue = EditorGUILayout.EnumPopup(fieldInfo.Name, (Enum) currentValue,
+                        GUILayout.ExpandWidth(true));
                     var selectString = selectValue.ToString();
                     if (!selectString.Equals(currentString))
                     {
@@ -100,6 +129,7 @@ namespace EditorUIMaker
                 }
                 //wtodo
             }
+
             GUILayout.EndScrollView();
             GUILayout.EndArea();
         }

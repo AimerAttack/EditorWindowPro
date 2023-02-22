@@ -26,6 +26,12 @@ namespace EditorUIMaker
             Window = new EUM_Window();
             EUM_Helper.Instance.Widgets.Add(Window.ID, Window);
             EUM_Helper.Instance.Window = Window;
+            EUM_Helper.Instance.OnClearData += ClearData;
+        }
+
+        void ClearData()
+        {
+            Window.Widgets.Clear();
         }
 
         public void Draw(ref Rect rect)

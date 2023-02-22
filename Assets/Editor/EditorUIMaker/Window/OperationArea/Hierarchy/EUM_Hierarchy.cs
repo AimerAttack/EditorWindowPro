@@ -21,6 +21,13 @@ namespace EditorUIMaker
             EUM_Helper.Instance.OnSelectWidgetChange += OnSelectWidgetChanged;
             EUM_Helper.Instance.OnRemoveItemFromWindow += OnRemoveItemFromWindow;
             EUM_Helper.Instance.OnItemRename += OnItemRename;
+            EUM_Helper.Instance.OnClearData += ClearData;
+        }
+
+        void ClearData()
+        {
+            _Inited = false;
+            InitIfNeed();
         }
 
         void OnItemRename(EUM_BaseWidget widget)

@@ -18,36 +18,42 @@ namespace EditorUIMaker
         public static float MinimumDragToSnapToMoveRotateScaleResize = 2;
 
         public string FilePath;
-        public EUM_BaseWidget ClipboardWidget;
         public string WindowName = "EditorUIMaker";
-        public bool Modified = false;
-        public int WidgetID = 1;
         public Action<EUM_BaseWidget> OnAddItemToWindow;
         public Action OnRemoveItemFromWindow;
         public Action OnItemIndexChange;
         public Action OnSelectWidgetChange;
         public Action<EUM_BaseWidget> OnItemRename;
+        public Action OnClearData;
         public Action OnAfterReloadDomain;
-        public List<Rect> MouseRects = new List<Rect>(10);
         public EUM_Window Window;
-        public int ZoomIndex;
         public Rect WindowRect;
         public Rect VitualWindowRect;
         public Rect ViewportRect;
+        public List<Rect> MouseRects = new List<Rect>(10);
+ 
+        #region need clear when data change
+        public int WidgetID = 1;
+        public bool Modified = false;
+        public bool CheckCanvasDrag = false;
+        public Vector2 StartDragCanvasPosition;
+        public bool Preview;
+        public int ZoomIndex;
+        public EUM_BaseWidget ClipboardWidget;
         public EUM_BaseWidget DraggingWidget;
         public EUM_BaseWidget SelectWidget;
         public EUM_Container DraggingOverContainer;
         public EUM_BaseWidget HoverWidget;
         public List<EUM_Container> Containers = new List<EUM_Container>();
         public Dictionary<int, EUM_BaseWidget> Widgets = new Dictionary<int, EUM_BaseWidget>();
-        public Vector2 StartDragCanvasPosition;
-        public bool Preview;
+        #endregion
+        
         public string WindowTitle = "WindowTitle";
         public float Alpha = 0;
 
         public float _FadeTime = 0.2f;
         public float _StartFadeTime;
-
+        
         public void LoadData(EUM_Object obj,string filePath)
         {
             if (Modified)
@@ -55,11 +61,33 @@ namespace EditorUIMaker
                 WarningModified();    
             }
 
-            Modified = false;
             var fileName = Path.GetFileNameWithoutExtension(filePath);
             WindowTitle = fileName;
-            WidgetID = 1;
+            ClearData();
             //wtodo
+        }
+
+        public void ClearData()
+        {
+            WidgetID = 100;
+            Modified = false;
+            CheckCanvasDrag = false;
+            StartDragCanvasPosition = Vector2.zero;
+            Preview = false;
+            ZoomIndex = EUM_Helper.DefaultZoomIndex();
+            ClipboardWidget = null;
+            DraggingWidget = null;
+            SelectWidget = null;
+            DraggingOverContainer = null;
+            HoverWidget = null;
+            
+            Containers.Clear();
+            Containers.Add(Window);
+            
+            Widgets.Clear();
+            Widgets.Add(Window.ID,Window);
+            
+            OnClearData?.Invoke();
         }
 
         public void WarningModified()

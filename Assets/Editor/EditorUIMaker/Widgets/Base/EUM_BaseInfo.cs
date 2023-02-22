@@ -5,6 +5,7 @@ namespace EditorUIMaker.Widgets
     {
         public string Name;
         private EUM_BaseWidget _Widget;
+        public int ID => _Widget.ID;
 
         public string DisplayName
         {
