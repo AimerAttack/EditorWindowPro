@@ -72,7 +72,8 @@ namespace EditorUIMaker
             if(string.IsNullOrEmpty(path))
                 return;
             var relativePath = Utility.Utility.GetRelativePathInProject(path);
-            Debug.Log(relativePath);
+            var data = AssetDatabase.LoadAssetAtPath<EUM_Object>(relativePath);
+            LoadData(data);
         }
 
         void NewFile()
@@ -81,6 +82,7 @@ namespace EditorUIMaker
             var data = ScriptableObject.CreateInstance<EUM_Object>();
             AssetDatabase.CreateAsset(data,path);
             AssetDatabase.SaveAssets();
+            LoadData(data);
         }
 
         void SaveFile()
@@ -89,18 +91,23 @@ namespace EditorUIMaker
             {
                 //新文件，需要选择保存路径
                 var path = EditorUtility.SaveFilePanelInProject("Save File", "NewFile", "asset", "Save File");
-                Debug.Log(path);
                 SaveToPath(path);
             }
             else
             {
                 //已有文件，直接保存
+                SaveToPath(EUM_Helper.Instance.FilePath);
             }
+        }
+
+        void LoadData(EUM_Object obj)
+        {
+            
         }
 
         void SaveToPath(string path)
         {
-            
+            EUM_Helper.Instance.FilePath = path;
         }
 }
 }
