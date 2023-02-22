@@ -12,6 +12,15 @@ namespace EditorUIMaker
 {
     public class EditorUIMaker : OdinEditorWindow
     {
+        private static EditorUIMaker _Instance;
+        public static bool IsOpen
+        {
+            get
+            {
+                return _Instance != null;
+            }
+        }
+        
         [MenuItem("Tools/EditorUIMaker")]
         static void OpenWindow()
         {
@@ -21,10 +30,12 @@ namespace EditorUIMaker
             window.Show();
             window.Focus();
         }
-
-        static void OpenWindowWithObject(EUM_Object obj)
+        
+        static void OpenWindowWithData(EUM_Object data,string filePath)
         {
-            OpenWindow();
+            if(!EditorUIMaker.IsOpen)
+                OpenWindow();
+            EUM_Helper.Instance.LoadData(data,filePath);
         }
 
         [OnOpenAsset()]
@@ -33,7 +44,8 @@ namespace EditorUIMaker
             var obj = EditorUtility.InstanceIDToObject(instanceID);
             if (obj is EUM_Object data)
             {
-                OpenWindowWithObject(data);
+                var filePath = AssetDatabase.GetAssetPath(instanceID);
+                OpenWindowWithData(data,filePath);
                 return true;
             }
 
@@ -77,6 +89,7 @@ namespace EditorUIMaker
 
         void OnEnable()
         {
+            _Instance = this;
             AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
         }
 
@@ -109,7 +122,6 @@ namespace EditorUIMaker
         void OnModified()
         {
             EUM_Helper.Instance.Modified = true;
-            titleContent = new GUIContent(EUM_Helper.Instance.WindowName + " *");
         }
 
         protected override void OnGUI()
@@ -469,10 +481,7 @@ namespace EditorUIMaker
         {
             if (!EUM_Helper.Instance.Modified)
                 return;
-            if (EditorUtility.DisplayDialog("提示", "当前UI编辑器有未保存的修改，是否保存？", "保存", "不保存"))
-            {
-                //wtodo
-            }
+            EUM_Helper.Instance.WarningModified();
         }
     }
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using EditorUIMaker.Widgets;
+using UnityEditor;
 using UnityEngine;
 
 namespace EditorUIMaker
@@ -46,6 +48,72 @@ namespace EditorUIMaker
         public float _FadeTime = 0.2f;
         public float _StartFadeTime;
 
+        public void LoadData(EUM_Object obj,string filePath)
+        {
+            if (Modified)
+            {
+                WarningModified();    
+            }
+
+            Modified = false;
+            var fileName = Path.GetFileNameWithoutExtension(filePath);
+            WindowTitle = fileName;
+            WidgetID = 1;
+            //wtodo
+        }
+
+        public void WarningModified()
+        {
+            if (EditorUtility.DisplayDialog("Warning", "File has been modified!", "Save", "Don't Save"))
+            {
+                SaveFile();
+            }
+        }
+
+        public void SaveFile()
+        {
+            // if(!Modified)
+                // return;
+            if (string.IsNullOrEmpty(FilePath))
+            {
+                //新文件，需要选择保存路径
+                var path = EditorUtility.SaveFilePanelInProject("Save File", "NewFile", "asset", "Save File");
+                SaveDataToPath(path);
+            }
+            else
+            {
+                //已有文件，直接保存
+                SaveDataToPath(FilePath);
+            }
+        }
+
+        void SaveDataToPath(string filePath)
+        {
+            var data = ScriptableObject.CreateInstance<EUM_Object>();
+            AssetDatabase.DeleteAsset(filePath);
+            AssetDatabase.CreateAsset(data,filePath);
+            AssetDatabase.SaveAssets();
+        }
+        
+        public void OpenFile()
+        {
+            var path = EditorUtility.OpenFilePanelWithFilters("Open File", "", new[] {"EUM_Object", "asset"});
+            if(string.IsNullOrEmpty(path))
+                return;
+            var filePath = Utility.Utility.GetRelativePathInProject(path);
+            var data = AssetDatabase.LoadAssetAtPath<EUM_Object>(filePath);
+            LoadData(data,filePath);
+        }
+        
+        public void NewFile()
+        {
+            var path = EditorUtility.SaveFilePanelInProject("Save File", "NewFile", "asset", "Save File");
+            var data = ScriptableObject.CreateInstance<EUM_Object>();
+            AssetDatabase.CreateAsset(data,path);
+            AssetDatabase.SaveAssets();
+            LoadData(data,path);
+        }
+        
         public void AddToContainer(EUM_BaseWidget widget, EUM_Container container)
         {
             if (container == null)
