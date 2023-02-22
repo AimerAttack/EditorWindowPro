@@ -26,23 +26,29 @@ namespace EditorUIMaker
             {
                 var optionsMenu = new GenericMenu();
                 optionsMenu.AddItem(new GUIContent("Open"), false, OpenFile);
-                optionsMenu.AddItem(new GUIContent("New"),false, NewFile);
+                optionsMenu.AddItem(new GUIContent("New"), false, NewFile);
                 var buttonRect = GUILayoutUtility.GetLastRect();
                 var dropdownRect = new Rect(buttonRect);
                 dropdownRect.y += s_Height;
                 optionsMenu.DropDown(dropdownRect);
             }
-            
+
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Zoom:", GUILayout.Width(40));
-            EUM_Helper.Instance.ZoomIndex = EditorGUILayout.Popup(EUM_Helper.Instance.ZoomIndex, EUM_Helper.GetZoomScalesText(), GUILayout.Width(60));
+            EUM_Helper.Instance.ZoomIndex = EditorGUILayout.Popup(EUM_Helper.Instance.ZoomIndex,
+                EUM_Helper.GetZoomScalesText(), GUILayout.Width(60));
             EditorGUILayout.EndHorizontal();
-            
-            if(GUILayout.Button("Fit Canvas", "ToolbarButton"))
+
+            if (GUILayout.Button("Fit Canvas", "ToolbarButton"))
             {
-                
+
             }
-            
+
+            if (GUILayout.Button("Save", "ToolbarButton"))
+            {
+                SaveFile();
+            }
+
             GUILayout.FlexibleSpace();
 
             if (GUILib.Toggle(ref EUM_Helper.Instance.Preview, new GUIContent("Preview"),
@@ -62,12 +68,39 @@ namespace EditorUIMaker
 
         void OpenFile()
         {
-            
+            var path = EditorUtility.OpenFilePanelWithFilters("Open File", "", new[] {"EUM_Object", "asset"});
+            if(string.IsNullOrEmpty(path))
+                return;
+            var relativePath = Utility.Utility.GetRelativePathInProject(path);
+            Debug.Log(relativePath);
         }
 
         void NewFile()
         {
+            var path = EditorUtility.SaveFilePanelInProject("Save File", "NewFile", "asset", "Save File");
+            var data = ScriptableObject.CreateInstance<EUM_Object>();
+            AssetDatabase.CreateAsset(data,path);
+            AssetDatabase.SaveAssets();
+        }
+
+        void SaveFile()
+        {
+            if (string.IsNullOrEmpty(EUM_Helper.Instance.FilePath))
+            {
+                //新文件，需要选择保存路径
+                var path = EditorUtility.SaveFilePanelInProject("Save File", "NewFile", "asset", "Save File");
+                Debug.Log(path);
+                SaveToPath(path);
+            }
+            else
+            {
+                //已有文件，直接保存
+            }
+        }
+
+        void SaveToPath(string path)
+        {
             
         }
-    }
+}
 }

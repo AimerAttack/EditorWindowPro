@@ -15,6 +15,7 @@ namespace EditorUIMaker
         public static float InitWindowHeight = 300;
         public static float MinimumDragToSnapToMoveRotateScaleResize = 2;
 
+        public string FilePath;
         public EUM_BaseWidget ClipboardWidget;
         public string WindowName = "EditorUIMaker";
         public bool Modified = false;
