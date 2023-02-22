@@ -5,6 +5,7 @@ using Amazing.Editor.Library;
 using EditorUIMaker.Widgets;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 namespace EditorUIMaker
@@ -21,6 +22,23 @@ namespace EditorUIMaker
             window.Focus();
         }
 
+        static void OpenWindowWithObject(EUM_Object obj)
+        {
+            OpenWindow();
+        }
+
+        [OnOpenAsset()]
+        public static bool OnOpenAsset(int instanceID, int line)
+        {
+            var obj = EditorUtility.InstanceIDToObject(instanceID);
+            if (obj is EUM_Object data)
+            {
+                OpenWindowWithObject(data);
+                return true;
+            }
+
+            return false;
+        }
 
 
         public const float s_SplitSize = 2f;
@@ -41,7 +59,7 @@ namespace EditorUIMaker
 
         public Rect _InspectorRect;
         public EUM_Helper _Helper;
- 
+
         void Init()
         {
             _Helper = new EUM_Helper();
@@ -61,18 +79,18 @@ namespace EditorUIMaker
         {
             AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
         }
-        
+
         void OnDisable()
         {
             AssemblyReloadEvents.afterAssemblyReload -= OnAfterAssemblyReload;
         }
-        
+
         public void OnAfterAssemblyReload()
         {
             EUM_Helper.Instance = _Helper;
             EUM_Helper.Instance.OnAfterReloadDomain?.Invoke();
         }
-        
+
         void OnItemIndexChange()
         {
             OnModified();
@@ -96,19 +114,19 @@ namespace EditorUIMaker
 
         protected override void OnGUI()
         {
-            if(EUM_Helper.Instance == null)
+            if (EUM_Helper.Instance == null)
                 Debug.Log("Instance is null");
             EUM_Helper.Instance.MouseRects.Clear();
-            
+
             ProcessMouseMove();
-            
+
             OperationArea.Library.HandleDrag();
 
             EUM_Helper.Instance.Fade();
 
             var inspectorWidth = position.width * RatioInspector;
             inspectorWidth = Mathf.Max(s_MinInspectorWidth, inspectorWidth);
-            var operationWidth = position.width * Mathf.Min(RatioOperationArea,0.5f);
+            var operationWidth = position.width * Mathf.Min(RatioOperationArea, 0.5f);
             operationWidth = Mathf.Max(s_MinOperationWidth, operationWidth);
             var viewportWidth = position.width - inspectorWidth - operationWidth;
             viewportWidth = Mathf.Max(s_MinViewportWidth, viewportWidth);
@@ -130,7 +148,7 @@ namespace EditorUIMaker
             var operationSplitCursorRect = GUILib.Padding(operationSplitRect, -2f, -2f);
             EditorGUIUtility.AddCursorRect(operationSplitCursorRect, MouseCursor.ResizeHorizontal);
             EUM_Helper.Instance.MouseRects.Add(operationSplitCursorRect);
-            
+
             var inspectorSplitRect = new Rect(viewportRect.x + viewportRect.width, 0, 2, position.height);
             GUILib.Rect(inspectorSplitRect, Color.black, 0.4f);
             var inspectorSplitCursorRect = GUILib.Padding(inspectorSplitRect, -2f, -2f);
@@ -149,21 +167,25 @@ namespace EditorUIMaker
                 DrawPreviewFrame();
             }
 
-            if (Event.current.type == EventType.MouseDown && inspectorSplitCursorRect.Contains(Event.current.mousePosition))
+            if (Event.current.type == EventType.MouseDown &&
+                inspectorSplitCursorRect.Contains(Event.current.mousePosition))
             {
                 ResizeInspector = true;
                 RefreshInspectorSplitPosition();
             }
+
             if (ResizeInspector)
             {
                 RefreshInspectorSplitPosition();
             }
 
-            if(Event.current.type == EventType.MouseDown && operationSplitCursorRect.Contains(Event.current.mousePosition))
+            if (Event.current.type == EventType.MouseDown &&
+                operationSplitCursorRect.Contains(Event.current.mousePosition))
             {
                 ResizeOperationArea = true;
                 RefreshOperationSplitPosition();
             }
+
             if (ResizeOperationArea)
             {
                 RefreshOperationSplitPosition();
@@ -176,6 +198,7 @@ namespace EditorUIMaker
                 if (ResizeOperationArea)
                     ResizeOperationArea = false;
             }
+
             Input.CheckInput();
 
             Repaint();
@@ -183,7 +206,7 @@ namespace EditorUIMaker
 
         void DrawPreviewFrame()
         {
-            GUILib.Frame(EUM_Helper.Instance.ViewportRect,new Color(255f/255,139f/255,40f/255),2);
+            GUILib.Frame(EUM_Helper.Instance.ViewportRect, new Color(255f / 255, 139f / 255, 40f / 255), 2);
         }
 
         void DrawDraging()
@@ -243,7 +266,7 @@ namespace EditorUIMaker
 
         void DrawDraggingOverRect(EUM_Container container)
         {
-            GUILib.Frame(container.Rect, Color.blue,EUM_Helper.Instance.ViewportRect);
+            GUILib.Frame(container.Rect, Color.blue, EUM_Helper.Instance.ViewportRect);
         }
 
         void CheckSelectRect()
@@ -251,18 +274,18 @@ namespace EditorUIMaker
             if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
             {
                 GUIUtility.keyboardControl = 0;
-               
+
                 //如果点击鼠标拖拽区域了，则不处理选中逻辑
                 foreach (var mouseRect in EUM_Helper.Instance.MouseRects)
                 {
-                    if(mouseRect.Contains(Event.current.mousePosition))
+                    if (mouseRect.Contains(Event.current.mousePosition))
                         return;
                 }
-                
+
                 var oldSelect = EUM_Helper.Instance.SelectWidget;
                 if (EUM_Helper.Instance.HoverWidget == null)
                 {
-                    EUM_Helper.Instance.SelectWidget = null;   
+                    EUM_Helper.Instance.SelectWidget = null;
                 }
                 else
                 {
@@ -272,7 +295,8 @@ namespace EditorUIMaker
                         EUM_Helper.Instance.SelectWidget = widget;
                     }
                 }
-                if(EUM_Helper.Instance.SelectWidget != oldSelect)
+
+                if (EUM_Helper.Instance.SelectWidget != oldSelect)
                     EUM_Helper.Instance.OnSelectWidgetChange?.Invoke();
             }
         }
@@ -282,7 +306,7 @@ namespace EditorUIMaker
             if (EUM_Helper.Instance.SelectWidget == null)
                 return;
             var widget = EUM_Helper.Instance.SelectWidget;
-            GUILib.Frame(widget.Rect, Color.green,EUM_Helper.Instance.ViewportRect);
+            GUILib.Frame(widget.Rect, Color.green, EUM_Helper.Instance.ViewportRect);
         }
 
         void DrawHoverRect()
@@ -335,12 +359,11 @@ namespace EditorUIMaker
 
             if (widget == null)
             {
-               
             }
 
             if (widget != null)
             {
-                GUILib.Frame(widget.Rect, Color.blue, EUM_Helper.Instance.ViewportRect,1.5f);
+                GUILib.Frame(widget.Rect, Color.blue, EUM_Helper.Instance.ViewportRect, 1.5f);
                 if (EUM_Helper.Instance.HoverWidget != widget)
                     EUM_Helper.Instance.ResetFade();
                 EUM_Helper.Instance.HoverWidget = widget;
@@ -351,14 +374,14 @@ namespace EditorUIMaker
                 if (treeHoverItem != null && EUM_Helper.Instance.Widgets.ContainsKey(treeHoverItem.id))
                 {
                     widget = EUM_Helper.Instance.Widgets[treeHoverItem.id];
-                    GUILib.Frame(widget.Rect, Color.blue, EUM_Helper.Instance.ViewportRect,1.5f);
+                    GUILib.Frame(widget.Rect, Color.blue, EUM_Helper.Instance.ViewportRect, 1.5f);
                 }
 
                 EUM_Helper.Instance.HoverWidget = null;
             }
         }
-        
-        
+
+
         void RefreshOperationSplitPosition()
         {
             if (position.width <= s_MinInspectorWidth + s_MinViewportWidth + s_MinOperationWidth)
