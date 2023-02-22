@@ -56,12 +56,18 @@ namespace EditorUIMaker
             {
                 if (ShowBuildIn)
                     ShowCustom = false;
+                else
+                    ShowBuildIn = true;
             }
 
             if (GUILib.Toggle(ref ShowCustom, new GUIContent("Custom"), new GUIStyle("Button")))
             {
                 if (ShowCustom)
                     ShowBuildIn = false;
+                else
+                {
+                    ShowCustom = true;
+                }
             }
 
             GUILayout.FlexibleSpace();
