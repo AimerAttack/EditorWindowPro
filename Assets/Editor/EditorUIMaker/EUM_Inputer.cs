@@ -6,6 +6,11 @@ namespace EditorUIMaker
     {
         public void CheckInput()
         {
+            if(Event.current.isKey && Event.current.keyCode == KeyCode.S && Event.current.type == EventType.KeyDown && Event.current.control)
+            {
+                EUM_Helper.Instance.SaveFile();
+            }
+            
             if(Event.current.isKey && Event.current.keyCode == KeyCode.Delete && Event.current.type == EventType.KeyDown)
             {
                 if (EUM_Helper.Instance.SelectWidget != null)

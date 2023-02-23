@@ -116,6 +116,8 @@ namespace EditorUIMaker
                 //已有文件，直接保存
                 SaveDataToPath(FilePath);
             }
+
+            Modified = false;
         }
 
         void SaveDataToPath(string filePath)
