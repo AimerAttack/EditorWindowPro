@@ -65,6 +65,8 @@ namespace EditorUIMaker
             WindowTitle = fileName;
             ClearData();
             //wtodo
+            FilePath = filePath;
+            
         }
 
         public void ClearData()
@@ -119,10 +121,14 @@ namespace EditorUIMaker
         void SaveDataToPath(string filePath)
         {
             var data = ScriptableObject.CreateInstance<EUM_Object>();
+            
             data.Stash = new EUM_Stash();
-            
-            data.Stash.Widgets.Add(new EUM_Button());
-            
+            var window = Window.Clone() as EUM_Window;
+
+            foreach (var widget in window.Widgets)
+            {
+                data.Stash.Widgets.Add(widget);
+            }
             
             AssetDatabase.DeleteAsset(filePath);
             AssetDatabase.CreateAsset(data,filePath);
