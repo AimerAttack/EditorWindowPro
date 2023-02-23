@@ -66,7 +66,17 @@ namespace EditorUIMaker
             ClearData();
             //wtodo
             FilePath = filePath;
-            
+
+            if (obj.Stash != null && obj.Stash.Widgets != null)
+            {
+                for (int i = 0; i < obj.Stash.Widgets.Count; i++)
+                {
+                    var widget = obj.Stash.Widgets[i];
+                    AddToContainer(widget.Clone(), Window);
+                }
+            }
+
+            Modified = false;
         }
 
         public void ClearData()
@@ -119,7 +129,7 @@ namespace EditorUIMaker
 
             Modified = false;
         }
-
+        
         void SaveDataToPath(string filePath)
         {
             var data = ScriptableObject.CreateInstance<EUM_Object>();
