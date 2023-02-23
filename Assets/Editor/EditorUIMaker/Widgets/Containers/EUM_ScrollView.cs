@@ -38,6 +38,11 @@ namespace EditorUIMaker
         {
             var widget = new EUM_ScrollView();
             Info.CopyTo(widget.Info);
+            
+            foreach (var w in Widgets)
+            {
+                widget.Widgets.Add(w.Clone());
+            }
             return widget;
         }
     }

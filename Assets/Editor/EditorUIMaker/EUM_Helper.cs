@@ -100,13 +100,14 @@ namespace EditorUIMaker
 
         public void SaveFile()
         {
-            // if(!Modified)
-                // return;
+            if(!Modified)
+                return;
             if (string.IsNullOrEmpty(FilePath))
             {
                 //新文件，需要选择保存路径
                 var path = EditorUtility.SaveFilePanelInProject("Save File", "NewFile", "asset", "Save File");
-                SaveDataToPath(path);
+                if(!string.IsNullOrEmpty(path))
+                    SaveDataToPath(path);
             }
             else
             {
@@ -118,6 +119,11 @@ namespace EditorUIMaker
         void SaveDataToPath(string filePath)
         {
             var data = ScriptableObject.CreateInstance<EUM_Object>();
+            data.Stash = new EUM_Stash();
+            
+            data.Stash.Widgets.Add(new EUM_Button());
+            
+            
             AssetDatabase.DeleteAsset(filePath);
             AssetDatabase.CreateAsset(data,filePath);
             AssetDatabase.SaveAssets();

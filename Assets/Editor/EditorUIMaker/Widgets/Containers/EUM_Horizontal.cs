@@ -31,6 +31,12 @@ namespace EditorUIMaker
         {
             var widget = new EUM_Horizontal();
             Info.CopyTo(widget.Info);
+            
+            foreach (var w in Widgets)
+            {
+                widget.Widgets.Add(w.Clone());
+            }
+            
             return widget;
         }
     }
