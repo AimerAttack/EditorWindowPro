@@ -21,7 +21,7 @@ namespace EditorUIMaker
                         widget.Parent.Widgets.Remove(widget);
 
                         EUM_Helper.Instance.SelectWidget = null;
-                        EUM_Helper.Instance.OnRemoveItemFromWindow?.Invoke();
+                        EUM_Helper.Instance.OnRemoveItemFromWindow?.Invoke(widget);
                         EUM_Helper.Instance.OnSelectWidgetChange?.Invoke();
                     }
                 }

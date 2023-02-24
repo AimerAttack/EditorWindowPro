@@ -61,8 +61,27 @@ namespace EditorUIMaker
             GUILayout.EndArea();
         }
 
-        void OnRemoveItemFromWindow()
+        void OnRemoveItemFromWindow(EUM_BaseWidget widget)
         {
+            var queue = new Queue<EUM_BaseWidget>();
+            queue.Enqueue(widget);
+
+            while (queue.Count > 0)
+            {
+                var item = queue.Dequeue();
+                if (item is EUM_Container container)
+                {
+                    foreach (var child in container.Widgets)
+                    {
+                        queue.Enqueue(child);
+                    }
+
+                    EUM_Helper.Instance.Containers.Remove(container);
+                }
+
+                EUM_Helper.Instance.Widgets.Remove(item.ID);
+            }
+            
             RefreshTreeView();
         }
         

@@ -20,7 +20,7 @@ namespace EditorUIMaker
         public string FilePath;
         public string WindowName = "EditorUIMaker";
         public Action<EUM_BaseWidget> OnAddItemToWindow;
-        public Action OnRemoveItemFromWindow;
+        public Action<EUM_BaseWidget> OnRemoveItemFromWindow;
         public Action OnItemIndexChange;
         public Action OnSelectWidgetChange;
         public Action<EUM_BaseWidget> OnItemRename;

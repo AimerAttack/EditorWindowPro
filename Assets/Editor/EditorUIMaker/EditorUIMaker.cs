@@ -116,7 +116,7 @@ namespace EditorUIMaker
             OnModified();
         }
 
-        void OnRemoveItemFromWindow()
+        void OnRemoveItemFromWindow(EUM_BaseWidget widget)
         {
             OnModified();
         }
