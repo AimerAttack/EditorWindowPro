@@ -46,6 +46,8 @@ namespace EditorUIMaker
         public EUM_BaseWidget HoverWidget;
         public List<EUM_Container> Containers = new List<EUM_Container>();
         public Dictionary<int, EUM_BaseWidget> Widgets = new Dictionary<int, EUM_BaseWidget>();
+        public string NameSpace;
+        public string ClassName;
         #endregion
         
         public string WindowTitle = "WindowTitle";
@@ -115,6 +117,9 @@ namespace EditorUIMaker
             
             Widgets.Clear();
             Widgets.Add(Window.ID,Window);
+
+            NameSpace = string.Empty;
+            ClassName = string.Empty;
             
             OnClearData?.Invoke();
         }
@@ -150,6 +155,9 @@ namespace EditorUIMaker
         void SaveDataToPath(string filePath)
         {
             var data = ScriptableObject.CreateInstance<EUM_Object>();
+
+            data.NameSpace = NameSpace;
+            data.ClassName = ClassName;
             
             data.Stash = new EUM_Stash();
             var window = Window.Clone() as EUM_Window;
@@ -158,7 +166,7 @@ namespace EditorUIMaker
             {
                 data.Stash.Widgets.Add(widget);
             }
-            
+
             AssetDatabase.DeleteAsset(filePath);
             AssetDatabase.CreateAsset(data,filePath);
             AssetDatabase.SaveAssets();
