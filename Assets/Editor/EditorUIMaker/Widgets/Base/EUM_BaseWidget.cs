@@ -63,6 +63,7 @@ namespace EditorUIMaker.Widgets
         public abstract void DrawDraging(Vector2 position);
         
         public abstract EUM_BaseWidget Clone();
+        public abstract EUM_BaseWidget SingleClone();
 
         public void OnAddToContainer(EUM_Container container)
         {

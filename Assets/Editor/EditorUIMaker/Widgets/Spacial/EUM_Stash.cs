@@ -27,5 +27,6 @@ namespace EditorUIMaker
             Info.CopyTo(widget.Info);
             return widget;
         }
+
     }
 }

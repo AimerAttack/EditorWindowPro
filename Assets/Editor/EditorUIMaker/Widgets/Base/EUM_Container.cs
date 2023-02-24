@@ -33,5 +33,11 @@ namespace EditorUIMaker
                 GUI.enabled = true;
             }
         }
+        
+        
+        public override EUM_BaseWidget SingleClone()
+        {
+            return Clone();
+        }
     }
 }

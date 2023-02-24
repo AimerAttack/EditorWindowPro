@@ -64,19 +64,36 @@ namespace EditorUIMaker
             var fileName = Path.GetFileNameWithoutExtension(filePath);
             WindowTitle = fileName;
             ClearData();
-            //wtodo
+            
             FilePath = filePath;
 
             if (obj.Stash != null && obj.Stash.Widgets != null)
             {
                 for (int i = 0; i < obj.Stash.Widgets.Count; i++)
                 {
-                    var widget = obj.Stash.Widgets[i];
-                    AddToContainer(widget.Clone(), Window);
+                    var dataWidget = obj.Stash.Widgets[i];
+                    var widget = dataWidget.SingleClone();
+                    AddToContainer(widget, Window);
+                    AddChildrenToWindow(dataWidget,widget);
                 }
             }
 
             Modified = false;
+        }
+
+        void AddChildrenToWindow(EUM_BaseWidget dataWidget,EUM_BaseWidget widget)
+        {
+            if(dataWidget is EUM_Container dataContainer)
+            {
+                var container = widget as EUM_Container;
+                for (int i = 0; i < dataContainer.Widgets.Count; i++)
+                {
+                    var dataChild = dataContainer.Widgets[i];
+                    var child = dataChild.SingleClone();
+                    AddToContainer(child,container);
+                    AddChildrenToWindow(dataChild,child);
+                }
+            }
         }
 
         public void ClearData()

@@ -45,5 +45,12 @@ namespace EditorUIMaker
             }
             return widget;
         }
+
+        public override EUM_BaseWidget SingleClone()
+        {
+            var widget = new EUM_ScrollView();
+            Info.CopyTo(widget.Info);
+            return widget;
+        }
     }
 }

@@ -37,5 +37,12 @@ namespace EditorUIMaker
             }
             return widget;
         }
+
+        public override EUM_BaseWidget SingleClone()
+        {
+            var widget = new EUM_Vertical();
+            Info.CopyTo(widget.Info);
+            return widget;
+        }
     }
 }
