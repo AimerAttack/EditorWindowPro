@@ -92,6 +92,7 @@ namespace EditorUIMaker
                     GUILayout.EndHorizontal();
                     if (newValue != value)
                     {
+                        EUM_Helper.Instance.Modified = true;
                         fieldInfo.SetValue(info, newValue);
                         if (fieldInfo.Name == "Name")
                             EUM_Helper.Instance.OnItemRename?.Invoke(EUM_Helper.Instance.SelectWidget);
@@ -102,6 +103,7 @@ namespace EditorUIMaker
                     var value = (int) fieldInfo.GetValue(info);
                     if (GUILib.IntField(ref value, new GUIContent(fieldInfo.Name), GUILayout.ExpandWidth(true)))
                     {
+                        EUM_Helper.Instance.Modified = true;
                         fieldInfo.SetValue(info, value);
                     }
                 }
@@ -110,6 +112,7 @@ namespace EditorUIMaker
                     var value = (float) fieldInfo.GetValue(info);
                     if (GUILib.FloatField(ref value, new GUIContent(fieldInfo.Name), GUILayout.ExpandWidth(true)))
                     {
+                        EUM_Helper.Instance.Modified = true;
                         fieldInfo.SetValue(info, value);
                     }
                 }
@@ -123,11 +126,20 @@ namespace EditorUIMaker
                     var selectString = selectValue.ToString();
                     if (!selectString.Equals(currentString))
                     {
+                        EUM_Helper.Instance.Modified = true;
                         var obj = Enum.Parse(fieldType, selectString);
                         fieldInfo.SetValue(info, obj);
                     }
                 }
-                //wtodo
+                else if (fieldType.BaseType == typeof(bool))
+                {
+                    var value = (bool) fieldInfo.GetValue(info);
+                    if(GUILib.Toggle(ref value,new GUIContent(fieldInfo.Name), null,GUILayout.ExpandWidth(true)))
+                    {
+                        EUM_Helper.Instance.Modified = true;
+                        fieldInfo.SetValue(info, value);
+                    }
+                }
             }
 
             GUILayout.EndScrollView();
