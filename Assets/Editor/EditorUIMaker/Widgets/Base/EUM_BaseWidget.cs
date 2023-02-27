@@ -10,7 +10,6 @@ namespace EditorUIMaker.Widgets
         public Rect AbsoluteRect;
         public EUM_Container Parent;
         public abstract string TypeName { get; }
-        private string _Name;
 
         public EUM_BaseInfo Info;
         protected abstract EUM_BaseInfo CreateInfo();
@@ -20,19 +19,19 @@ namespace EditorUIMaker.Widgets
         {
             get
             {
-                return _Name;
+                return Info.Name;
             }
             set
             {
-                _Name = value;
+                Info.Name = value;
             }
         }
 
         public EUM_BaseWidget()
         {
-            _Name = TypeName;
             ID = EUM_Helper.Instance.WidgetID++;
             Info = CreateInfo();
+            Info.Name = TypeName;
         }
 
         protected abstract void OnDrawLayout();
@@ -46,6 +45,11 @@ namespace EditorUIMaker.Widgets
                 Rect = AbsoluteRect;
                 FixAbsoluteRect();
             }
+        }
+
+        public virtual string LogicCode()
+        {
+            return string.Empty;
         }
 
         protected virtual void FixAbsoluteRect()

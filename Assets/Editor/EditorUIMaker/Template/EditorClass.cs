@@ -2,7 +2,7 @@ using Amazing.Editor.Library;
 using UnityEditor;
 using UnityEngine;
 
-namespace EditorUIMaker.Template
+namespace EditorUIMaker.Template1
 {
     public class EditorClass : EditorWindow
     {

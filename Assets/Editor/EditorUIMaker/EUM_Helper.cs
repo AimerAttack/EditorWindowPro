@@ -48,6 +48,7 @@ namespace EditorUIMaker
         public Dictionary<int, EUM_BaseWidget> Widgets = new Dictionary<int, EUM_BaseWidget>();
         public string NameSpace;
         public string ClassName;
+        public Dictionary<Type,int> WidgetCount = new Dictionary<Type, int>();
         #endregion
         
         public string WindowTitle = "WindowTitle";
@@ -199,6 +200,15 @@ namespace EditorUIMaker
                 return;
             container.Widgets.Add(widget);
             widget.OnAddToContainer(container);
+
+            var type = widget.GetType();
+            if (!WidgetCount.ContainsKey(type))
+            {
+                WidgetCount.Add(type, 0);
+            }
+            WidgetCount[type]++;
+            widget.Name = widget.TypeName + WidgetCount[type];
+            
             OnAddItemToWindow?.Invoke(widget);
         }
 

@@ -1,4 +1,6 @@
 using Amazing.Editor.Library;
+using Scriban;
+using Scriban.Runtime;
 using UnityEngine;
 
 namespace EditorUIMaker.Widgets
@@ -47,6 +49,28 @@ namespace EditorUIMaker.Widgets
             var widget = new EUM_Button();
             Info.CopyTo(widget.Info);
             return widget;
+        }
+
+        public override string Code()
+        {
+            var code =
+                @"if(GUILayout.Button(""{{name}}""))
+{
+    _Logic.OnClick{{name}}();
+}
+";
+            
+            var sObj = new ScriptObject();
+            sObj.Add("name", Name);
+
+            var context = new TemplateContext();
+            context.AutoIndent = true;
+            context.PushGlobal(sObj);
+
+            var template = Template.Parse(code);
+            var result = template.Render(context);
+            
+            return result;
         }
     }
 }

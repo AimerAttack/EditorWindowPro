@@ -39,5 +39,15 @@ namespace EditorUIMaker
         {
             return Clone();
         }
+
+        public virtual string BeginCode()
+        {
+            return string.Empty;
+        }
+
+        public virtual string EndCode()
+        {
+            return string.Empty;
+        }
     }
 }

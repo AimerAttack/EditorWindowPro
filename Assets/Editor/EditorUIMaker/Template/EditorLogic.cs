@@ -1,6 +1,6 @@
 using System;
 
-namespace EditorUIMaker.Template
+namespace EditorUIMaker.Template1
 {
     public partial class EditorLogic
     {
