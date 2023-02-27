@@ -47,5 +47,15 @@ namespace EditorUIMaker
             
             return widget; 
         }
+
+        protected override string BeginCode()
+        {
+            return "GUILayout.BeginHorizontal();";
+        }
+        
+        protected override string EndCode()
+        {
+            return "GUILayout.EndHorizontal();";
+        }
     }
 }

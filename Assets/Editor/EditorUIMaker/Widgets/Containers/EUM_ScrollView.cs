@@ -52,5 +52,15 @@ namespace EditorUIMaker
             Info.CopyTo(widget.Info);
             return widget;
         }
+        
+        protected override string BeginCode()
+        {
+            return "GUILayout.BeginScrollView();";
+        }
+        
+        protected override string EndCode()
+        {
+            return "GUILayout.EndScrollView();";
+        }
     }
 }

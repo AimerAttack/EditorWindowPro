@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using EditorUIMaker.Widgets;
+using Scriban;
+using Scriban.Runtime;
 using UnityEngine;
 
 namespace EditorUIMaker
@@ -16,21 +18,9 @@ namespace EditorUIMaker
 
         protected virtual void DrawItems()
         {
-            if (!EUM_Helper.Instance.Preview && InViewport)
-            {
-                GUI.enabled = false;
-                GUI.color = new Color(1, 1, 1, 2);
-            }
-            
             foreach (var widget in Widgets)
             {
                 widget.DrawLayout();
-            }
-            
-            if (!EUM_Helper.Instance.Preview && InViewport)
-            {
-                GUI.color = Color.white;
-                GUI.enabled = true;
             }
         }
         
@@ -40,14 +30,58 @@ namespace EditorUIMaker
             return Clone();
         }
 
-        public virtual string BeginCode()
+        protected virtual string BeginCode()
         {
             return string.Empty;
         }
 
-        public virtual string EndCode()
+        protected virtual string EndCode()
         {
             return string.Empty;
+        }
+        
+        string WidgetsCode()
+        {
+            var code = "";
+            foreach (var widget in Widgets)
+            {
+                code += "\n" + widget.Code();
+            }
+            return code;
+        }
+
+        public override string LogicCode()
+        {
+            var code = "";
+            foreach (var widget in Widgets)
+            {
+                code += "\n" + widget.LogicCode();
+            }
+            return code;
+        }
+
+        public sealed override string Code()
+        {
+            var beginCode = BeginCode();
+            var endCode = EndCode();
+            var widgetsCode = WidgetsCode();
+            
+            var sObj = new ScriptObject();
+            sObj.Add("beginCode", beginCode);
+            sObj.Add("endCode",endCode);
+            sObj.Add("widgetsCode",widgetsCode);
+
+            var context = new TemplateContext();
+            context.PushGlobal(sObj);
+
+            var code = @"{{beginCode}}
+{{widgetsCode}}
+{{endCode}}
+";
+            var template = Template.Parse(code);
+            var result = template.Render(context);
+            
+            return result;
         }
     }
 }

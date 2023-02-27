@@ -14,19 +14,6 @@ namespace EditorUIMaker.Widgets
         public EUM_BaseInfo Info;
         protected abstract EUM_BaseInfo CreateInfo();
         
-        [SerializeField]
-        public string Name
-        {
-            get
-            {
-                return Info.Name;
-            }
-            set
-            {
-                Info.Name = value;
-            }
-        }
-
         public EUM_BaseWidget()
         {
             ID = EUM_Helper.Instance.WidgetID++;
@@ -48,6 +35,11 @@ namespace EditorUIMaker.Widgets
         }
 
         public virtual string LogicCode()
+        {
+            return string.Empty;
+        }
+        
+        public virtual string Code()
         {
             return string.Empty;
         }

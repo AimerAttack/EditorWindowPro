@@ -44,5 +44,15 @@ namespace EditorUIMaker
             Info.CopyTo(widget.Info);
             return widget;
         }
+        
+        protected override string BeginCode()
+        {
+            return "GUILayout.BeginVertical();";
+        }
+        
+        protected override string EndCode()
+        {
+            return "GUILayout.EndVertical();";
+        }
     }
 }

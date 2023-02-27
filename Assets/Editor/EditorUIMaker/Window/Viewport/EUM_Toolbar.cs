@@ -48,16 +48,6 @@ namespace EditorUIMaker
                 EUM_Helper.Instance.SaveFile();
             }
 
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Namespace:", GUILayout.Width(60));
-            EUM_Helper.Instance.NameSpace = GUILayout.TextField(EUM_Helper.Instance.NameSpace);
-            EditorGUILayout.EndHorizontal();
-            
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("ClassName:", GUILayout.Width(60));
-            EUM_Helper.Instance.ClassName = GUILayout.TextField(EUM_Helper.Instance.ClassName);
-            EditorGUILayout.EndHorizontal();
-
             GUILayout.FlexibleSpace();
 
             if (GUILib.Toggle(ref EUM_Helper.Instance.Preview, new GUIContent("Preview"),

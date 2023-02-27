@@ -18,11 +18,6 @@ namespace EditorUIMaker.Template1
 
         public EditorClass()
         {
-            Init();
-        }
-
-        void Init()
-        {
             _Logic = new EditorLogic();
         }
 

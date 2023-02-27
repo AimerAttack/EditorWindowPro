@@ -1,4 +1,6 @@
 using Amazing.Editor.Library;
+using Scriban;
+using Scriban.Runtime;
 using UnityEngine;
 
 namespace EditorUIMaker.Widgets
@@ -32,6 +34,23 @@ namespace EditorUIMaker.Widgets
             var widget = new EUM_Space();
             Info.CopyTo(widget.Info);
             return widget;
+        }
+
+        public override string Code()
+        {
+            var code =
+                @"GUILayout.Space({{pixel}});";
+            
+            var sObj = new ScriptObject();
+            sObj.Add("pixel", info.Height);
+
+            var context = new TemplateContext();
+            context.PushGlobal(sObj);
+
+            var template = Template.Parse(code);
+            var result = template.Render(context);
+            
+            return result;
         }
     }
 }

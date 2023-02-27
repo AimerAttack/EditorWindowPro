@@ -111,7 +111,7 @@ namespace EditorUIMaker
                     }
                 }
 
-                var node = new TreeViewItem(widget.ID, widget.Depth, widget.Name);
+                var node = new TreeViewItem(widget.ID, widget.Depth, widget.Info.Name);
                 nodes.Add(node);
             }
 

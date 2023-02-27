@@ -23,7 +23,7 @@ namespace Editor
 ";
 
             var btn = new EUM_Button();
-            btn.Name = "Button1";
+            btn.Info.Name = "Button1";
             var sObj = new ScriptObject();
             sObj.Add("strBtn", btn.Code());
 

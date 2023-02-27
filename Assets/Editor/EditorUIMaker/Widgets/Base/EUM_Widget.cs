@@ -10,9 +10,5 @@ namespace EditorUIMaker.Widgets
             return Clone();
         }
 
-        public virtual string Code()
-        {
-            return string.Empty;
-        }
     }
 }

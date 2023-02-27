@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using Amazing.Editor.Library;
 using EditorUIMaker.Widgets;
+using Scriban;
+using Scriban.Runtime;
 using UnityEditor;
 using UnityEngine;
 
@@ -46,8 +50,6 @@ namespace EditorUIMaker
         public EUM_BaseWidget HoverWidget;
         public List<EUM_Container> Containers = new List<EUM_Container>();
         public Dictionary<int, EUM_BaseWidget> Widgets = new Dictionary<int, EUM_BaseWidget>();
-        public string NameSpace;
-        public string ClassName;
         public Dictionary<Type,int> WidgetCount = new Dictionary<Type, int>();
         #endregion
         
@@ -119,8 +121,6 @@ namespace EditorUIMaker
             Widgets.Clear();
             Widgets.Add(Window.ID,Window);
 
-            NameSpace = string.Empty;
-            ClassName = string.Empty;
             
             OnClearData?.Invoke();
         }
@@ -135,8 +135,6 @@ namespace EditorUIMaker
 
         public void SaveFile()
         {
-            if(!Modified)
-                return;
             if (string.IsNullOrEmpty(FilePath))
             {
                 //新文件，需要选择保存路径
@@ -157,8 +155,6 @@ namespace EditorUIMaker
         {
             var data = ScriptableObject.CreateInstance<EUM_Object>();
 
-            data.NameSpace = NameSpace;
-            data.ClassName = ClassName;
             
             data.Stash = new EUM_Stash();
             var window = Window.Clone() as EUM_Window;
@@ -171,6 +167,100 @@ namespace EditorUIMaker
             AssetDatabase.DeleteAsset(filePath);
             AssetDatabase.CreateAsset(data,filePath);
             AssetDatabase.SaveAssets();
+            
+            SaveClassFile(filePath);
+            SaveLogicFile(filePath);
+            AssetDatabase.Refresh();
+        }
+
+        void SaveClassFile(string windowPath)
+        {
+            var page = @"
+using UnityEditor;
+using UnityEngine;
+public class {{className}} : EditorWindow
+{
+    [MenuItem(""Tools/{{className}}"")]
+    public static void ShowWindow()
+    {
+        var window = GetWindow<{{className}}>();
+        window.titleContent = new GUIContent(""{{className}}"");
+        window.Show();
+    }
+
+    private {{className}}_Logic _Logic;
+
+    public {{className}}()
+    {
+        _Logic = new {{className}}_Logic();
+    }
+
+    void OnGUI()
+    {
+        {{code}}
+    }
+}
+";
+            var code = "";
+            for (int i = 0; i < Window.Widgets.Count; i++)
+            {
+                var widget = Window.Widgets[i];
+                code += "\n" + widget.Code();
+            }
+            
+            
+            var sObj = new ScriptObject();
+            sObj.Add("code",code);
+            sObj.Add("className",WindowTitle);
+
+            var context = new TemplateContext();
+            context.PushGlobal(sObj);
+
+            var template = Template.Parse(page);
+            var result = template.Render(context);
+
+
+            var fileName = WindowTitle;
+            var path = Path.GetDirectoryName(windowPath);
+            var filePath = Path.Join(Application.dataPath.Replace("Assets",string.Empty),
+                path, fileName + ".cs");
+            
+            File.WriteAllText(filePath,result,new UTF8Encoding(false));
+        }
+
+        void SaveLogicFile(string windowPath)
+        {
+            var page = @"
+using System;
+public partial class {{className}}_Logic
+{
+    {{code}}
+}
+";
+            var code = "";
+            for (int i = 0; i < Window.Widgets.Count; i++)
+            {
+                var widget = Window.Widgets[i];
+                code += "\n" + widget.LogicCode();
+            }
+
+            
+            var sObj = new ScriptObject();
+            sObj.Add("code",code);
+            sObj.Add("className",WindowTitle);
+
+            var context = new TemplateContext();
+            context.PushGlobal(sObj);
+
+            var template = Template.Parse(page);
+            var result = template.Render(context);
+            
+            var fileName = WindowTitle;
+            var path = Path.GetDirectoryName(windowPath);
+            var filePath = Path.Join(Application.dataPath.Replace("Assets",string.Empty),
+                path, fileName + "_Logic.cs");
+            
+            File.WriteAllText(filePath,result,new UTF8Encoding(false)); 
         }
         
         public void OpenFile()
@@ -207,7 +297,7 @@ namespace EditorUIMaker
                 WidgetCount.Add(type, 0);
             }
             WidgetCount[type]++;
-            widget.Name = widget.TypeName + WidgetCount[type];
+            widget.Info.Name = widget.TypeName + WidgetCount[type];
             
             OnAddItemToWindow?.Invoke(widget);
         }

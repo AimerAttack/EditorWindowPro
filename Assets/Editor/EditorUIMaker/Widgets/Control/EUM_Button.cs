@@ -61,10 +61,28 @@ namespace EditorUIMaker.Widgets
 ";
             
             var sObj = new ScriptObject();
-            sObj.Add("name", Name);
+            sObj.Add("name", Info.Name);
 
             var context = new TemplateContext();
-            context.AutoIndent = true;
+            context.PushGlobal(sObj);
+
+            var template = Template.Parse(code);
+            var result = template.Render(context);
+            
+            return result;
+        }
+
+        public override string LogicCode()
+        {
+            var code = @"
+public void OnClick{{name}}()
+{
+}
+";
+            var sObj = new ScriptObject();
+            sObj.Add("name", Info.Name);
+
+            var context = new TemplateContext();
             context.PushGlobal(sObj);
 
             var template = Template.Parse(code);
