@@ -313,6 +313,15 @@ namespace Amazing.Editor.Library
             return true;
         }
         
+        public static bool LongField(ref long val,GUIContent label,params GUILayoutOption[] options)
+        {
+            var tmp = EditorGUILayout.LongField(label, val, options);
+            if (Equals(tmp, val))
+                return false;
+            val = tmp;
+            return true;
+        }
+        
         public static bool FloatField(ref float val,GUIContent label,params GUILayoutOption[] options)
         {
             var tmp = EditorGUILayout.FloatField(label, val, options);

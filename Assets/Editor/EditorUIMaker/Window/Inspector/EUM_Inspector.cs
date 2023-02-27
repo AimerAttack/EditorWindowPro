@@ -107,6 +107,15 @@ namespace EditorUIMaker
                         fieldInfo.SetValue(info, value);
                     }
                 }
+                else if (fieldType == typeof(long))
+                {
+                    var value = (long) fieldInfo.GetValue(info);
+                    if(GUILib.LongField(ref value, new GUIContent(fieldInfo.Name), GUILayout.ExpandWidth(true)))
+                    {
+                        EUM_Helper.Instance.Modified = true;
+                        fieldInfo.SetValue(info, value);
+                    }
+                }
                 else if (fieldType == typeof(float))
                 {
                     var value = (float) fieldInfo.GetValue(info);
