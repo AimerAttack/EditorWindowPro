@@ -232,7 +232,9 @@ public class {{className}} : EditorWindow
         {
             var page = @"
 using System;
-public partial class {{className}}_Logic
+using EditorUIMaker;
+
+public partial class {{className}}_Logic : EUM_BaseWindowLogic
 {
     {{code}}
 }

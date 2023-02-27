@@ -23,14 +23,14 @@ public class NewWindow : EditorWindow
         
         if(GUILayout.Button("Button1"))
         {
-            _Logic.OnClickButton1();
+            _Logic.ClickButton1();
         }
         
         GUILayout.Label("Label1");
         GUILayout.Space(5);
         if(GUILayout.Button("Button2"))
         {
-            _Logic.OnClickButton2();
+            _Logic.ClickButton2();
         }
         
         GUILayout.BeginHorizontal();

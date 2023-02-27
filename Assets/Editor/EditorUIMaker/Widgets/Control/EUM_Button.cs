@@ -56,7 +56,7 @@ namespace EditorUIMaker.Widgets
             var code =
                 @"if(GUILayout.Button(""{{name}}""))
 {
-    _Logic.OnClick{{name}}();
+    _Logic.Click{{name}}();
 }
 ";
             
@@ -74,11 +74,10 @@ namespace EditorUIMaker.Widgets
 
         public override string LogicCode()
         {
-            var code = @"
-public void OnClick{{name}}()
+            var code = @"public void Click{{name}}()
 {
-}
-";
+    CallMethod(""OnClick{{name}}"");
+}";
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
 

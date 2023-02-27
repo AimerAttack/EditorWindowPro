@@ -1,20 +1,20 @@
 
 using System;
-public partial class NewWindow_Logic
+using EditorUIMaker;
+
+public partial class NewWindow_Logic : EUM_BaseWindowLogic
 {
     
-    
-    public void OnClickButton1()
+    public void ClickButton1()
     {
+        CallMethod("OnClickButton1");
     }
     
     
-    
-    
-    public void OnClickButton2()
+    public void ClickButton2()
     {
+        CallMethod("OnClickButton2");
     }
-    
     
     
 
