@@ -84,6 +84,8 @@ namespace EditorUIMaker
                 }
             }
 
+            MenuItemPath = obj.MenuItemPath;
+
             Modified = false;
         }
 
@@ -144,13 +146,19 @@ namespace EditorUIMaker
                 if (!string.IsNullOrEmpty(path))
                 {
                     var fileName = Path.GetFileNameWithoutExtension(path);
-                    WindowTitle = fileName;
+                    MenuItemPath = string.Format("Tools/{0}", fileName);
                     SaveDataToPath(path);
                 }
             }
             else
             {
                 //已有文件，直接保存
+                if (string.IsNullOrEmpty(MenuItemPath))
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(FilePath);
+                    MenuItemPath = string.Format("Tools/{0}", fileName);
+                }
+
                 SaveDataToPath(FilePath);
             }
 
@@ -163,10 +171,6 @@ namespace EditorUIMaker
 
             
             data.Stash = new EUM_Stash();
-
-            if (string.IsNullOrEmpty(MenuItemPath))
-                MenuItemPath = string.Format("Tools/{0}", WindowTitle);
-            
             data.MenuItemPath = MenuItemPath;
             var window = Window.Clone() as EUM_Window;
 

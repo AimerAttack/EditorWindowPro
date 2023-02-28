@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 public class NewWindow : EditorWindow
 {
-    [MenuItem("Tools/123")]
+    [MenuItem("Tools/NewWindow")]
     public static void ShowWindow()
     {
         var window = GetWindow<NewWindow>();
@@ -21,23 +21,12 @@ public class NewWindow : EditorWindow
     void OnGUI()
     {
         
-        if(GUILayout.Button("Button1"))
+        var styleButton1 = new GUIStyle(GUI.skin.button);
+        styleButton1.alignment = TextAnchor.UpperRight;
+        if(GUILayout.Button("Button1",styleButton1))
         {
             _Logic.ClickButton1();
         }
-        
-        GUILayout.Label("Label1");
-        GUILayout.Space(5);
-        if(GUILayout.Button("Button2"))
-        {
-            _Logic.ClickButton2();
-        }
-        
-        GUILayout.BeginHorizontal();
-        
-        GUILayout.Label("Label2");
-        GUILayout.Label("Label3");
-        GUILayout.EndHorizontal();
 
     }
 }

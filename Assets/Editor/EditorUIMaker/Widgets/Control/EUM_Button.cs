@@ -54,7 +54,9 @@ namespace EditorUIMaker.Widgets
         public override string Code()
         {
             var code =
-                @"if(GUILayout.Button(""{{name}}""))
+                @"var style{{name}} = new GUIStyle(GUI.skin.button);
+style{{name}}.alignment = TextAnchor.{{textAnchor}};
+if(GUILayout.Button(""{{name}}"",style{{name}}))
 {
     _Logic.Click{{name}}();
 }
@@ -62,6 +64,7 @@ namespace EditorUIMaker.Widgets
             
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
+            sObj.Add("textAnchor", info.TextAnchor.ToString());
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

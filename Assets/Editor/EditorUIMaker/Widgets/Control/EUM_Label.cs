@@ -55,10 +55,13 @@ namespace EditorUIMaker.Widgets
         public override string Code()
         {
             var code =
-                @"GUILayout.Label(""{{name}}"");";
+                @"var style{{name}} = new GUIStyle(GUI.skin.label);
+style{{name}}.alignment = TextAnchor.{{textAnchor}};
+GUILayout.Label(""{{name}}"",style{{name}});";
             
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
+            sObj.Add("textAnchor", info.TextAnchor.ToString());
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);
