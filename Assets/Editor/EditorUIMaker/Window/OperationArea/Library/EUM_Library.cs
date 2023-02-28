@@ -44,6 +44,7 @@ namespace EditorUIMaker
             NumericFields.Add(new EUM_LongField());
             NumericFields.Add(new EUM_DoubleField());
             NumericFields.Add(new EUM_Vector2Field());
+            NumericFields.Add(new EUM_Vector2IntField());
             NumericFields.Add(new EUM_Vector3Field());
         }
 

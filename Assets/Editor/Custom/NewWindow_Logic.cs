@@ -76,5 +76,12 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     {
         CallMethod("OnVector3Field1ValueChange");
     }
+    
+    public Vector2Int Vector2IntField1;
+    
+    public void Vector2IntField1ValueChange()
+    {
+        CallMethod("OnVector2IntField1ValueChange");
+    }
 
 }

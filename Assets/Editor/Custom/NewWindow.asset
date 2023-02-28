@@ -29,7 +29,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 109
+      Data: 111
     - Name: InViewport
       Entry: 5
       Data: false
@@ -93,7 +93,7 @@ MonoBehaviour:
         Assembly-CSharp-Editor]], mscorlib
     - Name: 
       Entry: 12
-      Data: 9
+      Data: 10
     - Name: 
       Entry: 7
       Data: 3|EditorUIMaker.Widgets.EUM_TextField, Assembly-CSharp-Editor
@@ -102,7 +102,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 111
+      Data: 113
     - Name: InViewport
       Entry: 5
       Data: false
@@ -171,7 +171,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 112
+      Data: 114
     - Name: InViewport
       Entry: 5
       Data: false
@@ -246,7 +246,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 113
+      Data: 115
     - Name: InViewport
       Entry: 5
       Data: false
@@ -321,7 +321,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 114
+      Data: 116
     - Name: InViewport
       Entry: 5
       Data: false
@@ -390,7 +390,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 115
+      Data: 117
     - Name: InViewport
       Entry: 5
       Data: false
@@ -459,7 +459,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 116
+      Data: 118
     - Name: InViewport
       Entry: 5
       Data: false
@@ -528,7 +528,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 117
+      Data: 119
     - Name: InViewport
       Entry: 5
       Data: false
@@ -597,7 +597,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 118
+      Data: 120
     - Name: InViewport
       Entry: 5
       Data: false
@@ -666,7 +666,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 119
+      Data: 121
     - Name: InViewport
       Entry: 5
       Data: false
@@ -721,6 +721,75 @@ MonoBehaviour:
     - Name: Label
       Entry: 1
       Data: Vector3Field
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 21|EditorUIMaker.Widgets.EUM_Vector2IntField, Assembly-CSharp-Editor
+    - Name: Depth
+      Entry: 3
+      Data: 0
+    - Name: ID
+      Entry: 3
+      Data: 122
+    - Name: InViewport
+      Entry: 5
+      Data: false
+    - Name: Rect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: AbsoluteRect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Parent
+      Entry: 6
+      Data: 
+    - Name: Info
+      Entry: 7
+      Data: 22|EditorUIMaker.Widgets.EUM_Vector2IntField_Info, Assembly-CSharp-Editor
+    - Name: Name
+      Entry: 1
+      Data: Vector2IntField1
+    - Name: _Widget
+      Entry: 9
+      Data: 21
+    - Name: Label
+      Entry: 1
+      Data: Vector2IntField
     - Name: 
       Entry: 8
       Data: 
