@@ -64,6 +64,14 @@ public class NewWindow : EditorWindow
             _Logic.FloatField1 = tmpFloatField1;
             _Logic.FloatField1ValueChange();
         }
+        
+        
+        var tmpLongField1 = EditorGUILayout.LongField("LongField",_Logic.LongField1);
+        if(tmpLongField1 != _Logic.LongField1)
+        {
+            _Logic.LongField1 = tmpLongField1;
+            _Logic.LongField1ValueChange();
+        }
 
     }
 }

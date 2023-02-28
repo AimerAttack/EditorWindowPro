@@ -47,5 +47,12 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     {
         CallMethod("OnFloatField1ValueChange");
     }
+    
+    public long LongField1;
+    
+    public void LongField1ValueChange()
+    {
+        CallMethod("OnLongField1ValueChange");
+    }
 
 }
