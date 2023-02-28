@@ -21,11 +21,11 @@ public class NewWindow : EditorWindow
     void OnGUI()
     {
         
-        var styleButton1 = new GUIStyle(GUI.skin.button);
-        styleButton1.alignment = TextAnchor.UpperRight;
-        if(GUILayout.Button("Button1",styleButton1))
+        var styledwa = new GUIStyle(GUI.skin.button);
+        styledwa.alignment = TextAnchor.UpperRight;
+        if(GUILayout.Button("dwa",styledwa))
         {
-            _Logic.ClickButton1();
+            _Logic.Clickdwa();
         }
 
     }

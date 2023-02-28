@@ -29,7 +29,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 104
+      Data: 101
     - Name: InViewport
       Entry: 5
       Data: false
@@ -78,6 +78,9 @@ MonoBehaviour:
     - Name: Name
       Entry: 6
       Data: 
+    - Name: _Widget
+      Entry: 9
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -99,7 +102,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 106
+      Data: 103
     - Name: InViewport
       Entry: 5
       Data: false
@@ -147,7 +150,10 @@ MonoBehaviour:
       Data: 4|EditorUIMaker.Widgets.EUM_Button_Info, Assembly-CSharp-Editor
     - Name: Name
       Entry: 1
-      Data: Button1
+      Data: dwa
+    - Name: _Widget
+      Entry: 9
+      Data: 3
     - Name: Text
       Entry: 6
       Data: 

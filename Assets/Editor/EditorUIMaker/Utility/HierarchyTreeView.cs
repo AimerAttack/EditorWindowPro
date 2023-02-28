@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Amazing.Editor.Library;
+using EditorUIMaker.Widgets;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
@@ -112,6 +113,7 @@ namespace EditorUIMaker.Utility
 
             Reload();
         }
+        
 
         public static HierarchyTreeView Create(GUIContent content, float minHeight = 0)
         {
@@ -149,6 +151,43 @@ namespace EditorUIMaker.Utility
             SetupParentsAndChildrenFromDepths(root, Elements);
 
             return root;
+        }
+
+        protected override bool CanRename(TreeViewItem item)
+        {
+            var windowID = EUM_Helper.Instance.Window.ID;
+            if (item.id == windowID)
+                return false;
+            return true;
+        }
+
+        protected override void RenameEnded(RenameEndedArgs args)
+        {
+            EUM_Helper.Instance.Widgets[args.itemID].Info.Name = args.newName;
+            EUM_Helper.Instance.Modified = true;
+            var nodes = new List<TreeViewItem>();
+            
+
+            Stack<EUM_BaseWidget> bucket = new Stack<EUM_BaseWidget>();
+            bucket.Push(EUM_Helper.Instance.Window);
+            while (bucket.Count > 0)
+            {
+                var widget = bucket.Pop();
+
+                if (widget is EUM_Container container)
+                {
+                    for (int i = container.Widgets.Count - 1; i >= 0; i--)
+                    {
+                        var child = container.Widgets[i];
+                        bucket.Push(child);
+                    }
+                }
+
+                var node = new TreeViewItem(widget.ID, widget.Depth, widget.Info.Name);
+                nodes.Add(node);
+            }
+
+            SetData(nodes);
         }
 
         protected override bool CanMultiSelect(TreeViewItem item)

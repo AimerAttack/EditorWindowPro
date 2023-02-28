@@ -1,9 +1,12 @@
 
+using UnityEngine;
+
 namespace EditorUIMaker.Widgets
 {
     public abstract class EUM_BaseInfo
     {
         public string Name;
+        [SerializeField]
         private EUM_BaseWidget _Widget;
         public int ID => _Widget.ID;
 
