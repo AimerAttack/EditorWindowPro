@@ -11,6 +11,7 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     }
 
     
+    
     public Vector3 Vector3Field1;
     
     public void Vector3Field1ValueChange()
@@ -23,6 +24,13 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     public void Vector3IntField1ValueChange()
     {
         CallMethod("OnVector3IntField1ValueChange");
+    }
+    
+    public bool Toggle1;
+    
+    public void Toggle1ValueChange()
+    {
+        CallMethod("OnToggle1ValueChange");
     }
 
 }

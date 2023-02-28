@@ -13,4 +13,9 @@ public partial class NewWindow_Logic
     void OnVector2Field1ValueChange()
     {
     }
+
+    void OnToggle1ValueChange()
+    {
+        Debug.Log(Toggle1);
+    }
 }
