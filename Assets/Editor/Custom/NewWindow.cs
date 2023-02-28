@@ -48,6 +48,14 @@ public class NewWindow : EditorWindow
             _Logic.IntSlider1ValueChange();
         }
         GUILayout.EndHorizontal();
+        
+        
+        var tmpIntField1 = EditorGUILayout.IntField("IntField",_Logic.IntField1);
+        if(tmpIntField1 != _Logic.IntField1)
+        {
+            _Logic.IntField1 = tmpIntField1;
+            _Logic.IntField1ValueChange();
+        }
 
     }
 }

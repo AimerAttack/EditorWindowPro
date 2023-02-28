@@ -38,6 +38,8 @@ namespace EditorUIMaker
             Controls.Add(new EUM_TextField());
             Controls.Add(new EUM_Slider());
             Controls.Add(new EUM_IntSlider());
+            
+            NumericFields.Add(new EUM_IntField());
         }
 
         public void Draw(ref Rect rect)

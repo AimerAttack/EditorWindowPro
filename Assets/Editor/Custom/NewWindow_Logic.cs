@@ -33,5 +33,12 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     {
         CallMethod("OnIntSlider1ValueChange");
     }
+    
+    public int IntField1;
+    
+    public void IntField1ValueChange()
+    {
+        CallMethod("OnIntField1ValueChange");
+    }
 
 }
