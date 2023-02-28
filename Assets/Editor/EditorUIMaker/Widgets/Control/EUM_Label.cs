@@ -57,10 +57,11 @@ namespace EditorUIMaker.Widgets
             var code =
                 @"var style{{name}} = new GUIStyle(GUI.skin.label);
 style{{name}}.alignment = TextAnchor.{{textAnchor}};
-GUILayout.Label(""{{name}}"",style{{name}});";
+GUILayout.Label(""{{text}}"",style{{name}});";
             
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
+            sObj.Add("text",string.IsNullOrEmpty(info.Text) ? TypeName : info.Text);
             sObj.Add("textAnchor", info.TextAnchor.ToString());
 
             var context = new TemplateContext();

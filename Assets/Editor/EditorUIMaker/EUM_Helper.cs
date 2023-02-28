@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Amazing.Editor.Library;
+using EditorUIMaker.Utility;
 using EditorUIMaker.Widgets;
 using Scriban;
 using Scriban.Runtime;
@@ -36,6 +37,7 @@ namespace EditorUIMaker
         public Rect ViewportRect;
         public List<Rect> MouseRects = new List<Rect>(10);
         public Vector2 MousePosition;
+        public HierarchyTreeView TreeView;
  
         #region need clear when data change
         public int WidgetID = 1;
@@ -301,13 +303,18 @@ public partial class {{className}}_Logic : EUM_BaseWindowLogic
             LoadData(data,path);
         }
         
-        public void AddToContainer(EUM_BaseWidget widget, EUM_Container container)
+        public void AddToContainer(EUM_BaseWidget widget, EUM_Container container,int index=-1)
         {
             if (container == null)
                 return;
             if (container.Widgets.Contains(widget))
                 return;
-            container.Widgets.Add(widget);
+            if(index == -1)
+                container.Widgets.Add(widget);
+            else
+            {
+                container.Widgets.Insert(index,widget);
+            }
             widget.OnAddToContainer(container);
 
             var type = widget.GetType();

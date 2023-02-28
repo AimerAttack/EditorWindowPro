@@ -29,7 +29,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 107
+      Data: 111
     - Name: InViewport
       Entry: 5
       Data: false
@@ -93,7 +93,7 @@ MonoBehaviour:
         Assembly-CSharp-Editor]], mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 8
     - Name: 
       Entry: 7
       Data: 3|EditorUIMaker.Widgets.EUM_Button, Assembly-CSharp-Editor
@@ -102,7 +102,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 109
+      Data: 113
     - Name: InViewport
       Entry: 5
       Data: false
@@ -150,7 +150,7 @@ MonoBehaviour:
       Data: 4|EditorUIMaker.Widgets.EUM_Button_Info, Assembly-CSharp-Editor
     - Name: Name
       Entry: 1
-      Data: dwa
+      Data: Button5
     - Name: _Widget
       Entry: 9
       Data: 3
@@ -168,13 +168,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 5|EditorUIMaker.Widgets.EUM_FlexibleSpace, Assembly-CSharp-Editor
+      Data: 5|EditorUIMaker.Widgets.EUM_Button, Assembly-CSharp-Editor
     - Name: Depth
       Entry: 3
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 110
+      Data: 114
     - Name: InViewport
       Entry: 5
       Data: false
@@ -219,13 +219,19 @@ MonoBehaviour:
       Data: 
     - Name: Info
       Entry: 7
-      Data: 6|EditorUIMaker.Widgets.EUM_NormalInfo, Assembly-CSharp-Editor
+      Data: 6|EditorUIMaker.Widgets.EUM_Button_Info, Assembly-CSharp-Editor
     - Name: Name
       Entry: 1
-      Data: FlexibleSpace1
+      Data: dwa
     - Name: _Widget
       Entry: 9
       Data: 5
+    - Name: Text
+      Entry: 1
+      Data: test
+    - Name: TextAnchor
+      Entry: 3
+      Data: 4
     - Name: 
       Entry: 8
       Data: 
@@ -240,7 +246,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 111
+      Data: 115
     - Name: InViewport
       Entry: 5
       Data: false
@@ -306,13 +312,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 9|EditorUIMaker.EUM_Horizontal, Assembly-CSharp-Editor
+      Data: 9|EditorUIMaker.Widgets.EUM_FlexibleSpace, Assembly-CSharp-Editor
     - Name: Depth
       Entry: 3
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 112
+      Data: 116
     - Name: InViewport
       Entry: 5
       Data: false
@@ -360,10 +366,142 @@ MonoBehaviour:
       Data: 10|EditorUIMaker.Widgets.EUM_NormalInfo, Assembly-CSharp-Editor
     - Name: Name
       Entry: 1
-      Data: Horizontal1
+      Data: FlexibleSpace1
     - Name: _Widget
       Entry: 9
       Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|EditorUIMaker.Widgets.EUM_FlexibleSpace, Assembly-CSharp-Editor
+    - Name: Depth
+      Entry: 3
+      Data: 0
+    - Name: ID
+      Entry: 3
+      Data: 117
+    - Name: InViewport
+      Entry: 5
+      Data: false
+    - Name: Rect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: AbsoluteRect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Parent
+      Entry: 6
+      Data: 
+    - Name: Info
+      Entry: 7
+      Data: 12|EditorUIMaker.Widgets.EUM_NormalInfo, Assembly-CSharp-Editor
+    - Name: Name
+      Entry: 1
+      Data: FlexibleSpace2
+    - Name: _Widget
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 13|EditorUIMaker.EUM_Horizontal, Assembly-CSharp-Editor
+    - Name: Depth
+      Entry: 3
+      Data: 0
+    - Name: ID
+      Entry: 3
+      Data: 118
+    - Name: InViewport
+      Entry: 5
+      Data: false
+    - Name: Rect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: AbsoluteRect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Parent
+      Entry: 6
+      Data: 
+    - Name: Info
+      Entry: 7
+      Data: 14|EditorUIMaker.Widgets.EUM_NormalInfo, Assembly-CSharp-Editor
+    - Name: Name
+      Entry: 1
+      Data: Horizontal1
+    - Name: _Widget
+      Entry: 9
+      Data: 13
     - Name: 
       Entry: 8
       Data: 
@@ -372,149 +510,11 @@ MonoBehaviour:
       Data: false
     - Name: Widgets
       Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[EditorUIMaker.Widgets.EUM_BaseWidget,
+      Data: 15|System.Collections.Generic.List`1[[EditorUIMaker.Widgets.EUM_BaseWidget,
         Assembly-CSharp-Editor]], mscorlib
     - Name: 
       Entry: 12
       Data: 3
-    - Name: 
-      Entry: 7
-      Data: 12|EditorUIMaker.Widgets.EUM_Button, Assembly-CSharp-Editor
-    - Name: Depth
-      Entry: 3
-      Data: 0
-    - Name: ID
-      Entry: 3
-      Data: 113
-    - Name: InViewport
-      Entry: 5
-      Data: false
-    - Name: Rect
-      Entry: 7
-      Data: UnityEngine.Rect, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: AbsoluteRect
-      Entry: 7
-      Data: UnityEngine.Rect, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Parent
-      Entry: 6
-      Data: 
-    - Name: Info
-      Entry: 7
-      Data: 13|EditorUIMaker.Widgets.EUM_Button_Info, Assembly-CSharp-Editor
-    - Name: Name
-      Entry: 1
-      Data: Button3
-    - Name: _Widget
-      Entry: 9
-      Data: 12
-    - Name: Text
-      Entry: 6
-      Data: 
-    - Name: TextAnchor
-      Entry: 3
-      Data: 4
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 14|EditorUIMaker.Widgets.EUM_FlexibleSpace, Assembly-CSharp-Editor
-    - Name: Depth
-      Entry: 3
-      Data: 0
-    - Name: ID
-      Entry: 3
-      Data: 114
-    - Name: InViewport
-      Entry: 5
-      Data: false
-    - Name: Rect
-      Entry: 7
-      Data: UnityEngine.Rect, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: AbsoluteRect
-      Entry: 7
-      Data: UnityEngine.Rect, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Parent
-      Entry: 6
-      Data: 
-    - Name: Info
-      Entry: 7
-      Data: 15|EditorUIMaker.Widgets.EUM_NormalInfo, Assembly-CSharp-Editor
-    - Name: Name
-      Entry: 1
-      Data: FlexibleSpace2
-    - Name: _Widget
-      Entry: 9
-      Data: 14
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 7
       Data: 16|EditorUIMaker.Widgets.EUM_Button, Assembly-CSharp-Editor
@@ -523,7 +523,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 115
+      Data: 119
     - Name: InViewport
       Entry: 5
       Data: false
@@ -571,7 +571,7 @@ MonoBehaviour:
       Data: 17|EditorUIMaker.Widgets.EUM_Button_Info, Assembly-CSharp-Editor
     - Name: Name
       Entry: 1
-      Data: Button4
+      Data: Button3
     - Name: _Widget
       Entry: 9
       Data: 16
@@ -588,8 +588,290 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 18|EditorUIMaker.Widgets.EUM_FlexibleSpace, Assembly-CSharp-Editor
+    - Name: Depth
+      Entry: 3
+      Data: 0
+    - Name: ID
+      Entry: 3
+      Data: 120
+    - Name: InViewport
+      Entry: 5
+      Data: false
+    - Name: Rect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: AbsoluteRect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Parent
+      Entry: 6
+      Data: 
+    - Name: Info
+      Entry: 7
+      Data: 19|EditorUIMaker.Widgets.EUM_NormalInfo, Assembly-CSharp-Editor
+    - Name: Name
+      Entry: 1
+      Data: FlexibleSpace3
+    - Name: _Widget
+      Entry: 9
+      Data: 18
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 20|EditorUIMaker.Widgets.EUM_Button, Assembly-CSharp-Editor
+    - Name: Depth
+      Entry: 3
+      Data: 0
+    - Name: ID
+      Entry: 3
+      Data: 121
+    - Name: InViewport
+      Entry: 5
+      Data: false
+    - Name: Rect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: AbsoluteRect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Parent
+      Entry: 6
+      Data: 
+    - Name: Info
+      Entry: 7
+      Data: 21|EditorUIMaker.Widgets.EUM_Button_Info, Assembly-CSharp-Editor
+    - Name: Name
+      Entry: 1
+      Data: Button4
+    - Name: _Widget
+      Entry: 9
+      Data: 20
+    - Name: Text
+      Entry: 6
+      Data: 
+    - Name: TextAnchor
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 22|EditorUIMaker.Widgets.EUM_Button, Assembly-CSharp-Editor
+    - Name: Depth
+      Entry: 3
+      Data: 0
+    - Name: ID
+      Entry: 3
+      Data: 122
+    - Name: InViewport
+      Entry: 5
+      Data: false
+    - Name: Rect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: AbsoluteRect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Parent
+      Entry: 6
+      Data: 
+    - Name: Info
+      Entry: 7
+      Data: 23|EditorUIMaker.Widgets.EUM_Button_Info, Assembly-CSharp-Editor
+    - Name: Name
+      Entry: 1
+      Data: Button7
+    - Name: _Widget
+      Entry: 9
+      Data: 22
+    - Name: Text
+      Entry: 6
+      Data: 
+    - Name: TextAnchor
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 24|EditorUIMaker.Widgets.EUM_Button, Assembly-CSharp-Editor
+    - Name: Depth
+      Entry: 3
+      Data: 0
+    - Name: ID
+      Entry: 3
+      Data: 123
+    - Name: InViewport
+      Entry: 5
+      Data: false
+    - Name: Rect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: AbsoluteRect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Parent
+      Entry: 6
+      Data: 
+    - Name: Info
+      Entry: 7
+      Data: 25|EditorUIMaker.Widgets.EUM_Button_Info, Assembly-CSharp-Editor
+    - Name: Name
+      Entry: 1
+      Data: Button6
+    - Name: _Widget
+      Entry: 9
+      Data: 24
+    - Name: Text
+      Entry: 6
+      Data: 
+    - Name: TextAnchor
+      Entry: 3
+      Data: 4
     - Name: 
       Entry: 8
       Data: 

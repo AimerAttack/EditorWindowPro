@@ -12,7 +12,7 @@ namespace EditorUIMaker.Utility
     public class HierarchyTreeView : TreeView
     {
         public const string k_GenericDragID = "GenericDragColumnDragging";
-        
+
         public SearchField SearchField;
         public List<TreeViewItem> Elements = new List<TreeViewItem>();
         public GUIContent Content;
@@ -59,7 +59,7 @@ namespace EditorUIMaker.Utility
                             else
                             {
                                 var item = FindItem(hoverWidget.ID, rootItem);
-                                if(item != null)
+                                if (item != null)
                                     return item.id != windowID ? item : null;
                                 else
                                 {
@@ -70,7 +70,7 @@ namespace EditorUIMaker.Utility
                         else
                         {
                             var item = FindItem(hoverWidget.ID, rootItem);
-                            if(item != null)
+                            if (item != null)
                                 return item.id != windowID ? item : null;
                             else
                             {
@@ -113,7 +113,7 @@ namespace EditorUIMaker.Utility
 
             Reload();
         }
-        
+
 
         public static HierarchyTreeView Create(GUIContent content, float minHeight = 0)
         {
@@ -166,7 +166,7 @@ namespace EditorUIMaker.Utility
             EUM_Helper.Instance.Widgets[args.itemID].Info.Name = args.newName;
             EUM_Helper.Instance.Modified = true;
             var nodes = new List<TreeViewItem>();
-            
+
 
             Stack<EUM_BaseWidget> bucket = new Stack<EUM_BaseWidget>();
             bucket.Push(EUM_Helper.Instance.Window);
@@ -220,11 +220,14 @@ namespace EditorUIMaker.Utility
         protected override void AfterRowsGUI()
         {
             base.AfterRowsGUI();
-            if (HoverItem != null)
+            if (EUM_Helper.Instance.DraggingWidget == null)
             {
-                var row = FindRowOfItem(HoverItem);
-                var rect = GetRowRect(row);
-                GUILib.Frame(rect, Color.cyan);
+                if (HoverItem != null)
+                {
+                    var row = FindRowOfItem(HoverItem);
+                    var rect = GetRowRect(row);
+                    GUILib.Frame(rect, Color.cyan);
+                }
             }
         }
 
@@ -235,7 +238,7 @@ namespace EditorUIMaker.Utility
 
         protected override void SetupDragAndDrop(SetupDragAndDropArgs args)
         {
-            if(hasSearch)
+            if (hasSearch)
                 return;
             DragAndDrop.PrepareStartDrag();
             var draggedRows = GetRows().Where(item => args.draggedItemIDs.Contains(item.id)).ToList();
@@ -246,49 +249,92 @@ namespace EditorUIMaker.Utility
             Dragging = true;
         }
 
+        public TreeViewItem ParentItem;
+        public int InsertIndex;
+
         protected override DragAndDropVisualMode HandleDragAndDrop(DragAndDropArgs args)
         {
             // Check if we can handle the current drag data (could be dragged in from other areas/windows in the editor)
             var draggedRows = DragAndDrop.GetGenericData(k_GenericDragID) as List<TreeViewItem>;
             if (draggedRows == null)
-                return DragAndDropVisualMode.None;
-
-            // Parent item is null when dragging outside any tree view items.
-            switch (args.dragAndDropPosition)
             {
-                case DragAndDropPosition.UponItem:
-                case DragAndDropPosition.BetweenItems:
+                if (EUM_Helper.Instance.DraggingWidget != null)
                 {
-                    bool validDrag = ValidDrag(args.parentItem, draggedRows);
-                    if (args.performDrop && validDrag)
+                    switch (args.dragAndDropPosition)
                     {
-                        OnDropDraggedElementsAtIndex(draggedRows, args.parentItem,
-                            args.insertAtIndex == -1 ? 0 : args.insertAtIndex);
-                        Dragging = false;
+                        case DragAndDropPosition.UponItem:
+                        {
+                            InsertIndex = -1;
+                            ParentItem = args.parentItem;
+                            return DragAndDropVisualMode.Move;
+                        }
+                        case DragAndDropPosition.BetweenItems:
+                        {
+                            InsertIndex = args.insertAtIndex;
+                            ParentItem = args.parentItem;
+                            return DragAndDropVisualMode.Move;
+                        }
+                        case DragAndDropPosition.OutsideItems:
+                        {
+                            InsertIndex = -1;
+                            ParentItem = null;
+                            return DragAndDropVisualMode.Move;
+                        }
+                        default:
+                            Debug.LogError("Unhandled enum " + args.dragAndDropPosition);
+                            return DragAndDropVisualMode.None;
                     }
-
-                    return validDrag ? DragAndDropVisualMode.Move : DragAndDropVisualMode.None;
                 }
-
-                case DragAndDropPosition.OutsideItems:
-                {
-                    if (args.performDrop)
-                    {
-                        Dragging = false;
-                    }
-
-                    return DragAndDropVisualMode.Move;
-                }
-                default:
-                    Debug.LogError("Unhandled enum " + args.dragAndDropPosition);
-                    return DragAndDropVisualMode.None;
             }
+            else
+            {
+                // Parent item is null when dragging outside any tree view items.
+                switch (args.dragAndDropPosition)
+                {
+                    case DragAndDropPosition.UponItem:
+                    case DragAndDropPosition.BetweenItems:
+                    {
+                        bool validDrag = ValidDrag(args.parentItem, draggedRows);
+                        if (args.performDrop && validDrag)
+                        {
+                            OnDropDraggedElementsAtIndex(draggedRows, args.parentItem,
+                                args.insertAtIndex == -1 ? 0 : args.insertAtIndex);
+                            Dragging = false;
+                        }
+
+                        return validDrag ? DragAndDropVisualMode.Move : DragAndDropVisualMode.None;
+                    }
+
+                    case DragAndDropPosition.OutsideItems:
+                    {
+                        if (args.performDrop)
+                        {
+                            Dragging = false;
+                        }
+
+                        return DragAndDropVisualMode.Move;
+                    }
+                    default:
+                        Debug.LogError("Unhandled enum " + args.dragAndDropPosition);
+                        return DragAndDropVisualMode.None;
+                }
+            }
+
+            return DragAndDropVisualMode.None;
         }
 
-        public Action<int,int,int> OnDragItemToContainer;
-        public virtual void OnDropDraggedElementsAtIndex(List<TreeViewItem> draggedRows, TreeViewItem parent, int insertIndex)
+        public Action<int, int, int> OnDragItemToContainer;
+
+        public virtual void OnDropDraggedElementsAtIndex(List<TreeViewItem> draggedRows, TreeViewItem parent,
+            int insertIndex)
         {
             OnDragItemToContainer?.Invoke(draggedRows[0].id, parent.id, insertIndex);
+        }
+
+        public Action<EUM_BaseWidget, int, int> OnInsertToParent;
+        public void InsertToParent(EUM_BaseWidget widget, TreeViewItem parent, int index)
+        {
+            OnInsertToParent?.Invoke(widget, parent.id, index);
         }
 
 

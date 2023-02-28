@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Amazing.Editor.Library;
+using EditorUIMaker.Utility;
 using EditorUIMaker.Widgets;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -182,6 +183,14 @@ namespace EditorUIMaker
                                 EUM_Helper.Instance.SelectWidget = EUM_Helper.Instance.DraggingWidget;
                                 EUM_Helper.Instance.OnSelectWidgetChange?.Invoke();
                                 
+                            }
+                        }
+                        else
+                        {
+                            var treeView = EUM_Helper.Instance.TreeView;
+                            if (treeView.ParentItem != null)
+                            {
+                                treeView.InsertToParent(EUM_Helper.Instance.DraggingWidget,treeView.ParentItem,treeView.InsertIndex);
                             }
                         }
                     }

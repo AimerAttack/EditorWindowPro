@@ -56,7 +56,7 @@ namespace EditorUIMaker.Widgets
             var code =
                 @"var style{{name}} = new GUIStyle(GUI.skin.button);
 style{{name}}.alignment = TextAnchor.{{textAnchor}};
-if(GUILayout.Button(""{{name}}"",style{{name}}))
+if(GUILayout.Button(""{{text}}"",style{{name}}))
 {
     _Logic.Click{{name}}();
 }
@@ -64,6 +64,7 @@ if(GUILayout.Button(""{{name}}"",style{{name}}))
             
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
+            sObj.Add("text",string.IsNullOrEmpty(info.Text) ? TypeName : info.Text);
             sObj.Add("textAnchor", info.TextAnchor.ToString());
 
             var context = new TemplateContext();

@@ -42,7 +42,10 @@ namespace EditorUIMaker
             _Inited = true;
             
             TreeView = HierarchyTreeView.Create(new GUIContent("Controls"), 70);
+            EUM_Helper.Instance.TreeView = TreeView;
+            
             TreeView.OnDragItemToContainer += OnDragItemToContainer;
+            TreeView.OnInsertToParent += OnInsertToParent;
             RefreshTreeView();
             OnSelectWidgetChanged();
         }
@@ -131,6 +134,19 @@ namespace EditorUIMaker
             {
                 TreeView.SetSelection(new List<int>() {selectWidget.ID},TreeViewSelectionOptions.FireSelectionChanged | TreeViewSelectionOptions.RevealAndFrame);
             }
+        }
+
+
+        void OnInsertToParent(EUM_BaseWidget widget, int parentID, int index)
+        {
+            var container = EUM_Helper.Instance.Widgets[parentID];
+            
+            EUM_Helper.Instance.AddToContainer(widget,container as EUM_Container,index);
+
+            EUM_Helper.Instance.SelectWidget = widget;
+            EUM_Helper.Instance.OnSelectWidgetChange?.Invoke(); 
+            
+            EUM_Helper.Instance.DraggingWidget = null;
         }
 
         void OnDragItemToContainer(int itemID, int parentID, int index)
