@@ -72,6 +72,22 @@ public class NewWindow : EditorWindow
             _Logic.LongField1 = tmpLongField1;
             _Logic.LongField1ValueChange();
         }
+        
+        
+        var tmpDoubleField1 = EditorGUILayout.DoubleField("DoubleField",_Logic.DoubleField1);
+        if(tmpDoubleField1 != _Logic.DoubleField1)
+        {
+            _Logic.DoubleField1 = tmpDoubleField1;
+            _Logic.DoubleField1ValueChange();
+        }
+        
+        
+        var tmpDoubleField2 = EditorGUILayout.DoubleField("DoubleField",_Logic.DoubleField2);
+        if(tmpDoubleField2 != _Logic.DoubleField2)
+        {
+            _Logic.DoubleField2 = tmpDoubleField2;
+            _Logic.DoubleField2ValueChange();
+        }
 
     }
 }

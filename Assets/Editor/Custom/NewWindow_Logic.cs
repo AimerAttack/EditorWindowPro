@@ -54,5 +54,19 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     {
         CallMethod("OnLongField1ValueChange");
     }
+    
+    public double DoubleField1;
+    
+    public void DoubleField1ValueChange()
+    {
+        CallMethod("OnDoubleField1ValueChange");
+    }
+    
+    public double DoubleField2;
+    
+    public void DoubleField2ValueChange()
+    {
+        CallMethod("OnDoubleField2ValueChange");
+    }
 
 }
