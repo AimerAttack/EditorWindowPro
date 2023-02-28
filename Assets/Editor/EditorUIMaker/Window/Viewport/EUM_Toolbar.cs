@@ -6,7 +6,7 @@ namespace EditorUIMaker
 {
     public class EUM_Toolbar : I_EUM_Drawable
     {
-        public const float s_Height = 18;
+        public const float s_Height = 20;
 
         public EUM_Toolbar()
         {
@@ -15,6 +15,9 @@ namespace EditorUIMaker
 
         public void Draw(ref Rect rect)
         {
+            var style = new GUIStyle(GUI.skin.label);
+            style.alignment = TextAnchor.UpperCenter;
+            
             var drawRect = new Rect(rect.x, rect.y, rect.width, s_Height);
             rect.yMin += s_Height;
 
@@ -34,7 +37,7 @@ namespace EditorUIMaker
             }
 
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Zoom:", GUILayout.Width(40));
+            EditorGUILayout.LabelField("Zoom:", style,GUILayout.Width(40));
             EUM_Helper.Instance.ZoomIndex = EditorGUILayout.Popup(EUM_Helper.Instance.ZoomIndex,
                 EUM_Helper.GetZoomScalesText(), GUILayout.Width(60));
             EditorGUILayout.EndHorizontal();
@@ -47,6 +50,12 @@ namespace EditorUIMaker
             {
                 EUM_Helper.Instance.SaveFile();
             }
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("MenuPath:", style,GUILayout.Width(70));
+            EUM_Helper.Instance.MenuItemPath =
+                EditorGUILayout.TextField(EUM_Helper.Instance.MenuItemPath ,GUILayout.ExpandWidth(true));
+            EditorGUILayout.EndHorizontal();
 
             GUILayout.FlexibleSpace();
 

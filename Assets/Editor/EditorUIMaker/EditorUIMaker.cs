@@ -143,7 +143,7 @@ namespace EditorUIMaker
             var viewportWidth = position.width - inspectorWidth - operationWidth;
             viewportWidth = Mathf.Max(s_MinViewportWidth, viewportWidth);
 
-            var viewportRect = new Rect(operationWidth, 0, viewportWidth - s_SplitSize, position.height);
+            var viewportRect = new Rect(operationWidth,0 , viewportWidth - s_SplitSize, position.height);
             Viewport.Draw(ref viewportRect);
 
             var inspectorRect = new Rect(viewportRect.x + viewportRect.width + s_SplitSize, 0, inspectorWidth,

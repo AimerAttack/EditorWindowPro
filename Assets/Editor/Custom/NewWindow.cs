@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 public class NewWindow : EditorWindow
 {
-    [MenuItem("Tools/NewWindow")]
+    [MenuItem("Tools/123")]
     public static void ShowWindow()
     {
         var window = GetWindow<NewWindow>();

@@ -51,6 +51,7 @@ namespace EditorUIMaker
         public List<EUM_Container> Containers = new List<EUM_Container>();
         public Dictionary<int, EUM_BaseWidget> Widgets = new Dictionary<int, EUM_BaseWidget>();
         public Dictionary<Type,int> WidgetCount = new Dictionary<Type, int>();
+        public string MenuItemPath;
         #endregion
         
         public string WindowTitle = "WindowTitle";
@@ -121,6 +122,7 @@ namespace EditorUIMaker
             Widgets.Clear();
             Widgets.Add(Window.ID,Window);
 
+            MenuItemPath = string.Empty;
             
             OnClearData?.Invoke();
         }
@@ -139,8 +141,12 @@ namespace EditorUIMaker
             {
                 //新文件，需要选择保存路径
                 var path = EditorUtility.SaveFilePanelInProject("Save File", "NewFile", "asset", "Save File");
-                if(!string.IsNullOrEmpty(path))
+                if (!string.IsNullOrEmpty(path))
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(path);
+                    WindowTitle = fileName;
                     SaveDataToPath(path);
+                }
             }
             else
             {
@@ -157,6 +163,11 @@ namespace EditorUIMaker
 
             
             data.Stash = new EUM_Stash();
+
+            if (string.IsNullOrEmpty(MenuItemPath))
+                MenuItemPath = string.Format("Tools/{0}", WindowTitle);
+            
+            data.MenuItemPath = MenuItemPath;
             var window = Window.Clone() as EUM_Window;
 
             foreach (var widget in window.Widgets)
@@ -180,7 +191,7 @@ using UnityEditor;
 using UnityEngine;
 public class {{className}} : EditorWindow
 {
-    [MenuItem(""Tools/{{className}}"")]
+    [MenuItem(""{{menuItemPath}}"")]
     public static void ShowWindow()
     {
         var window = GetWindow<{{className}}>();
@@ -212,6 +223,7 @@ public class {{className}} : EditorWindow
             var sObj = new ScriptObject();
             sObj.Add("code",code);
             sObj.Add("className",WindowTitle);
+            sObj.Add("menuItemPath",MenuItemPath);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);
