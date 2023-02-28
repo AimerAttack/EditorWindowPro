@@ -21,74 +21,6 @@ public class NewWindow : EditorWindow
     void OnGUI()
     {
         
-        GUILayout.BeginHorizontal();
-        GUILayout.Label("TextField");
-        var tmpTextField1 = GUILayout.TextField(_Logic.TextField1);
-        if(tmpTextField1 != _Logic.TextField1)
-        {
-            _Logic.TextField1 = tmpTextField1;
-            _Logic.TextField1ValueChange();
-        }
-        GUILayout.EndHorizontal();
-        
-        GUILayout.BeginHorizontal();
-        var tmpSlider1 = EditorGUILayout.Slider("Slider",_Logic.Slider1, _Logic.Slider1Min, _Logic.Slider1Max);
-        if(tmpSlider1 != _Logic.Slider1)
-        {
-            _Logic.Slider1 = tmpSlider1;
-            _Logic.Slider1ValueChange();
-        }
-        GUILayout.EndHorizontal();
-        
-        GUILayout.BeginHorizontal();
-        var tmpIntSlider1 = EditorGUILayout.IntSlider("IntSlider",_Logic.IntSlider1, _Logic.IntSlider1Min, _Logic.IntSlider1Max);
-        if(tmpIntSlider1 != _Logic.IntSlider1)
-        {
-            _Logic.IntSlider1 = tmpIntSlider1;
-            _Logic.IntSlider1ValueChange();
-        }
-        GUILayout.EndHorizontal();
-        
-        
-        var tmpIntField1 = EditorGUILayout.IntField("IntField",_Logic.IntField1);
-        if(tmpIntField1 != _Logic.IntField1)
-        {
-            _Logic.IntField1 = tmpIntField1;
-            _Logic.IntField1ValueChange();
-        }
-        
-        
-        var tmpFloatField1 = EditorGUILayout.FloatField("FloatField",_Logic.FloatField1);
-        if(tmpFloatField1 != _Logic.FloatField1)
-        {
-            _Logic.FloatField1 = tmpFloatField1;
-            _Logic.FloatField1ValueChange();
-        }
-        
-        
-        var tmpLongField1 = EditorGUILayout.LongField("LongField",_Logic.LongField1);
-        if(tmpLongField1 != _Logic.LongField1)
-        {
-            _Logic.LongField1 = tmpLongField1;
-            _Logic.LongField1ValueChange();
-        }
-        
-        
-        var tmpDoubleField1 = EditorGUILayout.DoubleField("DoubleField",_Logic.DoubleField1);
-        if(tmpDoubleField1 != _Logic.DoubleField1)
-        {
-            _Logic.DoubleField1 = tmpDoubleField1;
-            _Logic.DoubleField1ValueChange();
-        }
-        
-        
-        var tmpVector2Field1 = EditorGUILayout.Vector2Field("Vector2Field",_Logic.Vector2Field1);
-        if(tmpVector2Field1 != _Logic.Vector2Field1)
-        {
-            _Logic.Vector2Field1 = tmpVector2Field1;
-            _Logic.Vector2Field1ValueChange();
-        }
-        
         
         var tmpVector3Field1 = EditorGUILayout.Vector3Field("Vector3Field",_Logic.Vector3Field1);
         if(tmpVector3Field1 != _Logic.Vector3Field1)
@@ -98,11 +30,11 @@ public class NewWindow : EditorWindow
         }
         
         
-        var tmpVector2IntField1 = EditorGUILayout.Vector2IntField("Vector2IntField",_Logic.Vector2IntField1);
-        if(tmpVector2IntField1 != _Logic.Vector2IntField1)
+        var tmpVector3IntField1 = EditorGUILayout.Vector3IntField("Vector3IntField",_Logic.Vector3IntField1);
+        if(tmpVector3IntField1 != _Logic.Vector3IntField1)
         {
-            _Logic.Vector2IntField1 = tmpVector2IntField1;
-            _Logic.Vector2IntField1ValueChange();
+            _Logic.Vector3IntField1 = tmpVector3IntField1;
+            _Logic.Vector3IntField1ValueChange();
         }
 
     }
