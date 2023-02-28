@@ -29,7 +29,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 108
+      Data: 120
     - Name: InViewport
       Entry: 5
       Data: false
@@ -102,7 +102,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 110
+      Data: 122
     - Name: InViewport
       Entry: 5
       Data: false
@@ -171,7 +171,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 111
+      Data: 123
     - Name: InViewport
       Entry: 5
       Data: false
@@ -246,7 +246,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 112
+      Data: 124
     - Name: InViewport
       Entry: 5
       Data: false
@@ -321,7 +321,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 113
+      Data: 125
     - Name: InViewport
       Entry: 5
       Data: false
@@ -390,7 +390,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 114
+      Data: 126
     - Name: InViewport
       Entry: 5
       Data: false
@@ -459,7 +459,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 115
+      Data: 127
     - Name: InViewport
       Entry: 5
       Data: false
@@ -528,7 +528,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 116
+      Data: 128
     - Name: InViewport
       Entry: 5
       Data: false
@@ -591,13 +591,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 17|EditorUIMaker.Widgets.EUM_DoubleField, Assembly-CSharp-Editor
+      Data: 17|EditorUIMaker.Widgets.EUM_Vector2Field, Assembly-CSharp-Editor
     - Name: Depth
       Entry: 3
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 117
+      Data: 129
     - Name: InViewport
       Entry: 5
       Data: false
@@ -642,16 +642,16 @@ MonoBehaviour:
       Data: 
     - Name: Info
       Entry: 7
-      Data: 18|EditorUIMaker.Widgets.EUM_DoubleField_Info, Assembly-CSharp-Editor
+      Data: 18|EditorUIMaker.Widgets.EUM_Vector2Field_Info, Assembly-CSharp-Editor
     - Name: Name
       Entry: 1
-      Data: DoubleField2
+      Data: Vector2Field1
     - Name: _Widget
       Entry: 9
       Data: 17
     - Name: Label
       Entry: 1
-      Data: DoubleField
+      Data: Vector2Field
     - Name: 
       Entry: 8
       Data: 

@@ -5,25 +5,25 @@ using UnityEngine;
 
 namespace EditorUIMaker.Widgets
 {
-    public class EUM_DoubleField : EUM_Widget
+    public class EUM_Vector2Field : EUM_Widget
     {
-        private EUM_DoubleField_Info info => Info as EUM_DoubleField_Info;
-        public override string TypeName => "DoubleField";
+        private EUM_Vector2Field_Info info => Info as EUM_Vector2Field_Info;
+        public override string TypeName => "Vector2Field";
         protected override EUM_BaseInfo CreateInfo()
         {
-            var info = new EUM_DoubleField_Info(this);
+            var info = new EUM_Vector2Field_Info(this);
             info.Label = TypeName;
             return info;
         }
 
         protected override void OnDrawLayout()
         {
-            info.Value = EditorGUILayout.DoubleField(info.Label, info.Value);
+            info.Value = EditorGUILayout.Vector2Field(info.Label, info.Value);
         }
 
         public override string LogicCode()
         {
-            var code = @"public double {{name}};
+            var code = @"public Vector2 {{name}};
 
 public void {{name}}ValueChange()
 {
@@ -45,7 +45,7 @@ public void {{name}}ValueChange()
         public override string Code()
         {
             var code =@"
-var tmp{{name}} = EditorGUILayout.DoubleField(""{{label}}"",_Logic.{{name}});
+var tmp{{name}} = EditorGUILayout.Vector2Field(""{{label}}"",_Logic.{{name}});
 if(tmp{{name}} != _Logic.{{name}})
 {
     _Logic.{{name}} = tmp{{name}};
@@ -70,15 +70,17 @@ if(tmp{{name}} != _Logic.{{name}})
         {
             GUI.BeginGroup(new Rect(position.x,position.y,1000,20));
             GUI.Label(new Rect(0,0,100,20), TypeName);
-            GUI.TextField(new Rect(100, 0, 100, 20), "");
+            GUI.TextField(new Rect(100, 0, 50, 20), "");
+            GUI.TextField(new Rect(160, 0, 50, 20), "");
             GUI.EndGroup(); 
         }
 
         public override EUM_BaseWidget Clone()
         {
-            var widget = new EUM_DoubleField();
+            var widget = new EUM_Vector2Field();
             Info.CopyTo(widget.Info);
             return widget;
         }
+
     }
 }

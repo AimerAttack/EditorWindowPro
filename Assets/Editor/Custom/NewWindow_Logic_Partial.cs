@@ -11,4 +11,9 @@ public partial class NewWindow_Logic
     {
         Debug.Log(IntSlider1);
     }
+
+    void OnVector2Field1ValueChange()
+    {
+        Debug.Log(Vector2Field1);
+    }
 }

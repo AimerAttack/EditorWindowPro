@@ -1,6 +1,7 @@
 
 using System;
 using EditorUIMaker;
+using UnityEngine;
 
 public partial class NewWindow_Logic : EUM_BaseWindowLogic
 {
@@ -62,11 +63,11 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
         CallMethod("OnDoubleField1ValueChange");
     }
     
-    public double DoubleField2;
+    public Vector2 Vector2Field1;
     
-    public void DoubleField2ValueChange()
+    public void Vector2Field1ValueChange()
     {
-        CallMethod("OnDoubleField2ValueChange");
+        CallMethod("OnVector2Field1ValueChange");
     }
 
 }

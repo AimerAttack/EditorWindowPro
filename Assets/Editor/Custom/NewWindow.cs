@@ -82,11 +82,11 @@ public class NewWindow : EditorWindow
         }
         
         
-        var tmpDoubleField2 = EditorGUILayout.DoubleField("DoubleField",_Logic.DoubleField2);
-        if(tmpDoubleField2 != _Logic.DoubleField2)
+        var tmpVector2Field1 = EditorGUILayout.Vector2Field("Vector2Field",_Logic.Vector2Field1);
+        if(tmpVector2Field1 != _Logic.Vector2Field1)
         {
-            _Logic.DoubleField2 = tmpDoubleField2;
-            _Logic.DoubleField2ValueChange();
+            _Logic.Vector2Field1 = tmpVector2Field1;
+            _Logic.Vector2Field1ValueChange();
         }
 
     }

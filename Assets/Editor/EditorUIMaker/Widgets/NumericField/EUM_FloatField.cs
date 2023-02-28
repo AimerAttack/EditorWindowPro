@@ -77,7 +77,7 @@ if(tmp{{name}} != _Logic.{{name}})
         public override EUM_BaseWidget Clone()
         {
             var widget = new EUM_FloatField();
-            Info.CopyTo(widget.info);
+            Info.CopyTo(widget.Info);
             return widget;
         }
     }

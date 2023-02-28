@@ -43,6 +43,7 @@ namespace EditorUIMaker
             NumericFields.Add(new EUM_FloatField());
             NumericFields.Add(new EUM_LongField());
             NumericFields.Add(new EUM_DoubleField());
+            NumericFields.Add(new EUM_Vector2Field());
         }
 
         public void Draw(ref Rect rect)

@@ -254,6 +254,7 @@ public class {{className}} : EditorWindow
             var page = @"
 using System;
 using EditorUIMaker;
+using UnityEngine;
 
 public partial class {{className}}_Logic : EUM_BaseWindowLogic
 {
