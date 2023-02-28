@@ -38,11 +38,8 @@ namespace EditorUIMaker.Widgets
         {
             return string.Empty;
         }
-        
-        public virtual string Code()
-        {
-            return string.Empty;
-        }
+
+        public abstract string Code();
 
         protected virtual void FixAbsoluteRect()
         {

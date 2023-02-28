@@ -30,6 +30,7 @@ namespace EditorUIMaker
             Containers.Add(new EUM_ScrollView());
 
             Controls.Add(new EUM_Space());
+            Controls.Add(new EUM_FlexibleSpace());
             Controls.Add(new EUM_Button());
             Controls.Add(new EUM_Label());
         }

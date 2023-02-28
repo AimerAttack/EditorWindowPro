@@ -316,7 +316,7 @@ public partial class {{className}}_Logic : EUM_BaseWindowLogic
                 WidgetCount.Add(type, 0);
             }
             WidgetCount[type]++;
-            if(string.IsNullOrEmpty(widget.Info.Name))
+            if(string.IsNullOrEmpty(widget.Info.Name) || widget.Info.Name == widget.TypeName)
                 widget.Info.Name = widget.TypeName + WidgetCount[type];
             
             OnAddItemToWindow?.Invoke(widget);
