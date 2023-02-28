@@ -39,6 +39,15 @@ public class NewWindow : EditorWindow
             _Logic.Slider1ValueChange();
         }
         GUILayout.EndHorizontal();
+        
+        GUILayout.BeginHorizontal();
+        var tmpIntSlider1 = EditorGUILayout.IntSlider("IntSlider",_Logic.IntSlider1, _Logic.IntSlider1Min, _Logic.IntSlider1Max);
+        if(tmpIntSlider1 != _Logic.IntSlider1)
+        {
+            _Logic.IntSlider1 = tmpIntSlider1;
+            _Logic.IntSlider1ValueChange();
+        }
+        GUILayout.EndHorizontal();
 
     }
 }

@@ -37,6 +37,7 @@ namespace EditorUIMaker
             Controls.Add(new EUM_Label());
             Controls.Add(new EUM_TextField());
             Controls.Add(new EUM_Slider());
+            Controls.Add(new EUM_IntSlider());
         }
 
         public void Draw(ref Rect rect)
