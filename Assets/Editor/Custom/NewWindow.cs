@@ -88,6 +88,14 @@ public class NewWindow : EditorWindow
             _Logic.Vector2Field1 = tmpVector2Field1;
             _Logic.Vector2Field1ValueChange();
         }
+        
+        
+        var tmpVector3Field1 = EditorGUILayout.Vector3Field("Vector3Field",_Logic.Vector3Field1);
+        if(tmpVector3Field1 != _Logic.Vector3Field1)
+        {
+            _Logic.Vector3Field1 = tmpVector3Field1;
+            _Logic.Vector3Field1ValueChange();
+        }
 
     }
 }
