@@ -51,6 +51,11 @@ namespace EditorUIMaker
             }
 
             var rect = EUM_Helper.Instance.WindowRect;
+
+            var scale = EUM_Helper.GetZoomScaleFactor();
+            var scaleVec = new Vector2(scale,scale);
+            GUIUtility.ScaleAroundPivot(scaleVec, EUM_Helper.Instance.MousePosition);
+            
             GUILib.Rect(rect, Color.grey, 0.5f);
             EUM_Helper.Instance.VitualWindowRect =
                 new Rect(rect.x, rect.y + s_TitleHeight, rect.width, rect.height - s_TitleHeight);
@@ -65,6 +70,7 @@ namespace EditorUIMaker
             Window.Draw(ref EUM_Helper.Instance.VitualWindowRect);
 
             DrawResizeBar(contentRect,rect);
+            GUI.matrix = Matrix4x4.TRS(new Vector3(0, 0, 0), Quaternion.identity, new Vector3(1, 1, 1));
         }
 
         void DrawResizeBar(Rect contentRect,Rect rect)

@@ -1,4 +1,5 @@
 using EditorUIMaker.Widgets;
+using UnityEditor;
 using UnityEngine;
 
 namespace EditorUIMaker
@@ -65,12 +66,13 @@ namespace EditorUIMaker
             }
             
             GUILayout.EndArea();
-
+            
             if (!EUM_Helper.Instance.Preview && InViewport)
             {
                 GUI.color = Color.white;
                 GUI.enabled = true;
             }
+            
         }
     }
 }

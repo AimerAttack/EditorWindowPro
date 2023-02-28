@@ -125,7 +125,7 @@ namespace EditorUIMaker
         {
             EUM_Helper.Instance.Modified = true;
         }
-
+       
         protected override void OnGUI()
         {
             EUM_Helper.Instance.MouseRects.Clear();
@@ -211,6 +211,7 @@ namespace EditorUIMaker
                     ResizeOperationArea = false;
             }
 
+            ProcessScrollWheel();
             Input.CheckInput();
 
             Repaint();
@@ -418,7 +419,7 @@ namespace EditorUIMaker
         {
             if (Event.current.type == EventType.ScrollWheel)
             {
-                var zoomDelta = UIEditorVariables.ZoomIndex;
+                var zoomDelta = EUM_Helper.Instance.ZoomIndex;
                 if (Event.current.delta.y < 0)
                     zoomDelta++;
                 else
@@ -428,10 +429,11 @@ namespace EditorUIMaker
 
                 if (zoomDelta < 0)
                     zoomDelta = 0;
-                if (zoomDelta >= UIEditorHelpers.ZoomScales.Length)
-                    zoomDelta = UIEditorHelpers.ZoomScales.Length - 1;
+                if (zoomDelta >= EUM_Helper.ZoomScales.Length)
+                    zoomDelta = EUM_Helper.ZoomScales.Length - 1;
 
-                UIEditorVariables.ZoomIndex = zoomDelta;
+                EUM_Helper.Instance.ZoomIndex = zoomDelta;
+                EUM_Helper.Instance.MousePosition = Event.current.mousePosition;
             }
         }
 
@@ -454,6 +456,11 @@ namespace EditorUIMaker
                         {
                             var deltaX = Event.current.mousePosition.x - EUM_Helper.Instance.StartDragCanvasPosition.x;
                             var deltaY = Event.current.mousePosition.y - EUM_Helper.Instance.StartDragCanvasPosition.y;
+
+                            var scale = EUM_Helper.GetZoomScaleFactor();
+                            deltaX /= scale;
+                            deltaY /= scale;
+                            
                             EUM_Helper.Instance.StartDragCanvasPosition.x = Event.current.mousePosition.x;
                             EUM_Helper.Instance.StartDragCanvasPosition.y = Event.current.mousePosition.y;
                             EUM_Helper.Instance.WindowRect.x += deltaX;

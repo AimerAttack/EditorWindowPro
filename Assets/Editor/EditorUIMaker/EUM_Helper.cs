@@ -35,6 +35,7 @@ namespace EditorUIMaker
         public Rect VitualWindowRect;
         public Rect ViewportRect;
         public List<Rect> MouseRects = new List<Rect>(10);
+        public Vector2 MousePosition;
  
         #region need clear when data change
         public int WidgetID = 1;
