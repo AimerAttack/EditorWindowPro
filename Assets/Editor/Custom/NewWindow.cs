@@ -56,6 +56,14 @@ public class NewWindow : EditorWindow
             _Logic.IntField1 = tmpIntField1;
             _Logic.IntField1ValueChange();
         }
+        
+        
+        var tmpFloatField1 = EditorGUILayout.FloatField("FloatField",_Logic.FloatField1);
+        if(tmpFloatField1 != _Logic.FloatField1)
+        {
+            _Logic.FloatField1 = tmpFloatField1;
+            _Logic.FloatField1ValueChange();
+        }
 
     }
 }

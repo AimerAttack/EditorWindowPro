@@ -40,5 +40,12 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     {
         CallMethod("OnIntField1ValueChange");
     }
+    
+    public float FloatField1;
+    
+    public void FloatField1ValueChange()
+    {
+        CallMethod("OnFloatField1ValueChange");
+    }
 
 }
