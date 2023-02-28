@@ -417,6 +417,7 @@ namespace EditorUIMaker
 
         void ProcessScrollWheel()
         {
+            return;
             if (Event.current.type == EventType.ScrollWheel)
             {
                 var zoomDelta = EUM_Helper.Instance.ZoomIndex;

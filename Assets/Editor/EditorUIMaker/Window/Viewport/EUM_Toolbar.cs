@@ -36,14 +36,23 @@ namespace EditorUIMaker
                 optionsMenu.DropDown(dropdownRect);
             }
 
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Zoom:", style,GUILayout.Width(40));
-            EUM_Helper.Instance.ZoomIndex = EditorGUILayout.Popup(EUM_Helper.Instance.ZoomIndex,
-                EUM_Helper.GetZoomScalesText(), GUILayout.Width(60));
-            EditorGUILayout.EndHorizontal();
+            // EditorGUILayout.BeginHorizontal();
+            // EditorGUILayout.LabelField("Zoom:", style,GUILayout.Width(40));
+            // EUM_Helper.Instance.ZoomIndex = EditorGUILayout.Popup(EUM_Helper.Instance.ZoomIndex,
+            //     EUM_Helper.GetZoomScalesText(), GUILayout.Width(60));
+            // EditorGUILayout.EndHorizontal();
 
-            if (GUILayout.Button("Fit Canvas", "ToolbarButton"))
+            // if (GUILayout.Button("Fit Canvas", "ToolbarButton"))
+            // {
+            // }
+            
+            if(GUILayout.Button("Reset Position", "ToolbarButton"))
             {
+                var viewPortRect = EUM_Helper.Instance.ViewportRect;
+                var windowRect = EUM_Helper.Instance.WindowRect;
+                windowRect.x = viewPortRect.x + (viewPortRect.width - windowRect.width) / 2;
+                windowRect.y = viewPortRect.y + (viewPortRect.height - windowRect.height) / 2;
+                EUM_Helper.Instance.WindowRect = windowRect;
             }
 
             if (GUILayout.Button("Save", "ToolbarButton"))
