@@ -20,6 +20,7 @@ namespace EditorUIMaker
 
         public List<EUM_BaseWidget> Containers = new List<EUM_BaseWidget>();
         public List<EUM_BaseWidget> Controls = new List<EUM_BaseWidget>();
+        public List<EUM_BaseWidget> NumericFields = new List<EUM_BaseWidget>();
 
         public EUM_Library()
         {
@@ -34,6 +35,7 @@ namespace EditorUIMaker
             Controls.Add(new EUM_FlexibleSpace());
             Controls.Add(new EUM_Button());
             Controls.Add(new EUM_Label());
+            Controls.Add(new EUM_TextField());
         }
 
         public void Draw(ref Rect rect)
@@ -153,6 +155,27 @@ namespace EditorUIMaker
 
         void DrawNumericFields()
         {
+            foreach (var control in NumericFields)
+            {
+                GUILayout.BeginHorizontal();
+                GUILayout.Space(20);
+                GUILayout.Label(control.TypeName);
+                GUILayout.EndHorizontal();
+
+                var lastRect = GUILayoutUtility.GetLastRect();
+                if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+                {
+                    if (lastRect.Contains(Event.current.mousePosition))
+                    {
+                        DragAndDrop.PrepareStartDrag();
+                        DragAndDrop.SetGenericData("dragflag", "");
+                        DragAndDrop.StartDrag("");
+                        Event.current.Use();
+
+                        EUM_Helper.Instance.DraggingWidget = control.Clone();
+                    }
+                }
+            }
         }
 
         void DrawCustom()

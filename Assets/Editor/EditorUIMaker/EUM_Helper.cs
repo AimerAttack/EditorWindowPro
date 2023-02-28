@@ -148,7 +148,9 @@ namespace EditorUIMaker
                 var path = EditorUtility.SaveFilePanelInProject("Save File", "NewFile", "asset", "Save File");
                 if (!string.IsNullOrEmpty(path))
                 {
+                    FilePath = path;
                     var fileName = Path.GetFileNameWithoutExtension(path);
+                    WindowTitle = fileName;
                     MenuItemPath = string.Format("Tools/{0}", fileName);
                     SaveDataToPath(path);
                 }

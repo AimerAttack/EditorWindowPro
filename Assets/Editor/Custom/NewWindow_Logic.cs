@@ -1,40 +1,19 @@
 
 using System;
 using EditorUIMaker;
+using UnityEngine;
 
 public partial class NewWindow_Logic : EUM_BaseWindowLogic
 {
     
-    public void ClickButton5()
+    public string TextField1;
+    public void TextField1ValueChange()
     {
-        CallMethod("OnClickButton5");
+        CallMethod("OnTextField1ValueChange");
     }
-    public void Clickdwa()
+
+    void OnTextField1ValueChange()
     {
-        CallMethod("OnClickdwa");
-    }
-    public void ClickButton2()
-    {
-        CallMethod("OnClickButton2");
-    }
-    
-    
-    
-    public void ClickButton3()
-    {
-        CallMethod("OnClickButton3");
-    }
-    
-    public void ClickButton4()
-    {
-        CallMethod("OnClickButton4");
-    }
-    public void ClickButton7()
-    {
-        CallMethod("OnClickButton7");
-    }
-    public void ClickButton6()
-    {
-        CallMethod("OnClickButton6");
+        Debug.Log("OnTextField1ValueChange");
     }
 }
