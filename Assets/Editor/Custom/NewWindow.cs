@@ -30,6 +30,15 @@ public class NewWindow : EditorWindow
             _Logic.TextField1ValueChange();
         }
         GUILayout.EndHorizontal();
+        
+        GUILayout.BeginHorizontal();
+        var tmpSlider1 = EditorGUILayout.Slider("Slider",_Logic.Slider1, _Logic.Slider1Min, _Logic.Slider1Max);
+        if(tmpSlider1 != _Logic.Slider1)
+        {
+            _Logic.Slider1 = tmpSlider1;
+            _Logic.Slider1ValueChange();
+        }
+        GUILayout.EndHorizontal();
 
     }
 }

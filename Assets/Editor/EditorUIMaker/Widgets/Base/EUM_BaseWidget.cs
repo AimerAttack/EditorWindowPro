@@ -34,10 +34,7 @@ namespace EditorUIMaker.Widgets
             }
         }
 
-        public virtual string LogicCode()
-        {
-            return string.Empty;
-        }
+        public abstract string LogicCode();
 
         public abstract string Code();
 

@@ -1,34 +1,56 @@
 using Scriban;
 using Scriban.Runtime;
+using UnityEditor;
 using UnityEngine;
 
 namespace EditorUIMaker.Widgets
 {
-    public class EUM_TextField : EUM_Widget
+    public class EUM_Slider : EUM_Widget
     {
-        private EUM_TextField_Info info => Info as EUM_TextField_Info;
-        public override string TypeName => "TextField";
+        private EUM_Slider_Info info => Info as EUM_Slider_Info;
+        public override string TypeName => "Slider";
         protected override EUM_BaseInfo CreateInfo()
         {
-            var info = new EUM_TextField_Info(this);
+            var info = new EUM_Slider_Info(this);
             info.Label = TypeName;
             return info;
         }
 
         protected override void OnDrawLayout()
         {
-            GUILayout.BeginHorizontal();
-            GUILayout.Label(info.Label);
-            info.Value = GUILayout.TextField(info.Value);
-            GUILayout.EndHorizontal();
+            info.Value = EditorGUILayout.Slider(info.Label,info.Value, info.Min, info.Max);
+        }
+
+        public override string LogicCode()
+        {
+            var code = @"public float {{name}};
+public float {{name}}Min={{min}};
+public float {{name}}Max={{max}};
+
+public void {{name}}ValueChange()
+{
+    CallMethod(""On{{name}}ValueChange"");
+}
+";
+            var sObj = new ScriptObject();
+            sObj.Add("name", Info.Name);
+            sObj.Add("min",info.Min);
+            sObj.Add("max",info.Max);
+
+            var context = new TemplateContext();
+            context.PushGlobal(sObj);
+
+            var template = Template.Parse(code);
+            var result = template.Render(context);
+            
+            return result;
         }
 
         public override string Code()
         {
             var code =
                 @"GUILayout.BeginHorizontal();
-GUILayout.Label(""{{label}}"");
-var tmp{{name}} = GUILayout.TextField(_Logic.{{name}});
+var tmp{{name}} = EditorGUILayout.Slider(""{{label}}"",_Logic.{{name}}, _Logic.{{name}}Min, _Logic.{{name}}Max);
 if(tmp{{name}} != _Logic.{{name}})
 {
     _Logic.{{name}} = tmp{{name}};
@@ -47,40 +69,20 @@ GUILayout.EndHorizontal();
             var template = Template.Parse(code);
             var result = template.Render(context);
             
-            return result; 
-        }
-
-        public override string LogicCode()
-        {
-            var code = @"public string {{name}};
-public void {{name}}ValueChange()
-{
-    CallMethod(""On{{name}}ValueChange"");
-}
-";
-            var sObj = new ScriptObject();
-            sObj.Add("name", Info.Name);
-
-            var context = new TemplateContext();
-            context.PushGlobal(sObj);
-
-            var template = Template.Parse(code);
-            var result = template.Render(context);
-            
-            return result;
+            return result;  
         }
 
         public override void DrawDraging(Vector2 position)
         {
             GUI.BeginGroup(new Rect(position.x,position.y,1000,20));
             GUI.Label(new Rect(0,0,100,20), TypeName);
-            GUI.TextField(new Rect(100,0,100,20), TypeName);
-            GUI.EndGroup();
+            GUI.HorizontalSlider(new Rect(100,0,100,20),0,0,1);
+            GUI.EndGroup(); 
         }
 
         public override EUM_BaseWidget Clone()
         {
-            var widget = new EUM_TextField();
+            var widget = new EUM_Slider();
             Info.CopyTo(widget.Info);
             return widget;
         }

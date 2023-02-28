@@ -36,6 +36,11 @@ namespace EditorUIMaker.Widgets
             return widget;
         }
 
+        public override string LogicCode()
+        {
+            return string.Empty;
+        }
+
         public override string Code()
         {
             var code =

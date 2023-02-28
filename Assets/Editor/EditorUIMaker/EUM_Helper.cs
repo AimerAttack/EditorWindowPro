@@ -257,6 +257,11 @@ using EditorUIMaker;
 
 public partial class {{className}}_Logic : EUM_BaseWindowLogic
 {
+    public {{className}}_Logic()
+    {
+        CallMethod(""Init"");
+    }
+
     {{code}}
 }
 ";

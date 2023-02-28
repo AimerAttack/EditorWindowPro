@@ -19,6 +19,11 @@ namespace EditorUIMaker.Widgets
             GUILayout.FlexibleSpace();
         }
 
+        public override string LogicCode()
+        {
+            return string.Empty;
+        }
+
         public override string Code()
         {
             var code = "GUILayout.FlexibleSpace();";
