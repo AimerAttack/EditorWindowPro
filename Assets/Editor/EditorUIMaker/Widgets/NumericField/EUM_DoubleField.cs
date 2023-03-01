@@ -68,10 +68,9 @@ if(tmp{{name}} != _Logic.{{name}})
 
         public override void DrawDraging(Vector2 position)
         {
-            GUI.BeginGroup(new Rect(position.x,position.y,1000,20));
-            GUI.Label(new Rect(0,0,100,20), TypeName);
-            GUI.TextField(new Rect(100, 0, 100, 20), "");
-            GUI.EndGroup(); 
+            GUILayout.BeginArea(new Rect(position.x,position.y,200,20));
+            EditorGUILayout.DoubleField(TypeName, 0);
+            GUILayout.EndArea();
         }
 
         public override EUM_BaseWidget Clone()

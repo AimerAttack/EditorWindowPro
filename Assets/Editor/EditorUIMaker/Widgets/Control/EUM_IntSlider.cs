@@ -74,10 +74,9 @@ GUILayout.EndHorizontal();
 
         public override void DrawDraging(Vector2 position)
         {
-            GUI.BeginGroup(new Rect(position.x,position.y,1000,20));
-            GUI.Label(new Rect(0,0,100,20), TypeName);
-            GUI.HorizontalSlider(new Rect(100,0,100,20),0,0,1);
-            GUI.EndGroup(); 
+            GUILayout.BeginArea(new Rect(position.x,position.y,300,20));
+            EditorGUILayout.IntSlider(TypeName,5, 0, 10);
+            GUILayout.EndArea();
         }
 
         public override EUM_BaseWidget Clone()
