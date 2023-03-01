@@ -132,6 +132,29 @@ namespace EditorUIMaker
             OnClearData?.Invoke();
         }
 
+        public bool NameValid(EUM_BaseWidget widget,string newName)
+        {
+            if (newName.Length <= 0)
+                return false;
+            
+            //检查是否数字开头
+            if (newName.Length > 0 && char.IsDigit(newName[0]))
+            {
+                return false;
+            }
+
+            //检查是否重名
+            foreach (var pair in Widgets)
+            {
+                var item = pair.Value;
+                if(item != widget && item.Info.Name == newName)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public void WarningModified()
         {
             if (EditorUtility.DisplayDialog("Warning", "File has been modified!", "Save", "Don't Save"))

@@ -12,16 +12,16 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
 
     
     
-    public string Dropdown1Str ="1";
-    public int Dropdown1Index;
-    public string[] Dropdown1Options = {"1","2","3"};
+    public string bStr ="1";
+    public int bIndex;
+    public string[] bOptions = {"1","2","3"};
     
-    public void Dropdown1ValueChange()
+    public void bValueChange()
     {
-        CallMethod("OnDropdown1ValueChange");
+        CallMethod("OnbValueChange");
     }
     
-    public bool Foldout1 = false;
+    public bool c = false;
     
     public void ClickButton1()
     {

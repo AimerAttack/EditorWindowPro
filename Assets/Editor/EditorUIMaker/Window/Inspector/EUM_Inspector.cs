@@ -59,7 +59,7 @@ namespace EditorUIMaker
                 var value = fieldInfo.GetValue(info);
                 GUILayout.BeginHorizontal();
                 GUILayout.Label(fieldInfo.Name);
-                GUILayout.Label(value.ToString(),GUILayout.ExpandWidth(true)); 
+                GUILayout.Label(value.ToString(), GUILayout.ExpandWidth(true));
                 GUILayout.EndHorizontal();
             }
 
@@ -92,10 +92,21 @@ namespace EditorUIMaker
                     GUILayout.EndHorizontal();
                     if (newValue != value)
                     {
-                        EUM_Helper.Instance.Modified = true;
-                        fieldInfo.SetValue(info, newValue);
                         if (fieldInfo.Name == "Name")
-                            EUM_Helper.Instance.OnItemRename?.Invoke(EUM_Helper.Instance.SelectWidget);
+                        {
+                            //检查命名是否合法
+                            if (EUM_Helper.Instance.NameValid(EUM_Helper.Instance.SelectWidget, newValue))
+                            {
+                                EUM_Helper.Instance.Modified = true;
+                                fieldInfo.SetValue(info, newValue);
+                                EUM_Helper.Instance.OnItemRename?.Invoke(EUM_Helper.Instance.SelectWidget);
+                            }
+                        }
+                        else
+                        {
+                            EUM_Helper.Instance.Modified = true;
+                            fieldInfo.SetValue(info, newValue);
+                        }
                     }
                 }
                 else if (fieldType == typeof(int))
@@ -110,7 +121,7 @@ namespace EditorUIMaker
                 else if (fieldType == typeof(long))
                 {
                     var value = (long) fieldInfo.GetValue(info);
-                    if(GUILib.LongField(ref value, new GUIContent(fieldInfo.Name), GUILayout.ExpandWidth(true)))
+                    if (GUILib.LongField(ref value, new GUIContent(fieldInfo.Name), GUILayout.ExpandWidth(true)))
                     {
                         EUM_Helper.Instance.Modified = true;
                         fieldInfo.SetValue(info, value);
@@ -143,7 +154,7 @@ namespace EditorUIMaker
                 else if (fieldType.BaseType == typeof(bool))
                 {
                     var value = (bool) fieldInfo.GetValue(info);
-                    if(GUILib.Toggle(ref value,new GUIContent(fieldInfo.Name), null,GUILayout.ExpandWidth(true)))
+                    if (GUILib.Toggle(ref value, new GUIContent(fieldInfo.Name), null, GUILayout.ExpandWidth(true)))
                     {
                         EUM_Helper.Instance.Modified = true;
                         fieldInfo.SetValue(info, value);

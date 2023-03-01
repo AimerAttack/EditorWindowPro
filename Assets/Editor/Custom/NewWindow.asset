@@ -150,7 +150,7 @@ MonoBehaviour:
       Data: 4|EditorUIMaker.Widgets.EUM_NormalInfo, Assembly-CSharp-Editor
     - Name: Name
       Entry: 1
-      Data: Horizontal1
+      Data: a
     - Name: _Widget
       Entry: 9
       Data: 3
@@ -232,7 +232,7 @@ MonoBehaviour:
       Data: 7|EditorUIMaker.Widgets.EUM_Dropdown_Info, Assembly-CSharp-Editor
     - Name: Name
       Entry: 1
-      Data: Dropdown1
+      Data: b
     - Name: _Widget
       Entry: 9
       Data: 6
@@ -319,7 +319,7 @@ MonoBehaviour:
       Data: 10|EditorUIMaker.EUM_Foldout_Info, Assembly-CSharp-Editor
     - Name: Name
       Entry: 1
-      Data: Foldout1
+      Data: c
     - Name: _Widget
       Entry: 9
       Data: 9

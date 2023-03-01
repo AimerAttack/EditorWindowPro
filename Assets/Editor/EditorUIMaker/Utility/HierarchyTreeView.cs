@@ -163,6 +163,12 @@ namespace EditorUIMaker.Utility
 
         protected override void RenameEnded(RenameEndedArgs args)
         {
+            var newName = args.newName;
+            var targetWidget = EUM_Helper.Instance.Widgets[args.itemID];
+            var nameValid = EUM_Helper.Instance.NameValid(targetWidget,newName);
+            if(!nameValid)
+                return;
+            
             EUM_Helper.Instance.Widgets[args.itemID].Info.Name = args.newName;
             EUM_Helper.Instance.Modified = true;
             var nodes = new List<TreeViewItem>();

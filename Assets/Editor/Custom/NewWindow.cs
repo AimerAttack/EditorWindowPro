@@ -27,14 +27,14 @@ public class NewWindow : EditorWindow
         
         GUILayout.EndHorizontal();
         
-        if(GUILib.Popup(ref _Logic.Dropdown1Str,_Logic.Dropdown1Options))
+        if(GUILib.Popup(ref _Logic.bStr,_Logic.bOptions))
         {
-            _Logic.Dropdown1Index = Array.IndexOf(_Logic.Dropdown1Options,_Logic.Dropdown1Str);
-            _Logic.Dropdown1ValueChange();
+            _Logic.bIndex = Array.IndexOf(_Logic.bOptions,_Logic.bStr);
+            _Logic.bValueChange();
         }
         
-        GUILib.Foldout("Foldout1",ref _Logic.Foldout1);
-        if(_Logic.Foldout1)
+        GUILib.Foldout("Foldout1",ref _Logic.c);
+        if(_Logic.c)
         {
         
         
