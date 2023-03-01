@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace EditorUIMaker.Widgets
 {
-    public class EUM_IntField : EUM_Widget
+    public class EUM_Int : EUM_Widget
     {
-        private EUM_IntField_Info info => Info as EUM_IntField_Info;
-        public override string TypeName => "IntField";
+        private EUM_Int_Info info => Info as EUM_Int_Info;
+        public override string TypeName => "Int";
         protected override EUM_BaseInfo CreateInfo()
         {
-            var info = new EUM_IntField_Info(this);
+            var info = new EUM_Int_Info(this);
             info.Label = TypeName;
             return info;
         }
@@ -75,7 +75,7 @@ if(tmp{{name}} != _Logic.{{name}})
 
         public override EUM_BaseWidget Clone()
         {
-            var widget = new EUM_IntField();
+            var widget = new EUM_Int();
             Info.CopyTo(widget.Info);
             return widget;
         }

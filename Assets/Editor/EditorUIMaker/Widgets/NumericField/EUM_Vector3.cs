@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace EditorUIMaker.Widgets
 {
-    public class EUM_Vector3Field : EUM_Widget
+    public class EUM_Vector3 : EUM_Widget
     {
-        private EUM_Vector3Field_Info info => Info as EUM_Vector3Field_Info;
-        public override string TypeName => "Vector3Field";
+        private EUM_Vector3_Info info => Info as EUM_Vector3_Info;
+        public override string TypeName => "Vector3";
         protected override EUM_BaseInfo CreateInfo()
         {
-            var info = new EUM_Vector3Field_Info(this);
+            var info = new EUM_Vector3_Info(this);
             info.Label = TypeName;
             return info;
         }
@@ -75,7 +75,7 @@ if(tmp{{name}} != _Logic.{{name}})
 
         public override EUM_BaseWidget Clone()
         {
-            var widget = new EUM_Vector3Field();
+            var widget = new EUM_Vector3();
             Info.CopyTo(widget.Info);
             return widget;
         }

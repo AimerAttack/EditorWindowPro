@@ -40,14 +40,14 @@ namespace EditorUIMaker
             Controls.Add(new EUM_IntSlider());
             Controls.Add(new EUM_Toggle());
             
-            NumericFields.Add(new EUM_IntField());
-            NumericFields.Add(new EUM_FloatField());
-            NumericFields.Add(new EUM_LongField());
-            NumericFields.Add(new EUM_DoubleField());
-            NumericFields.Add(new EUM_Vector2Field());
-            NumericFields.Add(new EUM_Vector2IntField());
-            NumericFields.Add(new EUM_Vector3Field());
-            NumericFields.Add(new EUM_Vector3IntField());
+            NumericFields.Add(new EUM_Int());
+            NumericFields.Add(new EUM_Float());
+            NumericFields.Add(new EUM_Long());
+            NumericFields.Add(new EUM_Double());
+            NumericFields.Add(new EUM_Vector2());
+            NumericFields.Add(new EUM_Vector2Int());
+            NumericFields.Add(new EUM_Vector3());
+            NumericFields.Add(new EUM_Vector3Int());
             NumericFields.Add(new EUM_MinMaxSlider());
         }
 

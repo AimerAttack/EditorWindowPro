@@ -5,25 +5,25 @@ using UnityEngine;
 
 namespace EditorUIMaker.Widgets
 {
-    public class EUM_LongField : EUM_Widget
+    public class EUM_Double : EUM_Widget
     {
-        private EUM_LongField_Info info => Info as EUM_LongField_Info;
-        public override string TypeName => "LongField";
+        private EUM_Double_Info info => Info as EUM_Double_Info;
+        public override string TypeName => "Double";
         protected override EUM_BaseInfo CreateInfo()
         {
-            var info = new EUM_LongField_Info(this);
+            var info = new EUM_Double_Info(this);
             info.Label = TypeName;
             return info;
         }
 
         protected override void OnDrawLayout()
         {
-            info.Value = EditorGUILayout.LongField(info.Label,info.Value);
+            info.Value = EditorGUILayout.DoubleField(info.Label, info.Value);
         }
 
         public override string LogicCode()
         {
-            var code = @"public long {{name}};
+            var code = @"public double {{name}};
 
 public void {{name}}ValueChange()
 {
@@ -45,7 +45,7 @@ public void {{name}}ValueChange()
         public override string Code()
         {
             var code =@"
-var tmp{{name}} = EditorGUILayout.LongField(""{{label}}"",_Logic.{{name}});
+var tmp{{name}} = EditorGUILayout.DoubleField(""{{label}}"",_Logic.{{name}});
 if(tmp{{name}} != _Logic.{{name}})
 {
     _Logic.{{name}} = tmp{{name}};
@@ -69,13 +69,13 @@ if(tmp{{name}} != _Logic.{{name}})
         public override void DrawDraging(Vector2 position)
         {
             GUILayout.BeginArea(new Rect(position.x,position.y,200,20));
-            EditorGUILayout.LongField(TypeName,0);
+            EditorGUILayout.DoubleField(TypeName, 0);
             GUILayout.EndArea();
         }
 
         public override EUM_BaseWidget Clone()
         {
-            var widget = new EUM_LongField();
+            var widget = new EUM_Double();
             Info.CopyTo(widget.Info);
             return widget;
         }

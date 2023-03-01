@@ -5,25 +5,25 @@ using UnityEngine;
 
 namespace EditorUIMaker.Widgets
 {
-    public class EUM_FloatField : EUM_Widget
+    public class EUM_Vector3Int : EUM_Widget
     {
-        private EUM_FloatField_Info info => Info as EUM_FloatField_Info;
-        public override string TypeName => "FloatField";
+        private EUM_Vector3Int_Info info => Info as EUM_Vector3Int_Info;
+        public override string TypeName => "Vector3Int";
         protected override EUM_BaseInfo CreateInfo()
         {
-            var info = new EUM_FloatField_Info(this);
+            var info = new EUM_Vector3Int_Info(this);
             info.Label = TypeName;
             return info;
         }
 
         protected override void OnDrawLayout()
         {
-            info.Value = EditorGUILayout.FloatField(info.Label, info.Value);
+            info.Value = EditorGUILayout.Vector3IntField(info.Label, info.Value);
         }
 
         public override string LogicCode()
         {
-            var code = @"public float {{name}};
+            var code = @"public Vector3Int {{name}};
 
 public void {{name}}ValueChange()
 {
@@ -39,13 +39,13 @@ public void {{name}}ValueChange()
             var template = Template.Parse(code);
             var result = template.Render(context);
             
-            return result; 
+            return result;
         }
 
         public override string Code()
         {
             var code =@"
-var tmp{{name}} = EditorGUILayout.FloatField(""{{label}}"",_Logic.{{name}});
+var tmp{{name}} = EditorGUILayout.Vector3IntField(""{{label}}"",_Logic.{{name}});
 if(tmp{{name}} != _Logic.{{name}})
 {
     _Logic.{{name}} = tmp{{name}};
@@ -63,19 +63,19 @@ if(tmp{{name}} != _Logic.{{name}})
             var template = Template.Parse(code);
             var result = template.Render(context);
             
-            return result;    
+            return result;   
         }
 
         public override void DrawDraging(Vector2 position)
         {
-            GUILayout.BeginArea(new Rect(position.x,position.y,200,20));
-            EditorGUILayout.FloatField(TypeName,0);
+            GUILayout.BeginArea(new Rect(position.x,position.y,200,40));
+            EditorGUILayout.Vector3IntField(TypeName,Vector3Int.zero);
             GUILayout.EndArea();
         }
 
         public override EUM_BaseWidget Clone()
         {
-            var widget = new EUM_FloatField();
+            var widget = new EUM_Vector3Int();
             Info.CopyTo(widget.Info);
             return widget;
         }

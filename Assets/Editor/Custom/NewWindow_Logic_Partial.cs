@@ -16,6 +16,5 @@ public partial class NewWindow_Logic
 
     void OnToggle1ValueChange()
     {
-        Debug.Log(Toggle1);
     }
 }

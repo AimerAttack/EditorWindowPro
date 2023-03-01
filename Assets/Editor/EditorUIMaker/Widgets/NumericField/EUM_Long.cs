@@ -5,25 +5,25 @@ using UnityEngine;
 
 namespace EditorUIMaker.Widgets
 {
-    public class EUM_Vector2Field : EUM_Widget
+    public class EUM_Long : EUM_Widget
     {
-        private EUM_Vector2Field_Info info => Info as EUM_Vector2Field_Info;
-        public override string TypeName => "Vector2Field";
+        private EUM_Long_Info info => Info as EUM_Long_Info;
+        public override string TypeName => "Long";
         protected override EUM_BaseInfo CreateInfo()
         {
-            var info = new EUM_Vector2Field_Info(this);
+            var info = new EUM_Long_Info(this);
             info.Label = TypeName;
             return info;
         }
 
         protected override void OnDrawLayout()
         {
-            info.Value = EditorGUILayout.Vector2Field(info.Label, info.Value);
+            info.Value = EditorGUILayout.LongField(info.Label,info.Value);
         }
 
         public override string LogicCode()
         {
-            var code = @"public Vector2 {{name}};
+            var code = @"public long {{name}};
 
 public void {{name}}ValueChange()
 {
@@ -45,7 +45,7 @@ public void {{name}}ValueChange()
         public override string Code()
         {
             var code =@"
-var tmp{{name}} = EditorGUILayout.Vector2Field(""{{label}}"",_Logic.{{name}});
+var tmp{{name}} = EditorGUILayout.LongField(""{{label}}"",_Logic.{{name}});
 if(tmp{{name}} != _Logic.{{name}})
 {
     _Logic.{{name}} = tmp{{name}};
@@ -68,17 +68,16 @@ if(tmp{{name}} != _Logic.{{name}})
 
         public override void DrawDraging(Vector2 position)
         {
-            GUILayout.BeginArea(new Rect(position.x,position.y,200,40));
-            EditorGUILayout.Vector2Field(TypeName, Vector2.zero);
+            GUILayout.BeginArea(new Rect(position.x,position.y,200,20));
+            EditorGUILayout.LongField(TypeName,0);
             GUILayout.EndArea();
         }
 
         public override EUM_BaseWidget Clone()
         {
-            var widget = new EUM_Vector2Field();
+            var widget = new EUM_Long();
             Info.CopyTo(widget.Info);
             return widget;
         }
-
     }
 }

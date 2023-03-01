@@ -5,25 +5,25 @@ using UnityEngine;
 
 namespace EditorUIMaker.Widgets
 {
-    public class EUM_DoubleField : EUM_Widget
+    public class EUM_Float : EUM_Widget
     {
-        private EUM_DoubleField_Info info => Info as EUM_DoubleField_Info;
-        public override string TypeName => "DoubleField";
+        private EUM_Float_Info info => Info as EUM_Float_Info;
+        public override string TypeName => "Float";
         protected override EUM_BaseInfo CreateInfo()
         {
-            var info = new EUM_DoubleField_Info(this);
+            var info = new EUM_Float_Info(this);
             info.Label = TypeName;
             return info;
         }
 
         protected override void OnDrawLayout()
         {
-            info.Value = EditorGUILayout.DoubleField(info.Label, info.Value);
+            info.Value = EditorGUILayout.FloatField(info.Label, info.Value);
         }
 
         public override string LogicCode()
         {
-            var code = @"public double {{name}};
+            var code = @"public float {{name}};
 
 public void {{name}}ValueChange()
 {
@@ -39,13 +39,13 @@ public void {{name}}ValueChange()
             var template = Template.Parse(code);
             var result = template.Render(context);
             
-            return result;
+            return result; 
         }
 
         public override string Code()
         {
             var code =@"
-var tmp{{name}} = EditorGUILayout.DoubleField(""{{label}}"",_Logic.{{name}});
+var tmp{{name}} = EditorGUILayout.FloatField(""{{label}}"",_Logic.{{name}});
 if(tmp{{name}} != _Logic.{{name}})
 {
     _Logic.{{name}} = tmp{{name}};
@@ -63,19 +63,19 @@ if(tmp{{name}} != _Logic.{{name}})
             var template = Template.Parse(code);
             var result = template.Render(context);
             
-            return result;   
+            return result;    
         }
 
         public override void DrawDraging(Vector2 position)
         {
             GUILayout.BeginArea(new Rect(position.x,position.y,200,20));
-            EditorGUILayout.DoubleField(TypeName, 0);
+            EditorGUILayout.FloatField(TypeName,0);
             GUILayout.EndArea();
         }
 
         public override EUM_BaseWidget Clone()
         {
-            var widget = new EUM_DoubleField();
+            var widget = new EUM_Float();
             Info.CopyTo(widget.Info);
             return widget;
         }
