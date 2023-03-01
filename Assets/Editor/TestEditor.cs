@@ -153,7 +153,7 @@ public class TestEditor : EditorWindow, IEditorWindow
                 Debug.Log(_MyEnum);
             }
 
-            if (GUILib.Popup(ref _SelectStr, new string[] {"1", "4", "7"},
+            if (GUILib.PopupWithIcon(ref _SelectStr, new string[] {"1", "4", "7"},
                     EditorGUIUtility.IconContent("ShurikenCheckMarkMixed"), GUILayout.Width(50)))
             {
                 Debug.Log(_SelectStr);

@@ -1,4 +1,6 @@
 
+using System;
+using EditorUIMaker;
 using UnityEditor;
 using UnityEngine;
 public class NewWindow : EditorWindow
@@ -24,6 +26,12 @@ public class NewWindow : EditorWindow
         GUILayout.BeginHorizontal();
         
         GUILayout.EndHorizontal();
+        
+        if(GUILib.Popup(ref _Logic.Dropdown1Str,_Logic.Dropdown1Options))
+        {
+            _Logic.Dropdown1Index = Array.IndexOf(_Logic.Dropdown1Options,_Logic.Dropdown1Str);
+            _Logic.Dropdown1ValueChange();
+        }
 
     }
 }

@@ -39,6 +39,7 @@ namespace EditorUIMaker
             Controls.Add(new EUM_Slider());
             Controls.Add(new EUM_IntSlider());
             Controls.Add(new EUM_Toggle());
+            Controls.Add(new EUM_Dropdown());
             
             NumericFields.Add(new EUM_Int());
             NumericFields.Add(new EUM_Float());

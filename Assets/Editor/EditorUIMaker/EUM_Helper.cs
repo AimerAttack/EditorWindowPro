@@ -196,6 +196,8 @@ namespace EditorUIMaker
         void SaveClassFile(string windowPath)
         {
             var page = @"
+using System;
+using EditorUIMaker;
 using UnityEditor;
 using UnityEngine;
 public class {{className}} : EditorWindow

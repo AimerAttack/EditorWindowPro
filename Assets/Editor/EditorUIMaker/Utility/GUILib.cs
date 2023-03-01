@@ -170,8 +170,26 @@ namespace EditorUIMaker
             GUILayout.EndVertical();
         }
 
+        public static bool Popup(ref string val, string[] contents,
+            params GUILayoutOption[] options)
+        {
+            GUILayout.BeginHorizontal();
 
-        public static bool Popup(ref string val, string[] contents, GUIContent icon,
+            var select = Array.IndexOf(contents, val);
+            if (select == -1) select = 0;
+            var vv = EditorGUILayout.Popup(select, contents, EditorStyles.toolbarPopup, options);
+            if (Equals(vv, select))
+            {
+                GUILayout.EndHorizontal();
+                return false;
+            }
+
+            val = contents[vv];
+            GUILayout.EndHorizontal();
+            return true;
+        }
+
+        public static bool PopupWithIcon(ref string val, string[] contents, GUIContent icon,
             params GUILayoutOption[] options)
         {
             GUILayout.BeginHorizontal();
