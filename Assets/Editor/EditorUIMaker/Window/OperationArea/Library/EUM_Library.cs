@@ -48,6 +48,7 @@ namespace EditorUIMaker
             NumericFields.Add(new EUM_Vector2IntField());
             NumericFields.Add(new EUM_Vector3Field());
             NumericFields.Add(new EUM_Vector3IntField());
+            NumericFields.Add(new EUM_MinMaxSlider());
         }
 
         public void Draw(ref Rect rect)

@@ -29,7 +29,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 104
+      Data: 114
     - Name: InViewport
       Entry: 5
       Data: false
@@ -93,7 +93,7 @@ MonoBehaviour:
         Assembly-CSharp-Editor]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 3|EditorUIMaker.EUM_Horizontal, Assembly-CSharp-Editor
@@ -102,7 +102,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 106
+      Data: 116
     - Name: InViewport
       Entry: 5
       Data: false
@@ -175,7 +175,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 107
+      Data: 117
     - Name: InViewport
       Entry: 5
       Data: false
@@ -244,7 +244,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 108
+      Data: 118
     - Name: InViewport
       Entry: 5
       Data: false
@@ -313,7 +313,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 109
+      Data: 119
     - Name: InViewport
       Entry: 5
       Data: false
@@ -377,6 +377,81 @@ MonoBehaviour:
     - Name: 
       Entry: 13
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 12|EditorUIMaker.Widgets.EUM_MinMaxSlider, Assembly-CSharp-Editor
+    - Name: Depth
+      Entry: 3
+      Data: 0
+    - Name: ID
+      Entry: 3
+      Data: 120
+    - Name: InViewport
+      Entry: 5
+      Data: false
+    - Name: Rect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: AbsoluteRect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Parent
+      Entry: 6
+      Data: 
+    - Name: Info
+      Entry: 7
+      Data: 13|EditorUIMaker.Widgets.EUM_MinMaxSlider_Info, Assembly-CSharp-Editor
+    - Name: Name
+      Entry: 1
+      Data: MinMaxSlider2
+    - Name: _Widget
+      Entry: 9
+      Data: 12
+    - Name: Label
+      Entry: 1
+      Data: MinMaxSlider
+    - Name: Min
+      Entry: 4
+      Data: 0
+    - Name: Max
+      Entry: 4
+      Data: 10
     - Name: 
       Entry: 8
       Data: 

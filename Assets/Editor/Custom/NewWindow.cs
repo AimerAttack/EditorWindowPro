@@ -1,4 +1,5 @@
 
+using EditorUIMaker;
 using UnityEditor;
 using UnityEngine;
 public class NewWindow : EditorWindow
@@ -48,6 +49,11 @@ public class NewWindow : EditorWindow
         }
         
         GUILayout.EndHorizontal();
+        
+        if(GUILib.MinMaxSlider("MinMaxSlider",ref _Logic.minMinMaxSlider2,ref _Logic.maxMinMaxSlider2,0,10))
+        {
+            _Logic.MinMaxSlider2ValueChange();
+        }
 
     }
 }

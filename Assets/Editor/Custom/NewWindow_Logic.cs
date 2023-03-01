@@ -32,5 +32,13 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     {
         CallMethod("OnToggle1ValueChange");
     }
+    
+    public float minMinMaxSlider2;
+    public float maxMinMaxSlider2;
+    
+    public void MinMaxSlider2ValueChange()
+    {
+        CallMethod("OnMinMaxSlider2ValueChange");
+    }
 
 }

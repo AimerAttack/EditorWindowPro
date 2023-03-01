@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Amazing.Editor.Library
+namespace EditorUIMaker
 {
     public static class GUILib
     {
