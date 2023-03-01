@@ -130,8 +130,6 @@ namespace EditorUIMaker
         {
             EUM_Helper.Instance.MouseRects.Clear();
 
-            ProcessMouseMove();
-
             OperationArea.Library.HandleDrag();
 
             EUM_Helper.Instance.Fade();
@@ -211,7 +209,6 @@ namespace EditorUIMaker
                     ResizeOperationArea = false;
             }
 
-            ProcessScrollWheel();
             Input.CheckInput();
 
             Repaint();
@@ -415,76 +412,7 @@ namespace EditorUIMaker
             RatioInspector = delta / position.width;
         }
 
-        void ProcessScrollWheel()
-        {
-            return;
-            if (Event.current.type == EventType.ScrollWheel)
-            {
-                var zoomDelta = EUM_Helper.Instance.ZoomIndex;
-                if (Event.current.delta.y < 0)
-                    zoomDelta++;
-                else
-                {
-                    zoomDelta--;
-                }
-
-                if (zoomDelta < 0)
-                    zoomDelta = 0;
-                if (zoomDelta >= EUM_Helper.ZoomScales.Length)
-                    zoomDelta = EUM_Helper.ZoomScales.Length - 1;
-
-                EUM_Helper.Instance.ZoomIndex = zoomDelta;
-                EUM_Helper.Instance.MousePosition = Event.current.mousePosition;
-            }
-        }
-
-        void ProcessMouseMove()
-        {
-            if (Event.current.isMouse)
-            {
-                if (EUM_Helper.Instance.CheckCanvasDrag)
-                {
-                    if (Event.current.rawType == EventType.MouseUp)
-                    {
-                        EUM_Helper.Instance.CheckCanvasDrag = false;
-                        Event.current.Use();
-                    }
-                    else
-                    {
-                        var distance = Vector2.Distance(Event.current.mousePosition,
-                            EUM_Helper.Instance.StartDragCanvasPosition);
-                        if (distance > EUM_Helper.MinimumDragToSnapToMoveRotateScaleResize)
-                        {
-                            var deltaX = Event.current.mousePosition.x - EUM_Helper.Instance.StartDragCanvasPosition.x;
-                            var deltaY = Event.current.mousePosition.y - EUM_Helper.Instance.StartDragCanvasPosition.y;
-
-                            var scale = EUM_Helper.GetZoomScaleFactor();
-                            deltaX /= scale;
-                            deltaY /= scale;
-                            
-                            EUM_Helper.Instance.StartDragCanvasPosition.x = Event.current.mousePosition.x;
-                            EUM_Helper.Instance.StartDragCanvasPosition.y = Event.current.mousePosition.y;
-                            EUM_Helper.Instance.WindowRect.x += deltaX;
-                            EUM_Helper.Instance.WindowRect.y += deltaY;
-                        }
-                    }
-                }
-                else
-                {
-                    if (Event.current.button == 1)
-                    {
-                        if (Event.current.type == EventType.MouseDown)
-                        {
-                            EUM_Helper.Instance.StartDragCanvasPosition.x = Event.current.mousePosition.x;
-                            EUM_Helper.Instance.StartDragCanvasPosition.y = Event.current.mousePosition.y;
-                            EUM_Helper.Instance.CheckCanvasDrag = true;
-                            Event.current.Use();
-                        }
-                    }
-                }
-            }
-        }
-
+       
         private void OnDestroy()
         {
             if (!EUM_Helper.Instance.Modified)
