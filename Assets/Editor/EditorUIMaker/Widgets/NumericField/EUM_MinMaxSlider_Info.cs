@@ -21,6 +21,8 @@ namespace EditorUIMaker.Widgets
             CopyBaseInfo(info);
             
             info.Label = Label;
+            info.Min = Min;
+            info.Max = Max;
         }
     }
 }
