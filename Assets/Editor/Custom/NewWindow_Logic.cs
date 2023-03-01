@@ -20,5 +20,11 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     {
         CallMethod("OnDropdown1ValueChange");
     }
-
+    
+    public bool Foldout1 = false;
+    
+    public void ClickButton1()
+    {
+        CallMethod("OnClickButton1");
+    }
 }

@@ -36,7 +36,12 @@ namespace EditorUIMaker
             }
             return widget;
         }
-        
+
+        public override EUM_BaseWidget SingleClone()
+        {
+            return Clone();
+        }
+
         public void Draw(ref Rect rect)
         {
             Rect = rect;
@@ -73,6 +78,16 @@ namespace EditorUIMaker
                 GUI.enabled = true;
             }
             
+        }
+
+        protected override string BeginCode()
+        {
+            return string.Empty;
+        }
+
+        protected override string EndCode()
+        {
+            return string.Empty;
         }
     }
 }

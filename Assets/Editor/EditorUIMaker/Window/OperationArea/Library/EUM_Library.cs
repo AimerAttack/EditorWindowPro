@@ -30,6 +30,7 @@ namespace EditorUIMaker
             Containers.Add(new EUM_Horizontal());
             Containers.Add(new EUM_Vertical());
             Containers.Add(new EUM_ScrollView());
+            Containers.Add(new EUM_Foldout());
 
             Controls.Add(new EUM_Space());
             Controls.Add(new EUM_FlexibleSpace());
@@ -40,7 +41,7 @@ namespace EditorUIMaker
             Controls.Add(new EUM_IntSlider());
             Controls.Add(new EUM_Toggle());
             Controls.Add(new EUM_Dropdown());
-            
+
             NumericFields.Add(new EUM_Int());
             NumericFields.Add(new EUM_Float());
             NumericFields.Add(new EUM_Long());

@@ -23,22 +23,11 @@ namespace EditorUIMaker
                 widget.DrawLayout();
             }
         }
-        
-        
-        public override EUM_BaseWidget SingleClone()
-        {
-            return Clone();
-        }
 
-        protected virtual string BeginCode()
-        {
-            return string.Empty;
-        }
 
-        protected virtual string EndCode()
-        {
-            return string.Empty;
-        }
+        protected abstract string BeginCode();
+
+        protected abstract string EndCode();
         
         string WidgetsCode()
         {

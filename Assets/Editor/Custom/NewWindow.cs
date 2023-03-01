@@ -32,6 +32,20 @@ public class NewWindow : EditorWindow
             _Logic.Dropdown1Index = Array.IndexOf(_Logic.Dropdown1Options,_Logic.Dropdown1Str);
             _Logic.Dropdown1ValueChange();
         }
+        
+        GUILib.Foldout("Foldout1",ref _Logic.Foldout1);
+        if(_Logic.Foldout1)
+        {
+        
+        
+        var styleButton1 = new GUIStyle(GUI.skin.button);
+        styleButton1.alignment = TextAnchor.MiddleCenter;
+        if(GUILayout.Button("Button",styleButton1))
+        {
+            _Logic.ClickButton1();
+        }
+        
+        }
 
     }
 }
