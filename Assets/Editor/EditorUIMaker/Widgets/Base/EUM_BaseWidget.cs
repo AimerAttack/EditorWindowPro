@@ -27,7 +27,7 @@ namespace EditorUIMaker.Widgets
             OnDrawLayout();
             if (Event.current.type == EventType.Repaint)
             {
-                var selfRect = GUILayoutUtility.GetLastRect();
+                var selfRect = GUILib.GetLastRect();
                 AbsoluteRect = new Rect(Parent.AbsoluteRect.x + selfRect.x,Parent.AbsoluteRect.y + selfRect.y,selfRect.width, selfRect.height);
                 Rect = AbsoluteRect;
                 FixAbsoluteRect();

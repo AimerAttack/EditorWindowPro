@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace EditorUIMaker
 {
-    public class EUM_Window : EUM_Container,I_EUM_Drawable
+    public class EUM_Window : EUM_Container, I_EUM_Drawable
     {
         public override string TypeName => "Window";
+
         protected override EUM_BaseInfo CreateInfo()
         {
             return new EUM_NormalInfo(this);
@@ -16,7 +17,7 @@ namespace EditorUIMaker
         {
             InViewport = true;
         }
-        
+
         protected override void OnDrawLayout()
         {
             DrawItems();
@@ -34,6 +35,7 @@ namespace EditorUIMaker
             {
                 widget.Widgets.Add(w.Clone());
             }
+
             return widget;
         }
 
@@ -51,10 +53,11 @@ namespace EditorUIMaker
 
         void OnDraw(Rect rect)
         {
-            AbsoluteRect = new Rect(EUM_Helper.Instance.VitualWindowRect.x, EUM_Helper.Instance.VitualWindowRect.y, rect.width, rect.height);
+            AbsoluteRect = new Rect(EUM_Helper.Instance.VitualWindowRect.x, EUM_Helper.Instance.VitualWindowRect.y,
+                rect.width, rect.height);
             DrawItems();
         }
-        
+
         protected override void DrawItems()
         {
             if (!EUM_Helper.Instance.Preview && InViewport)
@@ -63,21 +66,19 @@ namespace EditorUIMaker
                 GUI.color = new Color(1, 1, 1, 2);
             }
 
-            GUILayout.BeginArea(Rect);
-            
-            foreach (var widget in Widgets)
+            GUILib.Area(Rect, () =>
             {
-                widget.DrawLayout();
-            }
-            
-            GUILayout.EndArea();
-            
+                foreach (var widget in Widgets)
+                {
+                    widget.DrawLayout();
+                }
+            });
+
             if (!EUM_Helper.Instance.Preview && InViewport)
             {
                 GUI.color = Color.white;
                 GUI.enabled = true;
             }
-            
         }
 
         protected override string BeginCode()

@@ -26,7 +26,7 @@ namespace EditorUIMaker
         {
             Title = new EUM_Title(new GUIContent("Library"));
             ShowBuildIn = true;
-            
+
             Containers.Add(new EUM_Horizontal());
             Containers.Add(new EUM_Vertical());
             Containers.Add(new EUM_ScrollView());
@@ -37,12 +37,13 @@ namespace EditorUIMaker
             Controls.Add(new EUM_Button());
             Controls.Add(new EUM_Label());
             Controls.Add(new EUM_TextField());
-            Controls.Add(new EUM_Slider());
-            Controls.Add(new EUM_IntSlider());
+           
             Controls.Add(new EUM_Toggle());
             Controls.Add(new EUM_Dropdown());
 
             NumericFields.Add(new EUM_Int());
+            NumericFields.Add(new EUM_Slider());
+            NumericFields.Add(new EUM_IntSlider());
             NumericFields.Add(new EUM_Float());
             NumericFields.Add(new EUM_Long());
             NumericFields.Add(new EUM_Double());
@@ -57,21 +58,20 @@ namespace EditorUIMaker
         public void Draw(ref Rect rect)
         {
             EUM_Helper.Instance.MouseRects.Add(rect);
-            
+
             Title.Draw(ref rect);
 
-            GUILayout.BeginArea(rect);
-
-            GUILayout.Space(10);
-            GUILib.HorizontalRect(DrawToggleTab);
-
-            GUILib.ScrollView(ref ScrollPos, DrawControls);
-            GUILayout.EndArea();
+            GUILib.Area(rect, () =>
+            {
+                GUILib.Space(10);
+                GUILib.HorizontalRect(DrawToggleTab);
+                GUILib.ScrollView(ref ScrollPos, DrawControls);
+            });
         }
 
         void DrawToggleTab()
         {
-            GUILayout.FlexibleSpace();
+            GUILib.FlexibleSpace();
             if (GUILib.Toggle(ref ShowBuildIn, new GUIContent("BuildIn"), new GUIStyle("Button")))
             {
                 if (ShowBuildIn)
@@ -89,8 +89,7 @@ namespace EditorUIMaker
                     ShowCustom = true;
                 }
             }
-
-            GUILayout.FlexibleSpace();
+            GUILib.FlexibleSpace();
         }
 
         void DrawControls()
@@ -120,14 +119,15 @@ namespace EditorUIMaker
         {
             foreach (var control in Containers)
             {
-                GUILayout.BeginHorizontal();
-                GUILayout.Space(20);
-                GUILayout.Label(control.TypeName);
-                GUILayout.EndHorizontal();
+                GUILib.HorizontalRect(() =>
+                {
+                    GUILib.Space(20);
+                    GUILib.Label(control.TypeName);
+                });
 
                 if (!EUM_Helper.Instance.Preview)
                 {
-                    var lastRect = GUILayoutUtility.GetLastRect();
+                    var lastRect = GUILib.GetLastRect();
                     if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
                     {
                         if (lastRect.Contains(Event.current.mousePosition))
@@ -148,12 +148,13 @@ namespace EditorUIMaker
         {
             foreach (var control in Controls)
             {
-                GUILayout.BeginHorizontal();
-                GUILayout.Space(20);
-                GUILayout.Label(control.TypeName);
-                GUILayout.EndHorizontal();
+                GUILib.HorizontalRect(() =>
+                {
+                    GUILib.Space(20);
+                    GUILib.Label(control.TypeName);
+                });
 
-                var lastRect = GUILayoutUtility.GetLastRect();
+                var lastRect = GUILib.GetLastRect();
                 if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
                 {
                     if (lastRect.Contains(Event.current.mousePosition))
@@ -173,12 +174,13 @@ namespace EditorUIMaker
         {
             foreach (var control in NumericFields)
             {
-                GUILayout.BeginHorizontal();
-                GUILayout.Space(20);
-                GUILayout.Label(control.TypeName);
-                GUILayout.EndHorizontal();
+                GUILib.HorizontalRect(() =>
+                {
+                    GUILib.Space(20);
+                    GUILib.Label(control.TypeName);
+                });
 
-                var lastRect = GUILayoutUtility.GetLastRect();
+                var lastRect = GUILib.GetLastRect();
                 if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
                 {
                     if (lastRect.Contains(Event.current.mousePosition))
@@ -217,11 +219,11 @@ namespace EditorUIMaker
                             if (EUM_Helper.Instance.DraggingOverContainer != null)
                             {
                                 //in container
-                                EUM_Helper.Instance.AddToContainer(EUM_Helper.Instance.DraggingWidget,EUM_Helper.Instance.DraggingOverContainer);
+                                EUM_Helper.Instance.AddToContainer(EUM_Helper.Instance.DraggingWidget,
+                                    EUM_Helper.Instance.DraggingOverContainer);
 
                                 EUM_Helper.Instance.SelectWidget = EUM_Helper.Instance.DraggingWidget;
                                 EUM_Helper.Instance.OnSelectWidgetChange?.Invoke();
-                                
                             }
                         }
                         else
@@ -229,18 +231,20 @@ namespace EditorUIMaker
                             var treeView = EUM_Helper.Instance.TreeView;
                             if (treeView.ParentItem != null)
                             {
-                                treeView.InsertToParent(EUM_Helper.Instance.DraggingWidget,treeView.ParentItem,treeView.InsertIndex);
+                                treeView.InsertToParent(EUM_Helper.Instance.DraggingWidget, treeView.ParentItem,
+                                    treeView.InsertIndex);
                             }
                         }
                     }
+
                     EUM_Helper.Instance.DraggingWidget = null;
- 
+
                     break;
                 }
                 case EventType.DragUpdated:
                 {
                     DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
-                 
+
                     break;
                 }
             }

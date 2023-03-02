@@ -41,18 +41,19 @@ public void {{name}}ValueChange()
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
 
         public override string Code()
         {
-            var code =@"if(GUILib.MinMaxSlider(""{{label}}"",ref _Logic.min{{name}},ref _Logic.max{{name}},{{min}},{{max}}))
+            var code =
+                @"if(GUILib.MinMaxSlider(""{{label}}"",ref _Logic.min{{name}},ref _Logic.max{{name}},{{min}},{{max}}))
 {
     _Logic.{{name}}ValueChange();
 }
 ";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
@@ -64,15 +65,14 @@ public void {{name}}ValueChange()
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
-            return result;   
+
+            return result;
         }
 
         public override void DrawDraging(Vector2 position)
         {
-            GUILayout.BeginArea(new Rect(position.x, position.y, 300, 30));
-            EditorGUILayout.MinMaxSlider(TypeName, ref info.MinValue, ref info.MaxValue, info.Min, info.Max);
-            GUILayout.EndArea();
+            GUILib.Area(new Rect(position.x, position.y, 300, 30),
+                () => { GUILib.MinMaxSlider(TypeName, ref info.MinValue, ref info.MaxValue, info.Min, info.Max); });
         }
 
         public override EUM_BaseWidget Clone()

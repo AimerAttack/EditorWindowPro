@@ -14,17 +14,18 @@ namespace EditorUIMaker
 
         protected override void OnDrawLayout()
         {
-            GUILayout.BeginHorizontal();
-            DrawItems();
-            GUILayout.EndHorizontal();
+            GUILib.HorizontalRect((() =>
+            {
+                DrawItems();
+            }));
         }
 
         public override void DrawDraging(Vector2 position)
         {
-            var rect = new Rect(position.x, position.y, 200, 20);
-            GUILib.Frame(rect, Color.white, 1);
-            rect.x += 60;
-            GUI.Label(rect,TypeName);
+            GUILib.Area(new Rect(position.x + 20, position.y, 200, 20), () =>
+            {
+                GUILib.Label(TypeName);
+            });
         }
 
         public override EUM_BaseWidget Clone()

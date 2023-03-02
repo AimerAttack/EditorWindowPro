@@ -16,7 +16,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILayout.FlexibleSpace();
+            GUILib.FlexibleSpace();
         }
 
         public override string LogicCode()
@@ -32,10 +32,11 @@ namespace EditorUIMaker.Widgets
 
         public override void DrawDraging(Vector2 position)
         {
-            var rect = new Rect(position.x, position.y, 200, 20);
-            GUILib.Frame(rect, Color.white, 1);
-            rect.x += 60;
-            GUI.Label(rect,TypeName);
+            var rect = new Rect(position.x + 20, position.y, 200, 20);
+            GUILib.Area(rect, () =>
+            {
+                GUILib.Label(TypeName);
+            });
         }
 
         public override EUM_BaseWidget Clone()

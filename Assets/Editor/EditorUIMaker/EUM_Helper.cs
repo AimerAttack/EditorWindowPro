@@ -195,6 +195,12 @@ namespace EditorUIMaker
         
         void SaveDataToPath(string filePath)
         {
+            if (MenuItemPath.IndexOf("/") < 1)
+            {
+                EditorUtility.DisplayDialog("MenuPath Error", "MenuPath must be like 'xxx/xxx'!", "OK");
+                return;
+            }
+            
             var data = ScriptableObject.CreateInstance<EUM_Object>();
 
             

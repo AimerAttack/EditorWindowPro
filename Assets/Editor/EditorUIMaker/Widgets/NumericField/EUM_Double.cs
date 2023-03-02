@@ -9,6 +9,7 @@ namespace EditorUIMaker.Widgets
     {
         private EUM_Double_Info info => Info as EUM_Double_Info;
         public override string TypeName => "Double";
+
         protected override EUM_BaseInfo CreateInfo()
         {
             var info = new EUM_Double_Info(this);
@@ -18,7 +19,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            info.Value = EditorGUILayout.DoubleField(info.Label, info.Value);
+            GUILib.DoubleField(ref info.Value, info.Label);
         }
 
         public override string LogicCode()
@@ -38,21 +39,19 @@ public void {{name}}ValueChange()
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
 
         public override string Code()
         {
-            var code =@"
-var tmp{{name}} = EditorGUILayout.DoubleField(""{{label}}"",_Logic.{{name}});
-if(tmp{{name}} != _Logic.{{name}})
+            var code = @"
+if(GUILib.DoubleField(ref _Logic.{{name}},""{{label}}""))
 {
-    _Logic.{{name}} = tmp{{name}};
     _Logic.{{name}}ValueChange();
 }
 ";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
@@ -62,15 +61,17 @@ if(tmp{{name}} != _Logic.{{name}})
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
-            return result;   
+
+            return result;
         }
 
         public override void DrawDraging(Vector2 position)
         {
-            GUILayout.BeginArea(new Rect(position.x,position.y,200,20));
-            EditorGUILayout.DoubleField(TypeName, 0);
-            GUILayout.EndArea();
+            GUILib.Area(new Rect(position.x, position.y, 200, 20), () =>
+            {
+                var val = 1d;
+                GUILib.DoubleField(ref val, TypeName);
+            });
         }
 
         public override EUM_BaseWidget Clone()

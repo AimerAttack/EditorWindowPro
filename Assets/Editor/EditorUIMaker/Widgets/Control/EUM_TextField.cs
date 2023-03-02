@@ -8,6 +8,7 @@ namespace EditorUIMaker.Widgets
     {
         private EUM_TextField_Info info => Info as EUM_TextField_Info;
         public override string TypeName => "TextField";
+
         protected override EUM_BaseInfo CreateInfo()
         {
             var info = new EUM_TextField_Info(this);
@@ -17,26 +18,26 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILayout.BeginHorizontal();
-            GUILayout.Label(info.Label);
-            info.Value = GUILayout.TextField(info.Value);
-            GUILayout.EndHorizontal();
+            GUILib.HorizontalRect(() =>
+            {
+                GUILib.Label(info.Label);
+                GUILib.TextField(ref info.Value);
+            });
         }
 
         public override string Code()
         {
             var code =
-                @"GUILayout.BeginHorizontal();
-GUILayout.Label(""{{label}}"");
-var tmp{{name}} = GUILayout.TextField(_Logic.{{name}});
-if(tmp{{name}} != _Logic.{{name}})
+                @"GUILib.HorizontalRect(()=>
 {
-    _Logic.{{name}} = tmp{{name}};
-    _Logic.{{name}}ValueChange();
-}
-GUILayout.EndHorizontal();
+    GUILib.Label(""{{label}}"");
+    if(GUILib.TextField(ref _Logic.{{name}}))
+    {
+        _Logic.{{name}}ValueChange();
+    }
+});
 ";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
@@ -46,8 +47,8 @@ GUILayout.EndHorizontal();
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
-            return result; 
+
+            return result;
         }
 
         public override string LogicCode()
@@ -66,18 +67,21 @@ public void {{name}}ValueChange()
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
 
         public override void DrawDraging(Vector2 position)
         {
-            GUILayout.BeginArea(new Rect(position.x,position.y,200,20));
-            GUILayout.BeginHorizontal();
-            GUILayout.Label(TypeName);
-            GUILayout.TextField("");
-            GUILayout.EndHorizontal();
-            GUILayout.EndArea();
+            GUILib.Area(new Rect(position.x + 20, position.y, 200, 20), () =>
+            {
+                GUILib.HorizontalRect(() =>
+                {
+                    GUILib.Label(TypeName);
+                    var val = "";
+                    GUILib.TextField(ref val);
+                });
+            });
         }
 
         public override EUM_BaseWidget Clone()

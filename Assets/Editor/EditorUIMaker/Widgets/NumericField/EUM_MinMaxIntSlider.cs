@@ -9,6 +9,7 @@ namespace EditorUIMaker.Widgets
     {
         public EUM_MinMaxIntSlider_Info info => Info as EUM_MinMaxIntSlider_Info;
         public override string TypeName => "MinMaxIntSlider";
+
         protected override EUM_BaseInfo CreateInfo()
         {
             var info = new EUM_MinMaxIntSlider_Info(this);
@@ -39,18 +40,19 @@ public void {{name}}ValueChange()
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
 
         public override string Code()
         {
-            var code =@"if(GUILib.IntMinMaxSlider(""{{label}}"",ref _Logic.min{{name}},ref _Logic.max{{name}},{{min}},{{max}}))
+            var code =
+                @"if(GUILib.IntMinMaxSlider(""{{label}}"",ref _Logic.min{{name}},ref _Logic.max{{name}},{{min}},{{max}}))
 {
     _Logic.{{name}}ValueChange();
 }
 ";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
@@ -62,15 +64,14 @@ public void {{name}}ValueChange()
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
-            return result;   
+
+            return result;
         }
 
         public override void DrawDraging(Vector2 position)
         {
-            GUILayout.BeginArea(new Rect(position.x, position.y, 300, 30));
-            GUILib.IntMinMaxSlider(TypeName, ref info.MinValue, ref info.MaxValue, info.Min, info.Max);
-            GUILayout.EndArea(); 
+            GUILib.Area(new Rect(position.x, position.y, 300, 30),
+                () => { GUILib.IntMinMaxSlider(TypeName, ref info.MinValue, ref info.MaxValue, info.Min, info.Max); });
         }
 
         public override EUM_BaseWidget Clone()

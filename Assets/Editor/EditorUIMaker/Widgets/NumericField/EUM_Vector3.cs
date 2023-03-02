@@ -9,6 +9,7 @@ namespace EditorUIMaker.Widgets
     {
         private EUM_Vector3_Info info => Info as EUM_Vector3_Info;
         public override string TypeName => "Vector3";
+
         protected override EUM_BaseInfo CreateInfo()
         {
             var info = new EUM_Vector3_Info(this);
@@ -18,7 +19,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            info.Value = EditorGUILayout.Vector3Field(info.Label, info.Value);
+            GUILib.Vector3Field(info.Label, ref info.Value);
         }
 
         public override string LogicCode()
@@ -38,21 +39,19 @@ public void {{name}}ValueChange()
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
 
         public override string Code()
         {
-            var code =@"
-var tmp{{name}} = EditorGUILayout.Vector3Field(""{{label}}"",_Logic.{{name}});
-if(tmp{{name}} != _Logic.{{name}})
+            var code = @"
+if(GUILib.Vector3Field(""{{label}}"",ref _Logic.{{name}}))
 {
-    _Logic.{{name}} = tmp{{name}};
     _Logic.{{name}}ValueChange();
 }
 ";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
@@ -62,15 +61,17 @@ if(tmp{{name}} != _Logic.{{name}})
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
-            return result;   
+
+            return result;
         }
 
         public override void DrawDraging(Vector2 position)
         {
-            GUILayout.BeginArea(new Rect(position.x,position.y,200,40));
-            EditorGUILayout.Vector3Field(TypeName,Vector3.zero);
-            GUILayout.EndArea();
+            GUILib.Area(new Rect(position.x, position.y, 200, 40), () =>
+            {
+                var val = Vector3.zero;
+                GUILib.Vector3Field(TypeName, ref val);
+            });
         }
 
         public override EUM_BaseWidget Clone()

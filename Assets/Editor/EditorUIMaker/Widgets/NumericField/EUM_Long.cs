@@ -9,6 +9,7 @@ namespace EditorUIMaker.Widgets
     {
         private EUM_Long_Info info => Info as EUM_Long_Info;
         public override string TypeName => "Long";
+
         protected override EUM_BaseInfo CreateInfo()
         {
             var info = new EUM_Long_Info(this);
@@ -18,7 +19,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            info.Value = EditorGUILayout.LongField(info.Label,info.Value);
+            GUILib.LongField(ref info.Value, info.Label);
         }
 
         public override string LogicCode()
@@ -38,21 +39,19 @@ public void {{name}}ValueChange()
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
 
         public override string Code()
         {
-            var code =@"
-var tmp{{name}} = EditorGUILayout.LongField(""{{label}}"",_Logic.{{name}});
-if(tmp{{name}} != _Logic.{{name}})
+            var code = @"
+if(GUILib.LongField(ref _Logic.{{name}},""{{label}}""))
 {
-    _Logic.{{name}} = tmp{{name}};
     _Logic.{{name}}ValueChange();
 }
 ";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
@@ -62,15 +61,17 @@ if(tmp{{name}} != _Logic.{{name}})
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
-            return result;   
+
+            return result;
         }
 
         public override void DrawDraging(Vector2 position)
         {
-            GUILayout.BeginArea(new Rect(position.x,position.y,200,20));
-            EditorGUILayout.LongField(TypeName,0);
-            GUILayout.EndArea();
+            GUILib.Area(new Rect(position.x, position.y, 200, 20), () =>
+            {
+                var val = 1l;
+                GUILib.LongField(ref val, TypeName);
+            });
         }
 
         public override EUM_BaseWidget Clone()

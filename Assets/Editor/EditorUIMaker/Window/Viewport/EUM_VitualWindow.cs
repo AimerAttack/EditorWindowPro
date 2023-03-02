@@ -65,7 +65,7 @@ namespace EditorUIMaker
             GUILib.Rect(titleBgRect, Color.black, 0.3f);
 
             var titleRect = new Rect(rect.x, rect.y, rect.width, s_TitleHeight);
-            GUI.Label(titleRect, EUM_Helper.Instance.WindowTitle + (EUM_Helper.Instance.Modified ? "*" : ""));
+            GUILib.Label(titleRect, EUM_Helper.Instance.WindowTitle + (EUM_Helper.Instance.Modified ? "*" : ""));
 
             Window.Draw(ref EUM_Helper.Instance.VitualWindowRect);
 

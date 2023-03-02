@@ -18,7 +18,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            info.Value = GUILayout.Toggle(info.Value, info.Label);
+            GUILib.Toggle(ref info.Value, info.Label);
         }
 
         public override string LogicCode()
@@ -45,10 +45,8 @@ public void {{name}}ValueChange()
         public override string Code()
         {
             var code =@"
-var tmp{{name}} = GUILayout.Toggle(_Logic.{{name}},""{{label}}"");
-if(tmp{{name}} != _Logic.{{name}})
+if(GUILib.Toggle(ref _Logic.{{name}},""{{label}}""))
 {
-    _Logic.{{name}} = tmp{{name}};
     _Logic.{{name}}ValueChange();
 }
 ";
@@ -68,9 +66,11 @@ if(tmp{{name}} != _Logic.{{name}})
 
         public override void DrawDraging(Vector2 position)
         {
-            GUILayout.BeginArea(new Rect(position.x + 20,position.y,200,20));
-            GUILayout.Toggle(true,TypeName);
-            GUILayout.EndArea();
+            GUILib.Area(new Rect(position.x + 20,position.y,200,20), () =>
+            {
+                var val = true;
+                GUILib.Toggle(ref val, TypeName);
+            });
         }
 
         public override EUM_BaseWidget Clone()

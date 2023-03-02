@@ -19,14 +19,15 @@ namespace EditorUIMaker.Widgets
         public override void DrawDraging(Vector2 position)
         {
             var rect = new Rect(position.x, position.y, 200, 20);
-            GUILib.Frame(rect, Color.white, 1);
-            rect.x += 60;
-            GUI.Label(rect,TypeName);
+            GUILib.Area(rect, () =>
+            {
+                GUILib.Label(TypeName);
+            });
         }
 
         protected override void OnDrawLayout()
         {
-            GUILayout.Space(info.Height);
+            GUILib.Space(info.Height);
         }
 
         public override EUM_BaseWidget Clone()
@@ -44,7 +45,7 @@ namespace EditorUIMaker.Widgets
         public override string Code()
         {
             var code =
-                @"GUILayout.Space({{pixel}});";
+                @"GUILib.Space({{pixel}});";
             
             var sObj = new ScriptObject();
             sObj.Add("pixel", info.Height);

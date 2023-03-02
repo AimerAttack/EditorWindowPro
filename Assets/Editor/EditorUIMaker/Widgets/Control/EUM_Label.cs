@@ -35,14 +35,17 @@ namespace EditorUIMaker.Widgets
 
         public override void DrawDraging(Vector2 position)
         {
-            GUI.Label(new Rect(position.x + 10, position.y - 10, 100, 40), TypeName);
+            GUILib.Area(new Rect(position.x + 10, position.y - 10, 100, 40), () =>
+            {
+                GUILib.Label(TypeName);
+            });
         }
 
         protected override void OnDrawLayout()
         {
             var style = new GUIStyle(GUI.skin.label);
             style.alignment = info.TextAnchor;
-            GUILayout.Label(new GUIContent(_Content),style);
+            GUILib.Label(_Content,style);
         }
 
         public override EUM_BaseWidget Clone()
@@ -62,7 +65,7 @@ namespace EditorUIMaker.Widgets
             var code =
                 @"var style{{name}} = new GUIStyle(GUI.skin.label);
 style{{name}}.alignment = TextAnchor.{{textAnchor}};
-GUILayout.Label(""{{text}}"",style{{name}});";
+GUILib.Label(""{{text}}"",style{{name}});";
             
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);

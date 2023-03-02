@@ -27,4 +27,18 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     {
         CallMethod("OnClickButton1");
     }
+    public void ClickButton2()
+    {
+        CallMethod("OnClickButton2");
+    }
+    public void ClickButton3()
+    {
+        CallMethod("OnClickButton3");
+    }
+    public string TextField1;
+    public void TextField1ValueChange()
+    {
+        CallMethod("OnTextField1ValueChange");
+    }
+
 }

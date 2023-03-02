@@ -54,14 +54,15 @@ namespace EditorUIMaker
         public void Draw(ref Rect rect)
         {
             Title.Draw(ref rect);
-            GUILayout.BeginArea(rect);
-            GUILayout.BeginVertical();
             
-            InitIfNeed();
-
-            TreeView.Draw();
-            GUILayout.EndVertical();
-            GUILayout.EndArea();
+            GUILib.Area(rect, () =>
+            {
+                GUILib.VerticelRect(() =>
+                {
+                    InitIfNeed();
+                    TreeView.Draw();
+                });
+            });
         }
 
         void OnRemoveItemFromWindow(EUM_BaseWidget widget)

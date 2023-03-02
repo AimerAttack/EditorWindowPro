@@ -10,6 +10,7 @@ namespace EditorUIMaker
     {
         private EUM_Foldout_Info info => Info as EUM_Foldout_Info;
         public override string TypeName => "Foldout";
+
         protected override EUM_BaseInfo CreateInfo()
         {
             var info = new EUM_Foldout_Info(this);
@@ -20,28 +21,29 @@ namespace EditorUIMaker
         protected override void OnDrawLayout()
         {
             GUILib.Foldout(info.Label, ref info.IsOpen);
-            if(info.IsOpen)
+            if (info.IsOpen)
                 DrawItems();
         }
 
         public override void DrawDraging(Vector2 position)
         {
-            GUILayout.BeginArea(new Rect(position.x, position.y, 300, 30));
-            var foldOut = false;
-            GUILib.Foldout(TypeName,ref foldOut);
-            GUILayout.EndArea();
+            GUILib.Area(new Rect(position.x, position.y, 300, 30), () =>
+            {
+                var foldOut = false;
+                GUILib.Foldout(TypeName, ref foldOut);
+            });
         }
 
         public override EUM_BaseWidget Clone()
         {
             var widget = new EUM_Foldout();
             Info.CopyTo(widget.Info);
-            
+
             foreach (var w in Widgets)
             {
                 widget.Widgets.Add(w.Clone());
             }
-            
+
             return widget;
         }
 
@@ -49,14 +51,14 @@ namespace EditorUIMaker
         {
             var widget = new EUM_Foldout();
             Info.CopyTo(widget.Info);
-            
+
             return widget;
         }
 
         public override string LogicCode()
         {
             var code = @"public bool {{name}} = false;";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
 
@@ -65,17 +67,17 @@ namespace EditorUIMaker
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result + "\n" + base.LogicCode();
         }
 
         protected override string BeginCode()
         {
-            var code =@"GUILib.Foldout(""{{label}}"",ref _Logic.{{name}});
+            var code = @"GUILib.Foldout(""{{label}}"",ref _Logic.{{name}});
 if(_Logic.{{name}})
 {
 ";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
@@ -85,8 +87,8 @@ if(_Logic.{{name}})
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
-            return result;   
+
+            return result;
         }
 
         protected override string EndCode()

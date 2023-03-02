@@ -8,6 +8,7 @@ namespace EditorUIMaker.Widgets
     {
         private EUM_Dropdown_Info info => Info as EUM_Dropdown_Info;
         public override string TypeName => "Dropdown";
+
         protected override EUM_BaseInfo CreateInfo()
         {
             var info = new EUM_Dropdown_Info(this);
@@ -38,19 +39,19 @@ public void {{name}}ValueChange()
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
 
         public override string Code()
         {
-            var code =@"if(GUILib.Popup(ref _Logic.{{name}}Str,_Logic.{{name}}Options))
+            var code = @"if(GUILib.Popup(ref _Logic.{{name}}Str,_Logic.{{name}}Options))
 {
     _Logic.{{name}}Index = Array.IndexOf(_Logic.{{name}}Options,_Logic.{{name}}Str);
     _Logic.{{name}}ValueChange();
 }
 ";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
 
@@ -59,16 +60,17 @@ public void {{name}}ValueChange()
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
-            return result;   
+
+            return result;
         }
 
         public override void DrawDraging(Vector2 position)
         {
-            GUILayout.BeginArea(new Rect(position.x+20, position.y, 100, 30));
-            string a = "1";
-            GUILib.Popup(ref a, new[] {"1", "2", "3"});
-            GUILayout.EndArea();
+            GUILib.Area(new Rect(position.x + 20, position.y, 100, 30), () =>
+            {
+                string a = "1";
+                GUILib.Popup(ref a, new[] {"1", "2", "3"});
+            });
         }
 
         public override EUM_BaseWidget Clone()

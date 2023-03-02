@@ -21,7 +21,7 @@ namespace EditorUIMaker
             GUILib.Rect(titleRect, Color.black, 1f);
 
             titleRect.xMin += 4f;
-            GUI.Label(titleRect, Title);
+            GUILib.Label(titleRect, Title);
 
             rect.yMin += s_TitleHeight;
         }
