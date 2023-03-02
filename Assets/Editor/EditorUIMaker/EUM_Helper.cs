@@ -225,7 +225,7 @@ namespace EditorUIMaker
             AssetDatabase.Refresh();
         }
 
-        EUM_Setting GetSetting()
+        public EUM_Setting GetSetting()
         {
             string[] guids = AssetDatabase.FindAssets("t:EUM_Setting", new[] {"Assets"});
             for (int i = 0; i < guids.Length; i++)

@@ -17,10 +17,15 @@ namespace EditorUIMaker
         public bool ShowContainers;
         public bool ShowControls;
         public bool ShowNumericFields;
+        public bool ShowCustomContainer;
+        public bool ShowCustomControl;
 
         public List<EUM_BaseWidget> Containers = new List<EUM_BaseWidget>();
         public List<EUM_BaseWidget> Controls = new List<EUM_BaseWidget>();
         public List<EUM_BaseWidget> NumericFields = new List<EUM_BaseWidget>();
+
+        public List<EUM_BaseWidget> CustomContainers = new List<EUM_BaseWidget>();
+        public List<EUM_BaseWidget> CustomControls = new List<EUM_BaseWidget>();
 
         public EUM_Library()
         {
@@ -53,6 +58,23 @@ namespace EditorUIMaker
             NumericFields.Add(new EUM_Vector3Int());
             NumericFields.Add(new EUM_MinMaxSlider());
             NumericFields.Add(new EUM_MinMaxIntSlider());
+
+            var setting = EUM_Helper.Instance.GetSetting();
+            if (setting.Containers != null)
+            {
+                foreach (var container in setting.Containers)
+                {
+                    CustomContainers.Add(container);
+                }
+            }
+
+            if (setting.Widgets != null)
+            {
+                foreach (var widget in setting.Widgets)
+                {
+                    CustomControls.Add(widget);
+                }
+            }
         }
 
         public void Draw(ref Rect rect)
@@ -198,6 +220,65 @@ namespace EditorUIMaker
 
         void DrawCustom()
         {
+            GUILib.Toggle(ref ShowCustomContainer, new GUIContent("Containers"), new GUIStyle("FoldoutHeader"));
+            if (ShowCustomContainer)
+                DrawCustomContainer();
+
+            GUILib.Toggle(ref ShowCustomControl, new GUIContent("Controls"), new GUIStyle("FoldoutHeader"));
+            if (ShowCustomControl)
+                DrawCustomControl();
+        }
+
+        void DrawCustomContainer()
+        {
+            foreach (var control in CustomContainers)
+            {
+                GUILib.HorizontalRect(() =>
+                {
+                    GUILib.Space(20);
+                    GUILib.Label(control.TypeName);
+                });
+
+                var lastRect = GUILib.GetLastRect();
+                if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+                {
+                    if (lastRect.Contains(Event.current.mousePosition))
+                    {
+                        DragAndDrop.PrepareStartDrag();
+                        DragAndDrop.SetGenericData("dragflag", "");
+                        DragAndDrop.StartDrag("");
+                        Event.current.Use();
+
+                        EUM_Helper.Instance.DraggingWidget = control.Clone();
+                    }
+                }
+            } 
+        }
+
+        void DrawCustomControl()
+        {
+            foreach (var control in CustomControls)
+            {
+                GUILib.HorizontalRect(() =>
+                {
+                    GUILib.Space(20);
+                    GUILib.Label(control.TypeName);
+                });
+
+                var lastRect = GUILib.GetLastRect();
+                if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+                {
+                    if (lastRect.Contains(Event.current.mousePosition))
+                    {
+                        DragAndDrop.PrepareStartDrag();
+                        DragAndDrop.SetGenericData("dragflag", "");
+                        DragAndDrop.StartDrag("");
+                        Event.current.Use();
+
+                        EUM_Helper.Instance.DraggingWidget = control.Clone();
+                    }
+                }
+            } 
         }
 
         public void HandleDrag()
