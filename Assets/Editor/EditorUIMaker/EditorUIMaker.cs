@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using Amazing.Editor.Library;
 using EditorUIMaker.Widgets;
 using Sirenix.OdinInspector.Editor;
+using Sirenix.Serialization;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 
 namespace EditorUIMaker
 {
-    public class EditorUIMaker : OdinEditorWindow
+    public class EditorUIMaker : EditorWindow,ISerializationCallbackReceiver
     {
         private static EditorUIMaker _Instance;
         public static bool IsOpen
@@ -126,7 +127,7 @@ namespace EditorUIMaker
             EUM_Helper.Instance.Modified = true;
         }
        
-        protected override void OnGUI()
+        void OnGUI()
         {
             EUM_Helper.Instance.MouseRects.Clear();
 
@@ -419,5 +420,19 @@ namespace EditorUIMaker
                 return;
             EUM_Helper.Instance.WarningModified();
         }
+
+        [SerializeField]
+        [HideInInspector]
+        private SerializationData serializationData;
+        public void OnBeforeSerialize()
+        {
+            UnitySerializationUtility.SerializeUnityObject((UnityEngine.Object) this, ref this.serializationData); 
+        }
+
+        public void OnAfterDeserialize()
+        {
+            UnitySerializationUtility.DeserializeUnityObject((UnityEngine.Object) this, ref this.serializationData); 
+        }
+        
     }
 }
