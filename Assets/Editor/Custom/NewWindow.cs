@@ -54,11 +54,12 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
         }
         
         GUILayout.EndHorizontal();
+        
+        GUILib.Space(30);
 
         Repaint();
     }
 
-    
     void OnEnable()
     {
         AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;

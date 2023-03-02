@@ -217,13 +217,29 @@ namespace EditorUIMaker
             AssetDatabase.DeleteAsset(filePath);
             AssetDatabase.CreateAsset(data,filePath);
             AssetDatabase.SaveAssets();
+
+            var setting = GetSetting();
             
-            SaveClassFile(filePath);
-            SaveLogicFile(filePath);
+            SaveClassFile(filePath,setting);
+            SaveLogicFile(filePath,setting);
             AssetDatabase.Refresh();
         }
 
-        void SaveClassFile(string windowPath)
+        EUM_Setting GetSetting()
+        {
+            string[] guids = AssetDatabase.FindAssets("t:EUM_Setting", new[] {"Assets"});
+            for (int i = 0; i < guids.Length; i++)
+            {
+                var guid = guids[i];
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                var setting = AssetDatabase.LoadAssetAtPath<EUM_Setting>(path);
+                return setting;
+            }
+
+            return null;
+        }
+
+        void SaveClassFile(string windowPath,EUM_Setting setting)
         {
             var page = @"
 using System;
@@ -231,6 +247,7 @@ using EditorUIMaker;
 using UnityEditor;
 using UnityEngine;
 using Sirenix.Serialization;
+{{additionNamespace}}
 
 public class {{className}} : EditorWindow,ISerializationCallbackReceiver
 {
@@ -299,6 +316,17 @@ public class {{className}} : EditorWindow,ISerializationCallbackReceiver
 }
 ";
             List<string> contents = new List<string>();
+            contents.Clear();
+            for (int i = 0; i < setting.AdditionNamespaces.Count; i++)
+            {
+                var nameSpace = setting.AdditionNamespaces[i];
+                if(string.IsNullOrEmpty(nameSpace))
+                    continue;
+                contents.Add(string.Format("using {0};",nameSpace));
+            }
+            var additionNamespace = string.Join("\n", contents);
+            
+            contents.Clear();
             for (int i = 0; i < Window.Widgets.Count; i++)
             {
                 var widget = Window.Widgets[i];
@@ -340,6 +368,7 @@ public class {{className}} : EditorWindow,ISerializationCallbackReceiver
             sObj.Add("menuItemPath",MenuItemPath);
             sObj.Add("defineCode",defineCode);
             sObj.Add("initCode",initCode);
+            sObj.Add("additionNamespace",additionNamespace);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);
@@ -356,12 +385,13 @@ public class {{className}} : EditorWindow,ISerializationCallbackReceiver
             File.WriteAllText(filePath,result,new UTF8Encoding(false));
         }
 
-        void SaveLogicFile(string windowPath)
+        void SaveLogicFile(string windowPath,EUM_Setting setting)
         {
             var page = @"
 using System;
 using EditorUIMaker;
 using UnityEngine;
+{{additionNamespace}}
 
 public partial class {{className}}_Logic : EUM_BaseWindowLogic
 {
@@ -390,17 +420,35 @@ public partial class {{className}}_Logic : EUM_BaseWindowLogic
     {{code}}
 }
 ";
-            var code = "";
+            var contents = new List<string>();
+            contents.Clear();
+            for (int i = 0; i < setting.AdditionNamespaces.Count; i++)
+            {
+                var nameSpace = setting.AdditionNamespaces[i];
+                if(string.IsNullOrEmpty(nameSpace))
+                    continue;
+                contents.Add(string.Format("using {0};",nameSpace));
+            }
+            var additionNamespace = string.Join("\n", contents);
+
+            
+            contents.Clear();
             for (int i = 0; i < Window.Widgets.Count; i++)
             {
                 var widget = Window.Widgets[i];
-                code += "\n" + widget.LogicCode();
+                var widgetCode = widget.LogicCode();
+                if(string.IsNullOrEmpty(widgetCode))
+                    continue;
+                contents.Add(widgetCode);
             }
+
+            var code = string.Join("\n", contents);
 
             
             var sObj = new ScriptObject();
             sObj.Add("code",code);
             sObj.Add("className",WindowTitle);
+            sObj.Add("additionNamespace",additionNamespace);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

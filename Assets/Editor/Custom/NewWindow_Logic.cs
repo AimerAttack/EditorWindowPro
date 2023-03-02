@@ -27,7 +27,6 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
         CallMethod("OnAfterReloadDoMain");
     }
 
-    
     public void TreeView2SelectChange()
     {
         CallMethod("OnTreeView2SelectChange");
