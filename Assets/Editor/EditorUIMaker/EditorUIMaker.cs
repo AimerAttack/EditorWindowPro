@@ -133,13 +133,15 @@ namespace EditorUIMaker
 
             EUM_Helper.Instance.Fade();
 
+            var operationWidth = position.width * RatioOperationArea;
+            operationWidth = Mathf.Max(operationWidth, s_MinOperationWidth);
+            
             var inspectorWidth = position.width * RatioInspector;
-            inspectorWidth = Mathf.Max(s_MinInspectorWidth, inspectorWidth);
-            var operationWidth = position.width * Mathf.Min(RatioOperationArea, 0.5f);
-            operationWidth = Mathf.Max(s_MinOperationWidth, operationWidth);
+            inspectorWidth = Mathf.Max(inspectorWidth, s_MinInspectorWidth);
+            
             var viewportWidth = position.width - inspectorWidth - operationWidth;
-            viewportWidth = Mathf.Max(s_MinViewportWidth, viewportWidth);
-
+            viewportWidth = Mathf.Max(viewportWidth, s_MinViewportWidth);
+            
             var viewportRect = new Rect(operationWidth,0 , viewportWidth - s_SplitSize, position.height);
             Viewport.Draw(ref viewportRect);
 
@@ -398,7 +400,15 @@ namespace EditorUIMaker
             var delta = Event.current.mousePosition.x;
             if (delta < s_MinOperationWidth)
                 return;
+
+            delta = Mathf.Max(delta, s_MinOperationWidth);
+            delta = Mathf.Min(delta,position.width - s_MinViewportWidth- s_MinInspectorWidth);
+            
             RatioOperationArea = delta / position.width;
+            
+            var inspectorWidth = RatioInspector * position.width;
+            if(delta + inspectorWidth + s_MinViewportWidth > position.width)
+                RatioInspector = (position.width - delta - s_MinViewportWidth) / position.width;
         }
 
         void RefreshInspectorSplitPosition()
@@ -408,7 +418,15 @@ namespace EditorUIMaker
             var delta = position.width - Event.current.mousePosition.x;
             if (delta < s_MinInspectorWidth)
                 return;
+            
+            delta = Mathf.Max(delta, s_MinInspectorWidth);
+            delta = Mathf.Min(delta,position.width - s_MinViewportWidth- s_MinOperationWidth);
+            
             RatioInspector = delta / position.width;
+            
+            var operationWidth = RatioOperationArea * position.width;
+            if(delta + operationWidth + s_MinViewportWidth > position.width)
+                RatioOperationArea = (position.width - delta - s_MinViewportWidth) / position.width;
         }
 
        
