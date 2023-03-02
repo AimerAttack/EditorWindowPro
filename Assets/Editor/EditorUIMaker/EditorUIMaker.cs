@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Amazing.Editor.Library;
 using EditorUIMaker.Widgets;
-using Sirenix.OdinInspector.Editor;
 using Sirenix.Serialization;
 using UnityEditor;
 using UnityEditor.Callbacks;
