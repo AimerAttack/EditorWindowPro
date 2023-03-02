@@ -32,4 +32,8 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     {
         CallMethod("OnTreeView2SelectChange");
     }
+    public void ClickButton1()
+    {
+        CallMethod("OnClickButton1");
+    }
 }

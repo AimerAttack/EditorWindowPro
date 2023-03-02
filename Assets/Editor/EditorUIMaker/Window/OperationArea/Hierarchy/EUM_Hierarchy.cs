@@ -22,10 +22,27 @@ namespace EditorUIMaker
             EUM_Helper.Instance.OnRemoveItemFromWindow += OnRemoveItemFromWindow;
             EUM_Helper.Instance.OnItemRename += OnItemRename;
             EUM_Helper.Instance.OnClearData += ClearData;
+            EUM_Helper.Instance.OnBeforeReloadDomain += OnBeforeReloadDomain;
+            EUM_Helper.Instance.OnAfterReloadDomain += OnAfterReloadDomain;
+        }
+
+        public IList<int> expendIds;
+
+        void OnBeforeReloadDomain()
+        {
+            expendIds = TreeView.GetExpanded();
+        }
+
+        void OnAfterReloadDomain()
+        {
+            _Inited = false;
+            InitIfNeed(); 
         }
 
         void ClearData()
         {
+            if (expendIds != null)
+                expendIds = new List<int>();
             _Inited = false;
             InitIfNeed();
         }
@@ -48,6 +65,9 @@ namespace EditorUIMaker
             TreeView.OnInsertToParent += OnInsertToParent;
             RefreshTreeView();
             OnSelectWidgetChanged();
+            
+            if(expendIds != null)
+                TreeView.SetExpanded(expendIds);
         }
         
         

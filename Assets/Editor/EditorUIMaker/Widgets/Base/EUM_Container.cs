@@ -32,61 +32,61 @@ namespace EditorUIMaker
         
         string WidgetsCode()
         {
-            var builder = new StringBuilder();
+            var contents = new List<string>();
             foreach (var widget in Widgets)
             {
                 var widgetCode = widget.Code();
                 if(string.IsNullOrEmpty(widgetCode))
                     continue;
-                builder.AppendJoin("\n",widgetCode);
+                contents.Add(widgetCode);
             }
 
-            var code = builder.ToString();
+            var code = string.Join("\n", contents);
             return code;
         }
 
         public override string LogicCode()
         {
-            var builder = new StringBuilder();
+            var contents = new List<string>();
             foreach (var widget in Widgets)
             {
                 var logicStr = widget.LogicCode();
                 if(string.IsNullOrEmpty(logicStr))
                     continue;
-                builder.AppendJoin("\n",logicStr);
+                contents.Add(logicStr);
             }
 
-            var code = builder.ToString();
+            var code = string.Join("\n", contents);
             return code;
         }
         
         public override string CodeForDefine()
         {
-            var builder = new StringBuilder();
+            var contents = new List<string>();
             foreach (var widget in Widgets)
             {
                 var defineStr = widget.CodeForDefine();
                 if(string.IsNullOrEmpty(defineStr))
                     continue;
-                builder.AppendJoin("\n",defineStr);
+                contents.Add(defineStr);
             }
 
-            var code = builder.ToString();
+            var code = string.Join("\n", contents);
             return code;
         }
         
         public override string CodeForInit()
         {
-            var builder = new StringBuilder();
+            var contents = new List<string>();
             foreach (var widget in Widgets)
             {
                 var initStr = widget.CodeForInit();
                 if(string.IsNullOrEmpty(initStr))
                     continue;
-                builder.AppendJoin("\n",initStr);
+                contents.Add(initStr);
             }
 
-            var code = builder.ToString();
+            var code = string.Join("\n", contents);
             return code;
         }
 

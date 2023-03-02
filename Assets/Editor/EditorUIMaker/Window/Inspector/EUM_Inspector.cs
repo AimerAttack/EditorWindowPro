@@ -39,7 +39,7 @@ namespace EditorUIMaker
                     var info = EUM_Helper.Instance.SelectWidget.Info;
                     var type = info.GetType();
 
-                    GUILib.Label("Type:" + EUM_Helper.Instance.SelectWidget.TypeName);
+                    GUILib.Label("[" + EUM_Helper.Instance.SelectWidget.TypeName + "]");
 
                     var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
                     Array.Sort(properties, (left, right) =>

@@ -44,10 +44,21 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
     {
         InitTreeView2();
         _TreeView2.Draw();
+        
+        GUILayout.BeginHorizontal();
+        var styleButton1 = new GUIStyle(GUI.skin.button);
+        styleButton1.alignment = TextAnchor.MiddleCenter;
+        if(GUILib.Button("Button",styleButton1))
+        {
+            _Logic.ClickButton1();
+        }
+        
+        GUILayout.EndHorizontal();
 
         Repaint();
     }
 
+    
     void OnEnable()
     {
         AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;

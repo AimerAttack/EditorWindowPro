@@ -30,6 +30,7 @@ namespace EditorUIMaker
         public Action OnSelectWidgetChange;
         public Action<EUM_BaseWidget> OnItemRename;
         public Action OnClearData;
+        public Action OnBeforeReloadDomain;
         public Action OnAfterReloadDomain;
         public EUM_Window Window;
         public Rect WindowRect;
@@ -297,39 +298,41 @@ public class {{className}} : EditorWindow,ISerializationCallbackReceiver
     }
 }
 ";
-            var builder = new StringBuilder();
+            List<string> contents = new List<string>();
             for (int i = 0; i < Window.Widgets.Count; i++)
             {
                 var widget = Window.Widgets[i];
                 var widgetCode = widget.Code();
                 if(string.IsNullOrEmpty(widgetCode))
                     continue;
-                builder.AppendJoin("\n",widgetCode);
+                contents.Add(widgetCode);
             }
-            var code = builder.ToString();
 
-            builder.Clear();
+            var code = string.Join("\n\n", contents);
+
+            contents.Clear();
             for (int i = 0; i < Window.Widgets.Count; i++)
             {
                 var widget = Window.Widgets[i];
                 var widgetDefineCode = widget.CodeForDefine();
                 if (string.IsNullOrEmpty(widgetDefineCode))
                     continue;
-                builder.AppendJoin("\n",widgetDefineCode);
+                contents.Add(widgetDefineCode);
             }
-            var defineCode = builder.ToString();
 
-            builder.Clear();
+            var defineCode = string.Join("\n\n", contents);
+
+            contents.Clear();
             for (int i = 0; i < Window.Widgets.Count; i++)
             {
                 var widget = Window.Widgets[i];
                 var widgetInitCode = widget.CodeForInit();
                 if (string.IsNullOrEmpty(widgetInitCode))
                     continue;
-                builder.AppendJoin("\n",widgetInitCode);
+                contents.Add(widgetInitCode);
             }
 
-            var initCode = builder.ToString();
+            var initCode = string.Join("\n\n", contents);
             
             var sObj = new ScriptObject();
             sObj.Add("code",code);
