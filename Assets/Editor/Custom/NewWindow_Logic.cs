@@ -5,40 +5,31 @@ using UnityEngine;
 
 public partial class NewWindow_Logic : EUM_BaseWindowLogic
 {
-    public NewWindow_Logic()
+    public NewWindow Window;
+
+    public NewWindow_Logic(NewWindow window)
     {
-        CallMethod("Init");
+        Window = window;
+    }
+
+    public void Init()
+    {
+        CallMethod("DoInit");
+    }
+
+    public void BeforeReloadDoMain()
+    {
+        CallMethod("OnBeforeReloadDoMain");
+    }
+
+    public void AfterReloadDoMain()
+    {
+        CallMethod("OnAfterReloadDoMain");
     }
 
     
-    
-    public string bStr ="1";
-    public int bIndex;
-    public string[] bOptions = {"1","2","3"};
-    
-    public void bValueChange()
+    public void TreeView2SelectChange()
     {
-        CallMethod("OnbValueChange");
+        CallMethod("OnTreeView2SelectChange");
     }
-    
-    public bool c = false;
-    
-    public void ClickButton1()
-    {
-        CallMethod("OnClickButton1");
-    }
-    public void ClickButton2()
-    {
-        CallMethod("OnClickButton2");
-    }
-    public void ClickButton3()
-    {
-        CallMethod("OnClickButton3");
-    }
-    public string TextField1;
-    public void TextField1ValueChange()
-    {
-        CallMethod("OnTextField1ValueChange");
-    }
-
 }

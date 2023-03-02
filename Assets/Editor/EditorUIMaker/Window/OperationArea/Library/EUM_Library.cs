@@ -37,9 +37,9 @@ namespace EditorUIMaker
             Controls.Add(new EUM_Button());
             Controls.Add(new EUM_Label());
             Controls.Add(new EUM_TextField());
-           
             Controls.Add(new EUM_Toggle());
             Controls.Add(new EUM_Dropdown());
+            Controls.Add(new EUM_TreeView());
 
             NumericFields.Add(new EUM_Int());
             NumericFields.Add(new EUM_Slider());

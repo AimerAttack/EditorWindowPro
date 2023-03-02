@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using EditorUIMaker.Widgets;
 using Scriban;
 using Scriban.Runtime;
@@ -31,21 +32,61 @@ namespace EditorUIMaker
         
         string WidgetsCode()
         {
-            var code = "";
+            var builder = new StringBuilder();
             foreach (var widget in Widgets)
             {
-                code += "\n" + widget.Code();
+                var widgetCode = widget.Code();
+                if(string.IsNullOrEmpty(widgetCode))
+                    continue;
+                builder.AppendJoin("\n",widgetCode);
             }
+
+            var code = builder.ToString();
             return code;
         }
 
         public override string LogicCode()
         {
-            var code = "";
+            var builder = new StringBuilder();
             foreach (var widget in Widgets)
             {
-                code += "\n" + widget.LogicCode();
+                var logicStr = widget.LogicCode();
+                if(string.IsNullOrEmpty(logicStr))
+                    continue;
+                builder.AppendJoin("\n",logicStr);
             }
+
+            var code = builder.ToString();
+            return code;
+        }
+        
+        public override string CodeForDefine()
+        {
+            var builder = new StringBuilder();
+            foreach (var widget in Widgets)
+            {
+                var defineStr = widget.CodeForDefine();
+                if(string.IsNullOrEmpty(defineStr))
+                    continue;
+                builder.AppendJoin("\n",defineStr);
+            }
+
+            var code = builder.ToString();
+            return code;
+        }
+        
+        public override string CodeForInit()
+        {
+            var builder = new StringBuilder();
+            foreach (var widget in Widgets)
+            {
+                var initStr = widget.CodeForInit();
+                if(string.IsNullOrEmpty(initStr))
+                    continue;
+                builder.AppendJoin("\n",initStr);
+            }
+
+            var code = builder.ToString();
             return code;
         }
 
@@ -65,8 +106,7 @@ namespace EditorUIMaker
 
             var code = @"{{beginCode}}
 {{widgetsCode}}
-{{endCode}}
-";
+{{endCode}}";
             var template = Template.Parse(code);
             var result = template.Render(context);
             

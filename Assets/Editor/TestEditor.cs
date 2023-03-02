@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using SimpleTreeView = Amazing.Editor.Library.SimpleTreeView;
 
 public class TestEditor : EditorWindow, IEditorWindow
 {

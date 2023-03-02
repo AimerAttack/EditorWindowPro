@@ -229,41 +229,114 @@ using System;
 using EditorUIMaker;
 using UnityEditor;
 using UnityEngine;
-public class {{className}} : EditorWindow
+using Sirenix.Serialization;
+
+public class {{className}} : EditorWindow,ISerializationCallbackReceiver
 {
     [MenuItem(""{{menuItemPath}}"")]
     public static void ShowWindow()
     {
         var window = GetWindow<{{className}}>();
         window.titleContent = new GUIContent(""{{className}}"");
+        window.Init();
         window.Show();
     }
 
-    private {{className}}_Logic _Logic;
+    public {{className}}_Logic _Logic;
 
-    public {{className}}()
+    void Init()
     {
-        _Logic = new {{className}}_Logic();
+        _Logic = new {{className}}_Logic(this);
+
+        {{initCode}}
+
+        _Logic.Init();
     }
+
+    {{defineCode}}
 
     void OnGUI()
     {
         {{code}}
+
+        Repaint();
+    }
+
+    void OnEnable()
+    {
+        AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
+        AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
+    }
+
+    void OnDisable()
+    {
+        AssemblyReloadEvents.beforeAssemblyReload -= OnBeforeAssemblyReload;
+        AssemblyReloadEvents.afterAssemblyReload -= OnAfterAssemblyReload;
+    }
+    
+    void OnBeforeAssemblyReload()
+    {
+        _Logic.BeforeReloadDoMain();
+    }
+    
+    void OnAfterAssemblyReload()
+    {
+        _Logic.AfterReloadDoMain();
+    }
+
+    [SerializeField] [HideInInspector] private SerializationData serializationData;
+
+    public void OnBeforeSerialize()
+    {
+        UnitySerializationUtility.SerializeUnityObject((UnityEngine.Object) this, ref this.serializationData);
+    }
+
+    public void OnAfterDeserialize()
+    {
+        UnitySerializationUtility.DeserializeUnityObject((UnityEngine.Object) this, ref this.serializationData);
     }
 }
 ";
-            var code = "";
+            var builder = new StringBuilder();
             for (int i = 0; i < Window.Widgets.Count; i++)
             {
                 var widget = Window.Widgets[i];
-                code += "\n" + widget.Code();
+                var widgetCode = widget.Code();
+                if(string.IsNullOrEmpty(widgetCode))
+                    continue;
+                builder.AppendJoin("\n",widgetCode);
             }
-            
+            var code = builder.ToString();
+
+            builder.Clear();
+            for (int i = 0; i < Window.Widgets.Count; i++)
+            {
+                var widget = Window.Widgets[i];
+                var widgetDefineCode = widget.CodeForDefine();
+                if (string.IsNullOrEmpty(widgetDefineCode))
+                    continue;
+                builder.AppendJoin("\n",widgetDefineCode);
+            }
+            var defineCode = builder.ToString();
+
+            builder.Clear();
+            for (int i = 0; i < Window.Widgets.Count; i++)
+            {
+                var widget = Window.Widgets[i];
+                var widgetInitCode = widget.CodeForInit();
+                if (string.IsNullOrEmpty(widgetInitCode))
+                    continue;
+                builder.AppendJoin("\n",widgetInitCode);
+            }
+
+            var initCode = builder.ToString();
             
             var sObj = new ScriptObject();
             sObj.Add("code",code);
             sObj.Add("className",WindowTitle);
             sObj.Add("menuItemPath",MenuItemPath);
+            sObj.Add("defineCode",defineCode);
+            sObj.Add("initCode",initCode);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);
@@ -289,9 +362,26 @@ using UnityEngine;
 
 public partial class {{className}}_Logic : EUM_BaseWindowLogic
 {
-    public {{className}}_Logic()
+    public {{className}} Window;
+
+    public {{className}}_Logic({{className}} window)
     {
-        CallMethod(""Init"");
+        Window = window;
+    }
+
+    public void Init()
+    {
+        CallMethod(""DoInit"");
+    }
+
+    public void BeforeReloadDoMain()
+    {
+        CallMethod(""OnBeforeReloadDoMain"");
+    }
+
+    public void AfterReloadDoMain()
+    {
+        CallMethod(""OnAfterReloadDoMain"");
     }
 
     {{code}}
