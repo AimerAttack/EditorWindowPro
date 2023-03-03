@@ -45,6 +45,8 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
         
         
         GUILib.HelpBox("HelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBox",MessageType.Error);
+        
+        GUILib.ProgressBar(_Logic.ProgressBar1,"ggg");
 
         Repaint();
     }

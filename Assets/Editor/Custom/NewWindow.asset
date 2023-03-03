@@ -29,7 +29,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 108
+      Data: 110
     - Name: InViewport
       Entry: 5
       Data: false
@@ -93,7 +93,7 @@ MonoBehaviour:
         Assembly-CSharp-Editor]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: 3|EditorUIMaker.Widgets.EUM_GameObject, Assembly-CSharp-Editor
@@ -102,7 +102,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 110
+      Data: 112
     - Name: InViewport
       Entry: 5
       Data: false
@@ -171,7 +171,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 111
+      Data: 113
     - Name: InViewport
       Entry: 5
       Data: false
@@ -240,7 +240,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 112
+      Data: 114
     - Name: InViewport
       Entry: 5
       Data: false
@@ -298,6 +298,75 @@ MonoBehaviour:
     - Name: MessageType
       Entry: 3
       Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|EditorUIMaker.Widgets.EUM_ProgressBar, Assembly-CSharp-Editor
+    - Name: Depth
+      Entry: 3
+      Data: 0
+    - Name: ID
+      Entry: 3
+      Data: 115
+    - Name: InViewport
+      Entry: 5
+      Data: false
+    - Name: Rect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: AbsoluteRect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Parent
+      Entry: 6
+      Data: 
+    - Name: Info
+      Entry: 7
+      Data: 10|EditorUIMaker.Widgets.EUM_ProgressBar_Info, Assembly-CSharp-Editor
+    - Name: Name
+      Entry: 1
+      Data: ProgressBar1
+    - Name: _Widget
+      Entry: 9
+      Data: 9
+    - Name: Label
+      Entry: 1
+      Data: ggg
     - Name: 
       Entry: 8
       Data: 

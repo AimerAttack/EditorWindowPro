@@ -39,5 +39,6 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     {
         CallMethod("OnMaterial1ValueChange");
     }
-
+    
+    public float ProgressBar1;
 }

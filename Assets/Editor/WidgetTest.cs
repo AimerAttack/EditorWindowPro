@@ -20,7 +20,6 @@ namespace Editor
         public bool DisplayTooltipWhenElidedDisplayTooltipWhenElidedDisplayTooltipWhenElidedDisplayTooltipWhenElided1;
         public string bbbbbbb;
 
-        [FoldoutGroup("1")]
         public int a;
     }
 }

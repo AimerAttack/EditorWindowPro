@@ -14,6 +14,12 @@ namespace EditorUIMaker
 
         internal static Dictionary<string, GUIContent> tooltipCache = new Dictionary<string, GUIContent>();
 
+        public static void ProgressBar(float value, string label)
+        {
+            var rect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight);
+            EditorGUI.ProgressBar(rect, value, label);
+        }
+        
         public static void Frame(Rect rect, Color color, Rect clipRect, float size = 1, float alpha = 1)
         {
             var oldColor = GUI.color;
