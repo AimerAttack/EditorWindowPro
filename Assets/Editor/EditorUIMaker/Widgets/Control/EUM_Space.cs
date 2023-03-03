@@ -13,6 +13,7 @@ namespace EditorUIMaker.Widgets
         protected override EUM_BaseInfo CreateInfo()
         {
             var info = new EUM_Space_Info(this);
+            info.Height = 10;
             return info;
         }
 
