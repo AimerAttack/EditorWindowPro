@@ -33,5 +33,11 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
     {
         CallMethod("OnGameObject1ValueChange");
     }
+    
+    public Material Material1;
+    public void Material1ValueChange()
+    {
+        CallMethod("OnMaterial1ValueChange");
+    }
 
 }

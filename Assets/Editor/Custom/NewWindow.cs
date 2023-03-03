@@ -36,6 +36,12 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
         {
             _Logic.GameObject1ValueChange();
         }
+        
+        
+        if(GUILib.ObjectField("Material",ref _Logic.Material1))
+        {
+            _Logic.Material1ValueChange();
+        }
 
 
         Repaint();

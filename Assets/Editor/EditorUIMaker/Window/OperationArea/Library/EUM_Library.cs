@@ -47,6 +47,7 @@ namespace EditorUIMaker
             Controls.Add(new EUM_TreeView());
             Controls.Add(new EUM_Color());
             Controls.Add(new EUM_GameObject());
+            Controls.Add(new EUM_Material());
 
             NumericFields.Add(new EUM_Int());
             NumericFields.Add(new EUM_Slider());
