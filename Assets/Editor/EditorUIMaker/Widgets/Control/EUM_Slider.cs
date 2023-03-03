@@ -19,7 +19,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.Slider(info.Label, ref info.Value, info.Min, info.Max);
+            GUILib.Slider(info.Label, ref info.Value, info.Min, info.Max,LayoutOptions());
         }
 
         public override string LogicCode()

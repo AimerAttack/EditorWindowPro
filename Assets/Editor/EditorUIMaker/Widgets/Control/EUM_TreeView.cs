@@ -19,6 +19,11 @@ namespace EditorUIMaker.Widgets
             return info;
         }
 
+        public override bool CanResize()
+        {
+            return false;
+        }
+
         private SimpleTreeView _Treeview;
 
         private void InitIfNeed()

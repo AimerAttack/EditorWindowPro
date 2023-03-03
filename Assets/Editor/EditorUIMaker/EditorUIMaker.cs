@@ -215,6 +215,8 @@ namespace EditorUIMaker
                     ResizeInspector = false;
                 if (ResizeOperationArea)
                     ResizeOperationArea = false;
+                if(ResizeWidgetHeight)
+                    ResizeWidgetHeight = false;
             }
 
             Input.CheckInput();
@@ -291,6 +293,9 @@ namespace EditorUIMaker
         {
             if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
             {
+                if(operationCursorRect.Contains(Event.current.mousePosition))
+                    return;
+                
                 GUIUtility.keyboardControl = 0;
 
                 //如果点击鼠标拖拽区域了，则不处理选中逻辑
@@ -319,12 +324,49 @@ namespace EditorUIMaker
             }
         }
 
+        public bool ResizeWidgetHeight = false;
+        public Vector2 LastResizeHeightDownPosition;
+        public Rect operationCursorRect;
         void DrawSelectRect()
         {
             if (EUM_Helper.Instance.SelectWidget == null)
                 return;
             var widget = EUM_Helper.Instance.SelectWidget;
-            GUILib.Frame(widget.Rect, Color.green, EUM_Helper.Instance.ViewportRect);
+            var visibleRect = GUILib.Frame(widget.Rect, Color.green, EUM_Helper.Instance.ViewportRect);
+
+            if (widget.CanResize())
+            {
+                var resizeRect = new Rect(visibleRect.xMin, visibleRect.yMax, visibleRect.width, 1);
+                operationCursorRect = GUILib.Padding(resizeRect, 5f, -2f);
+                EditorGUIUtility.AddCursorRect(operationCursorRect, MouseCursor.ResizeVertical);
+                if (operationCursorRect.Contains(Event.current.mousePosition))
+                {
+                    GUILib.Rect(operationCursorRect, Color.white);
+                }
+
+                if (Event.current.type == EventType.MouseDown &&
+                    operationCursorRect.Contains(Event.current.mousePosition))
+                {
+                    LastResizeHeightDownPosition = Event.current.mousePosition;
+                    ResizeWidgetHeight = true;
+                    RefreshResizeWidgetHeight();
+                }
+
+                if (ResizeWidgetHeight)
+                    RefreshResizeWidgetHeight();
+            }
+        }
+
+        void RefreshResizeWidgetHeight()
+        {
+            if(Event.current.type != EventType.Repaint)
+                return;
+            var curHeight = EUM_Helper.Instance.SelectWidget.Rect.height;
+            var delta = Event.current.mousePosition.y - LastResizeHeightDownPosition.y;
+            var newHeight = curHeight + delta;
+            newHeight = Mathf.Max(newHeight, EUM_BaseInfo.Min_Height);
+            EUM_Helper.Instance.SelectWidget.Info.Height = newHeight;
+            LastResizeHeightDownPosition = Event.current.mousePosition;
         }
 
         void DrawHoverRect()

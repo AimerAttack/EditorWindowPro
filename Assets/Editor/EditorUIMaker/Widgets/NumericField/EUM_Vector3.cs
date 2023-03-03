@@ -19,7 +19,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.Vector3Field(info.Label, ref info.Value);
+            GUILib.Vector3Field(info.Label, ref info.Value,LayoutOptions());
         }
 
         public override string LogicCode()

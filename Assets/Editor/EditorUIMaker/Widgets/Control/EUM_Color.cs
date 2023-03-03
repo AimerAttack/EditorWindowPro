@@ -20,7 +20,7 @@ namespace EditorUIMaker.Widgets
         {
             GUILib.HorizontalRect(() =>
             {
-                GUILib.Color(info.Label,ref info.Value);
+                GUILib.Color(info.Label,ref info.Value,LayoutOptions());
             });
         }
 

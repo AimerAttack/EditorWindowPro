@@ -16,6 +16,11 @@ namespace EditorUIMaker.Widgets
             return info;
         }
 
+        public override bool CanResize()
+        {
+            return false;
+        }
+
         protected override void OnDrawLayout()
         {
             GUILib.HelpBox(info.Label, info.MessageType);

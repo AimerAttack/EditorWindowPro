@@ -19,7 +19,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.LongField(ref info.Value, info.Label);
+            GUILib.LongField(ref info.Value, info.Label,LayoutOptions());
         }
 
         public override string LogicCode()

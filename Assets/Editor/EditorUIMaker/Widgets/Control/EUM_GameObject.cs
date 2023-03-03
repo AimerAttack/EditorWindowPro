@@ -1,5 +1,6 @@
 using Scriban;
 using Scriban.Runtime;
+using UnityEditor;
 using UnityEngine;
 
 namespace EditorUIMaker.Widgets
@@ -18,7 +19,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.ObjectField(info.Label, ref info.Value);
+            GUILib.ObjectField(info.Label, ref info.Value,LayoutOptions());
         }
 
         public override string LogicCode()

@@ -89,6 +89,13 @@ namespace EditorUIMaker
                         var i = index;
                         var fieldInfo = allFieldInfo[i];
                         var fieldType = fieldInfo.FieldType;
+                        var fieldName = fieldInfo.Name;
+                        if (!EUM_Helper.Instance.SelectWidget.CanResize())
+                        {
+                            if(fieldName == "Height")
+                                continue;
+                        }
+                        
                         if (fieldType == typeof(string))
                         {
                             var value = fieldInfo.GetValue(info) as string;

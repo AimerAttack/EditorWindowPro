@@ -1,6 +1,7 @@
 using Amazing.Editor.Library;
 using Scriban;
 using Scriban.Runtime;
+using UnityEditor;
 using UnityEngine;
 
 namespace EditorUIMaker.Widgets
@@ -44,7 +45,7 @@ namespace EditorUIMaker.Widgets
         {
             var style = new GUIStyle(GUI.skin.button);
             style.alignment = info.TextAnchor;
-            GUILib.Button(_Content,style);
+            GUILib.Button(_Content,style,LayoutOptions());
         }
         
         public override EUM_BaseWidget Clone()

@@ -14,14 +14,16 @@ namespace EditorUIMaker
 
         internal static Dictionary<string, GUIContent> tooltipCache = new Dictionary<string, GUIContent>();
 
-        public static void ProgressBar(float value, string label)
+        public static void ProgressBar(float value, string label,float height)
         {
-            var rect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight);
+            var rect = EditorGUILayout.GetControlRect(false, height);
             EditorGUI.ProgressBar(rect, value, label);
         }
-        
-        public static void Frame(Rect rect, Color color, Rect clipRect, float size = 1, float alpha = 1)
+
+        public static Rect Frame(Rect rect, Color color, Rect clipRect, float size = 1, float alpha = 1)
         {
+            var visibleRect = new Rect();
+
             var oldColor = GUI.color;
             color.a = alpha;
 
@@ -33,9 +35,18 @@ namespace EditorUIMaker
                 rect.yMax < clipRect.yMin)
             {
                 //no left
+                if (rect.xMin < clipRect.xMin)
+                    visibleRect.xMin = clipRect.xMin;
+                else if (rect.xMin > clipRect.xMax)
+                    visibleRect.xMin = clipRect.xMax;
+                else
+                {
+                    visibleRect.xMin = rect.xMin;
+                }
             }
             else
             {
+                visibleRect.xMin = rect.xMin;
                 GUI.DrawTexture(new Rect(rect.xMin, Mathf.Max(rect.yMin, clipRect.yMin), size,
                         Mathf.Min(rect.yMax, clipRect.yMax) - Mathf.Max(rect.yMin, clipRect.yMin)),
                     (Texture) EditorGUIUtility.whiteTexture);
@@ -46,9 +57,18 @@ namespace EditorUIMaker
                 rect.yMax < clipRect.yMin)
             {
                 //no right
+                if (rect.xMax > clipRect.xMax)
+                    visibleRect.xMax = clipRect.xMax;
+                else if (rect.xMax < clipRect.xMin)
+                    visibleRect.xMax = clipRect.xMin;
+                else
+                {
+                    visibleRect.xMax = rect.xMax;
+                }
             }
             else
             {
+                visibleRect.xMax = rect.xMax;
                 GUI.DrawTexture(new Rect(rect.xMax, Mathf.Max(rect.yMin, clipRect.yMin), size,
                         Mathf.Min(rect.yMax, clipRect.yMax) - Mathf.Max(rect.yMin, clipRect.yMin)),
                     (Texture) EditorGUIUtility.whiteTexture);
@@ -59,9 +79,18 @@ namespace EditorUIMaker
                 rect.xMin > clipRect.xMax)
             {
                 //no top
+                if (rect.yMin < clipRect.yMin)
+                    visibleRect.yMin = clipRect.yMin;
+                else if (rect.yMin > clipRect.yMax)
+                    visibleRect.yMin = clipRect.yMax;
+                else
+                {
+                    visibleRect.yMin = rect.yMin;
+                }
             }
             else
             {
+                visibleRect.yMin = rect.yMin;
                 GUI.DrawTexture(new Rect(Mathf.Max(rect.xMin, clipRect.xMin), rect.yMin,
                         Mathf.Min(rect.xMax, clipRect.xMax) - Mathf.Max(rect.xMin, clipRect.xMin), size),
                     (Texture) EditorGUIUtility.whiteTexture);
@@ -72,15 +101,26 @@ namespace EditorUIMaker
                 rect.xMin > clipRect.xMax)
             {
                 //no bottom
+                if (rect.yMax > clipRect.yMax)
+                    visibleRect.yMax = clipRect.yMax;
+                else if (rect.yMax < clipRect.yMin)
+                    visibleRect.yMax = clipRect.yMin;
+                else
+                {
+                    visibleRect.yMax = rect.yMax;
+                }
             }
             else
             {
+                visibleRect.yMax = rect.yMax;
                 GUI.DrawTexture(new Rect(Mathf.Max(rect.xMin, clipRect.xMin), rect.yMax,
                         Mathf.Min(rect.xMax, clipRect.xMax) - Mathf.Max(rect.xMin, clipRect.xMin), size),
                     (Texture) EditorGUIUtility.whiteTexture);
             }
 
             GUI.color = oldColor;
+
+            return visibleRect;
         }
 
         public static void Frame(Rect rect, Color color, float size = 1, float alpha = 1)
@@ -362,6 +402,11 @@ namespace EditorUIMaker
                 return GUILayout.Button(text, options);
         }
 
+        public static bool Button(string text, params GUILayoutOption[] options)
+        {
+            return GUILayout.Button(text, options);
+        }
+
         public static void FlexibleSpace()
         {
             GUILayout.FlexibleSpace();
@@ -377,54 +422,54 @@ namespace EditorUIMaker
             return GUILayoutUtility.GetLastRect();
         }
 
-        public static bool ObjectField<T>(string label, ref T val) where T : Object
+        public static bool ObjectField<T>(string label, ref T val,params GUILayoutOption[] options) where T : Object
         {
-            var tmpObj = EditorGUILayout.ObjectField(label, val, typeof(T));
-            if(Equals(tmpObj, val))
+            var tmpObj = EditorGUILayout.ObjectField(label, val, typeof(T),options);
+            if (Equals(tmpObj, val))
                 return false;
             val = tmpObj as T;
             return true;
         }
 
-        public static bool Color(string label, ref Color color)
+        public static bool Color(string label, ref Color color,params GUILayoutOption[] options)
         {
-            var tmpColor = EditorGUILayout.ColorField(label, color);
+            var tmpColor = EditorGUILayout.ColorField(label, color,options);
             if (Equals(tmpColor, color))
                 return false;
             color = tmpColor;
             return true;
         }
 
-        public static bool Vector3IntField(string label, ref Vector3Int val)
+        public static bool Vector3IntField(string label, ref Vector3Int val,params GUILayoutOption[] options)
         {
-            var tmpVal = EditorGUILayout.Vector3IntField(label, val);
+            var tmpVal = EditorGUILayout.Vector3IntField(label, val,options);
             if (Equals(tmpVal, val))
                 return false;
             val = tmpVal;
             return true;
         }
 
-        public static bool Vector2IntField(string label, ref Vector2Int val)
+        public static bool Vector2IntField(string label, ref Vector2Int val,params GUILayoutOption[] options)
         {
-            var tmpVal = EditorGUILayout.Vector2IntField(label, val);
+            var tmpVal = EditorGUILayout.Vector2IntField(label, val,options);
             if (Equals(tmpVal, val))
                 return false;
             val = tmpVal;
             return true;
         }
 
-        public static bool Vector3Field(string label, ref Vector3 val)
+        public static bool Vector3Field(string label, ref Vector3 val,params GUILayoutOption[] options)
         {
-            var tmpVal = EditorGUILayout.Vector3Field(label, val);
+            var tmpVal = EditorGUILayout.Vector3Field(label, val,options);
             if (Equals(tmpVal, val))
                 return false;
             val = tmpVal;
             return true;
         }
 
-        public static bool Vector2Field(string label, ref Vector2 val)
+        public static bool Vector2Field(string label, ref Vector2 val,params GUILayoutOption[] options)
         {
-            var tmpVal = EditorGUILayout.Vector2Field(label, val);
+            var tmpVal = EditorGUILayout.Vector2Field(label, val,options);
             if (Equals(tmpVal, val))
                 return false;
             val = tmpVal;
@@ -468,9 +513,9 @@ namespace EditorUIMaker
             GUILayout.Label(content, options);
         }
 
-        public static void Label(string content, GUIStyle style)
+        public static void Label(string content, GUIStyle style,params GUILayoutOption[] options)
         {
-            GUILayout.Label(content, style);
+            GUILayout.Label(content, style,options);
         }
 
         public static bool IntField(ref int val, GUIContent label, params GUILayoutOption[] options)

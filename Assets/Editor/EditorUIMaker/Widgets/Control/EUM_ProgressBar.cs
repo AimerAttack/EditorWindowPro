@@ -1,5 +1,6 @@
 using Scriban;
 using Scriban.Runtime;
+using UnityEditor;
 using UnityEngine;
 
 namespace EditorUIMaker.Widgets
@@ -17,7 +18,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.ProgressBar(0.5f, info.Label);
+            GUILib.ProgressBar(0.5f, info.Label,info.Height > 0 ? info.Height : EditorGUIUtility.singleLineHeight);
         }
 
         public override string LogicCode()
@@ -59,7 +60,7 @@ namespace EditorUIMaker.Widgets
         {
             GUILib.Area(new Rect(position.x, position.y, 300, 20), () =>
             {
-                GUILib.ProgressBar(0.5f,TypeName);
+                GUILib.ProgressBar(0.5f,TypeName,EditorGUIUtility.singleLineHeight);
             });
         }
 

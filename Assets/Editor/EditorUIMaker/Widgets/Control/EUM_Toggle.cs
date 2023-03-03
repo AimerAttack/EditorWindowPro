@@ -18,7 +18,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.Toggle(ref info.Value, info.Label);
+            GUILib.Toggle(ref info.Value, info.Label,null,LayoutOptions());
         }
 
         public override string LogicCode()

@@ -20,8 +20,8 @@ namespace EditorUIMaker.Widgets
         {
             GUILib.HorizontalRect(() =>
             {
-                GUILib.Label(info.Label);
-                GUILib.TextField(ref info.Value);
+                GUILib.Label(info.Label,LayoutOptions());
+                GUILib.TextField(ref info.Value,LayoutOptions());
             });
         }
 

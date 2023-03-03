@@ -19,7 +19,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.FloatField(ref info.Value, info.Label);
+            GUILib.FloatField(ref info.Value, info.Label,LayoutOptions());
         }
 
         public override string LogicCode()

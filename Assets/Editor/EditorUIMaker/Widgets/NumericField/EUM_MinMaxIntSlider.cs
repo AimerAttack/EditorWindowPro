@@ -19,7 +19,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.IntMinMaxSlider(TypeName, ref info.MinValue, ref info.MaxValue, info.Min, info.Max);
+            GUILib.IntMinMaxSlider(TypeName, ref info.MinValue, ref info.MaxValue, info.Min, info.Max,false,LayoutOptions());
         }
 
         public override string LogicCode()

@@ -45,7 +45,7 @@ namespace EditorUIMaker.Widgets
         {
             var style = new GUIStyle(GUI.skin.label);
             style.alignment = info.TextAnchor;
-            GUILib.Label(_Content,style);
+            GUILib.Label(_Content,style,LayoutOptions());
         }
 
         public override EUM_BaseWidget Clone()

@@ -5,11 +5,19 @@ namespace EditorUIMaker.Widgets
 {
     public abstract class EUM_BaseInfo
     {
+        public const float Min_Height = 2;
+        
         public string Name;
         [SerializeField]
         private EUM_BaseWidget _Widget;
         public int ID => _Widget.ID;
+        public float Height = 0;
 
+        public float GetHeight()
+        {
+            return Mathf.Max(Height, Min_Height);
+        } 
+        
         public string DisplayName
         {
             get

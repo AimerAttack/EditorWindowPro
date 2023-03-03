@@ -17,7 +17,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.Popup(ref info.Value, info.Options);
+            GUILib.Popup(ref info.Value, info.Options,LayoutOptions());
         }
 
         public override string LogicCode()

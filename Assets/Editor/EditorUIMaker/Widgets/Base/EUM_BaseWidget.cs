@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace EditorUIMaker.Widgets
@@ -19,6 +20,11 @@ namespace EditorUIMaker.Widgets
             ID = EUM_Helper.Instance.WidgetID++;
             Info = CreateInfo();
             Info.Name = TypeName;
+        }
+
+        public virtual bool CanResize()
+        {
+            return true;
         }
 
         protected abstract void OnDrawLayout();
@@ -72,5 +78,15 @@ namespace EditorUIMaker.Widgets
             InViewport = true;
         }
 
+        protected GUILayoutOption[] LayoutOptions()
+        {
+            if (Info.Height > 0)
+            {
+                var options = new GUILayoutOption[] { GUILayout.MinHeight(Info.Height)};
+                return options;
+            }
+                
+            return null;
+        }
     }
 }

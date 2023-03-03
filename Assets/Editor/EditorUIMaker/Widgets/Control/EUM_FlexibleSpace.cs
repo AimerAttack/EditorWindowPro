@@ -13,6 +13,11 @@ namespace EditorUIMaker.Widgets
         {
             return new EUM_NormalInfo(this);
         }
+        
+        public override bool CanResize()
+        {
+            return false;
+        }
 
         protected override void OnDrawLayout()
         {

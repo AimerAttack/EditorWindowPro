@@ -19,7 +19,7 @@ namespace EditorUIMaker
         }
 
         private E_ResizeType _ResizeType = E_ResizeType.Null;
-        public Vector2 _LastDownPosition;
+        public Vector2 LastDownPosition;
 
         public EUM_VitualWindow()
         {
@@ -93,7 +93,7 @@ namespace EditorUIMaker
 
             if (Event.current.type == EventType.MouseDown)
             {
-                _LastDownPosition = Event.current.mousePosition;
+                LastDownPosition = Event.current.mousePosition;
                 if (rightResizeRect.Contains(Event.current.mousePosition))
                 {
                     _ResizeType = E_ResizeType.Right;
@@ -125,8 +125,8 @@ namespace EditorUIMaker
         void ResizeContent()
         {
             var currentPosition = Event.current.mousePosition;
-            var deltaX = currentPosition.x - _LastDownPosition.x;
-            var deltaY = currentPosition.y - _LastDownPosition.y;
+            var deltaX = currentPosition.x - LastDownPosition.x;
+            var deltaY = currentPosition.y - LastDownPosition.y;
             var rect = EUM_Helper.Instance.WindowRect;
 
             if (_ResizeType == E_ResizeType.Top)
@@ -216,7 +216,7 @@ namespace EditorUIMaker
                     EUM_Helper.Instance.WindowRect.xMax += deltaX;
             }
 
-            _LastDownPosition = Event.current.mousePosition;
+            LastDownPosition = Event.current.mousePosition;
         }
     }
 }
