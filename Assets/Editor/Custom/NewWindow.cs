@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using Sirenix.Serialization;
 
+
 public class NewWindow : EditorWindow,ISerializationCallbackReceiver
 {
     [MenuItem("Tools/222")]
@@ -22,40 +23,20 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
     {
         _Logic = new NewWindow_Logic(this);
 
-        InitTreeView2();
+        
 
         _Logic.Init();
     }
 
-    private SimpleTreeView _TreeView2;
-    public SimpleTreeView TreeView2 => _TreeView2;
-    void InitTreeView2()
-    {
-        if(_TreeView2 != null)
-            return;
-        _TreeView2 = SimpleTreeView.Create("TreeView",0);
-        _TreeView2.OnSelectionChanged += _Logic.TreeView2SelectChange;
-        var expend = false;
-        if(expend)
-            _TreeView2.ExpandAll();
-    }
+    
 
     void OnGUI()
     {
-        InitTreeView2();
-        _TreeView2.Draw();
-        
-        GUILayout.BeginHorizontal();
-        var styleButton1 = new GUIStyle(GUI.skin.button);
-        styleButton1.alignment = TextAnchor.MiddleCenter;
-        if(GUILib.Button("Button",styleButton1))
+        if(GUILib.Color("Color",ref _Logic.Color1))
         {
-            _Logic.ClickButton1();
+            _Logic.Color1ValueChange();
         }
-        
-        GUILayout.EndHorizontal();
-        
-        GUILib.Space(30);
+
 
         Repaint();
     }

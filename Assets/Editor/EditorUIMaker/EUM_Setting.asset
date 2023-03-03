@@ -20,5 +20,31 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: Widgets
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[EditorUIMaker.Widgets.EUM_Widget,
+        Assembly-CSharp-Editor]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Containers
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[EditorUIMaker.EUM_Container, Assembly-CSharp-Editor]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   AdditionNamespaces: []

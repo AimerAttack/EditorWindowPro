@@ -3,6 +3,7 @@ using System;
 using EditorUIMaker;
 using UnityEngine;
 
+
 public partial class NewWindow_Logic : EUM_BaseWindowLogic
 {
     public NewWindow Window;
@@ -27,12 +28,11 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
         CallMethod("OnAfterReloadDoMain");
     }
 
-    public void TreeView2SelectChange()
+    public Color Color1;
+    
+    public void Color1ValueChange()
     {
-        CallMethod("OnTreeView2SelectChange");
+        CallMethod("OnColor1ValueChange");
     }
-    public void ClickButton1()
-    {
-        CallMethod("OnClickButton1");
-    }
+
 }
