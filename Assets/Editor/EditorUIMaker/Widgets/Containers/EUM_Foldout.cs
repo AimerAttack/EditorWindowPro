@@ -18,6 +18,11 @@ namespace EditorUIMaker
             return info;
         }
 
+        public override bool CanResize()
+        {
+            return false;
+        }
+
         protected override void OnDrawLayout()
         {
             GUILib.Foldout(info.Label, ref info.IsOpen);

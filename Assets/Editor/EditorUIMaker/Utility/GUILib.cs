@@ -233,12 +233,12 @@ namespace EditorUIMaker
             GUILayout.EndArea();
         }
 
-        public static void HorizontalRect(Action drawContent, GUIStyle style = null)
+        public static void HorizontalRect(Action drawContent, GUIStyle style = null,params GUILayoutOption[] options)
         {
             if (style != null)
-                GUILayout.BeginHorizontal(style);
+                GUILayout.BeginHorizontal(style,options);
             else
-                GUILayout.BeginHorizontal();
+                GUILayout.BeginHorizontal(options);
             drawContent?.Invoke();
             GUILayout.EndHorizontal();
         }
@@ -651,9 +651,9 @@ namespace EditorUIMaker
             return true;
         }
 
-        public static void ScrollView(ref Vector2 scrollPosition, Action drawContent)
+        public static void ScrollView(ref Vector2 scrollPosition, Action drawContent,params GUILayoutOption[] options)
         {
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition,options);
             drawContent?.Invoke();
             GUILayout.EndScrollView();
         }

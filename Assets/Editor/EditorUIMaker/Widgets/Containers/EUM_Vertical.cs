@@ -19,7 +19,12 @@ namespace EditorUIMaker
                 DrawItems();
             });
         }
-        
+
+        public override bool CanResize()
+        {
+            return false;
+        }
+
         public override void DrawDraging(Vector2 position)
         {
             GUILib.Area(new Rect(position.x + 20, position.y, 200, 20), () =>

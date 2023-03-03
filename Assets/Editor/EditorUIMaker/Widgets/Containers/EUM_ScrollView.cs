@@ -18,7 +18,7 @@ namespace EditorUIMaker
             GUILib.ScrollView(ref _ScrollPosition, () =>
             {
                 DrawItems();
-            });
+            },LayoutOptions());
         }
 
         protected override void FixAbsoluteRect()

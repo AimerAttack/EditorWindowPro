@@ -17,7 +17,7 @@ namespace EditorUIMaker
             GUILib.HorizontalRect((() =>
             {
                 DrawItems();
-            }));
+            }),null,LayoutOptions());
         }
 
         public override void DrawDraging(Vector2 position)
