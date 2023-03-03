@@ -42,7 +42,9 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
         {
             _Logic.Material1ValueChange();
         }
-
+        
+        
+        GUILib.HelpBox("HelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBox",MessageType.Error);
 
         Repaint();
     }
