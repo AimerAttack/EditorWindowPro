@@ -28,11 +28,10 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
         CallMethod("OnAfterReloadDoMain");
     }
 
-    public Color Color1;
-    
-    public void Color1ValueChange()
+    public GameObject GameObject1;
+    public void GameObject1ValueChange()
     {
-        CallMethod("OnColor1ValueChange");
+        CallMethod("OnGameObject1ValueChange");
     }
 
 }

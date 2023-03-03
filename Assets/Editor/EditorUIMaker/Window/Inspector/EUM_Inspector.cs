@@ -168,6 +168,11 @@ namespace EditorUIMaker
                                 fieldInfo.SetValue(info, value);
                             }
                         }
+                        else if (fieldType.BaseType == typeof(Type))
+                        {
+                            var value = (Type) fieldInfo.GetValue(info);
+                            
+                        }
                     }
                 });
             });

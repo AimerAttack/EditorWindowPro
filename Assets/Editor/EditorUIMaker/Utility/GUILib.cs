@@ -149,7 +149,7 @@ namespace EditorUIMaker
             value = vv;
             return true;
         }
-        
+
         public static bool Toggle(ref bool value, string content, GUIStyle style = null,
             params GUILayoutOption[] options)
         {
@@ -209,15 +209,16 @@ namespace EditorUIMaker
 
         public static bool Popup(ref int val, string[] contents, params GUILayoutOption[] options)
         {
-            var tmpSelect = EditorGUILayout.Popup(val,contents, EditorStyles.toolbarPopup, options);
+            var tmpSelect = EditorGUILayout.Popup(val, contents, EditorStyles.toolbarPopup, options);
             if (Equals(tmpSelect, val))
             {
                 return false;
             }
+
             val = tmpSelect;
             return true;
         }
-        
+
         public static bool Popup(ref string val, string[] contents,
             params GUILayoutOption[] options)
         {
@@ -370,6 +371,15 @@ namespace EditorUIMaker
             return GUILayoutUtility.GetLastRect();
         }
 
+        public static bool ObjectField<T>(string label, ref T val) where T : Object
+        {
+            var tmpObj = EditorGUILayout.ObjectField(label, val, typeof(T));
+            if(Equals(tmpObj, val))
+                return false;
+            val = tmpObj as T;
+            return true;
+        }
+
         public static bool Color(string label, ref Color color)
         {
             var tmpColor = EditorGUILayout.ColorField(label, color);
@@ -379,42 +389,42 @@ namespace EditorUIMaker
             return true;
         }
 
-        public static bool Vector3IntField(string label,ref Vector3Int val)
+        public static bool Vector3IntField(string label, ref Vector3Int val)
         {
             var tmpVal = EditorGUILayout.Vector3IntField(label, val);
-            if(Equals(tmpVal,val))
+            if (Equals(tmpVal, val))
                 return false;
             val = tmpVal;
             return true;
         }
-        
+
         public static bool Vector2IntField(string label, ref Vector2Int val)
         {
             var tmpVal = EditorGUILayout.Vector2IntField(label, val);
-            if(Equals(tmpVal,val))
+            if (Equals(tmpVal, val))
                 return false;
             val = tmpVal;
             return true;
         }
-        
+
         public static bool Vector3Field(string label, ref Vector3 val)
         {
             var tmpVal = EditorGUILayout.Vector3Field(label, val);
-            if(Equals(tmpVal,val))
+            if (Equals(tmpVal, val))
                 return false;
             val = tmpVal;
             return true;
         }
-        
+
         public static bool Vector2Field(string label, ref Vector2 val)
         {
             var tmpVal = EditorGUILayout.Vector2Field(label, val);
-            if(Equals(tmpVal,val))
+            if (Equals(tmpVal, val))
                 return false;
             val = tmpVal;
             return true;
         }
-        
+
         public static bool TextField(ref string val, params GUILayoutOption[] options)
         {
             var tmpVal = EditorGUILayout.TextField(val, options);
@@ -426,7 +436,7 @@ namespace EditorUIMaker
 
         public static void LabelField(string label, GUIStyle style = null, params GUILayoutOption[] options)
         {
-            if(style != null)
+            if (style != null)
                 EditorGUILayout.LabelField(label, style, options);
             else
                 EditorGUILayout.LabelField(label, options);
@@ -434,9 +444,9 @@ namespace EditorUIMaker
 
         public static void Label(Rect rect, string content)
         {
-            GUI.Label(rect,content);
+            GUI.Label(rect, content);
         }
-        
+
         public static void Label(Rect rect, GUIContent content)
         {
             GUI.Label(rect, content);
@@ -446,7 +456,7 @@ namespace EditorUIMaker
         {
             GUILayout.Label(label, options);
         }
-        
+
         public static void Label(string content, params GUILayoutOption[] options)
         {
             GUILayout.Label(content, options);
@@ -465,7 +475,7 @@ namespace EditorUIMaker
             val = tmp;
             return true;
         }
-        
+
         public static bool IntField(ref int val, string label, params GUILayoutOption[] options)
         {
             var tmp = EditorGUILayout.IntField(label, val, options);
@@ -483,7 +493,7 @@ namespace EditorUIMaker
             val = tmp;
             return true;
         }
-        
+
         public static bool LongField(ref long val, GUIContent label, params GUILayoutOption[] options)
         {
             var tmp = EditorGUILayout.LongField(label, val, options);
@@ -517,33 +527,24 @@ namespace EditorUIMaker
             if (Equals(tmp, val))
                 return false;
             val = tmp;
-            return true; 
+            return true;
         }
-        
+
         public static bool DoubleField(ref double val, GUIContent label, params GUILayoutOption[] options)
         {
             var tmp = EditorGUILayout.DoubleField(label, val, options);
             if (Equals(tmp, val))
                 return false;
             val = tmp;
-            return true; 
+            return true;
         }
-        
+
         public static bool SearchBar(ref string _SearchString, params GUILayoutOption[] options)
         {
             var tmpStr = GUILayout.TextField(_SearchString, GUI.skin.FindStyle("ToolbarSeachTextField"), options);
             if (Equals(tmpStr, _SearchString))
                 return false;
             _SearchString = tmpStr;
-            return true;
-        }
-
-        public static bool ObjectField<T>(string label, ref T obj, bool allowSceneObjects = false) where T : Object
-        {
-            var tmpObj = EditorGUILayout.ObjectField(label, obj, typeof(T), allowSceneObjects);
-            if (Equals(tmpObj, obj))
-                return false;
-            obj = tmpObj as T;
             return true;
         }
 

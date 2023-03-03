@@ -32,9 +32,9 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
 
     void OnGUI()
     {
-        if(GUILib.Color("Color",ref _Logic.Color1))
+        if(GUILib.ObjectField("GameObject",ref _Logic.GameObject1))
         {
-            _Logic.Color1ValueChange();
+            _Logic.GameObject1ValueChange();
         }
 
 

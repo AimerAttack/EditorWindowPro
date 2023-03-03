@@ -71,5 +71,6 @@ namespace EditorUIMaker.Widgets
             Depth = container.Depth + 1;
             InViewport = true;
         }
+
     }
 }

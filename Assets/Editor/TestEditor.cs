@@ -189,7 +189,6 @@ public class TestEditor : EditorWindow, IEditorWindow
             _SplitView1.Draw(); 
 
 
-            GUILib.ObjectField("test go", ref _Go);
 
             GUILib.HorizontalRect(() =>
             {

@@ -29,7 +29,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 105
+      Data: 102
     - Name: InViewport
       Entry: 5
       Data: false
@@ -96,13 +96,13 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 3|EditorUIMaker.Widgets.EUM_Color, Assembly-CSharp-Editor
+      Data: 3|EditorUIMaker.Widgets.EUM_GameObject, Assembly-CSharp-Editor
     - Name: Depth
       Entry: 3
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 107
+      Data: 104
     - Name: InViewport
       Entry: 5
       Data: false
@@ -147,16 +147,16 @@ MonoBehaviour:
       Data: 
     - Name: Info
       Entry: 7
-      Data: 4|EditorUIMaker.Widgets.EUM_Color_Info, Assembly-CSharp-Editor
+      Data: 4|EditorUIMaker.Widgets.EUM_GameObject_Info, Assembly-CSharp-Editor
     - Name: Name
       Entry: 1
-      Data: Color1
+      Data: GameObject1
     - Name: _Widget
       Entry: 9
       Data: 3
     - Name: Label
       Entry: 1
-      Data: Color
+      Data: GameObject
     - Name: 
       Entry: 8
       Data: 
