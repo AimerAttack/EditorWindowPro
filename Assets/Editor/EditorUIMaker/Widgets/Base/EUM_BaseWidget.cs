@@ -36,7 +36,8 @@ namespace EditorUIMaker.Widgets
                 var selfRect = GUILib.GetLastRect();
                 if (selfRect.width == 0)
                     selfRect.width = Parent.AbsoluteRect.width;
-                AbsoluteRect = new Rect(Parent.AbsoluteRect.x + selfRect.x,Parent.AbsoluteRect.y + selfRect.y,selfRect.width, selfRect.height);
+                var topWindowRect = EUM_Helper.Instance.VitualWindowRect;
+                AbsoluteRect = new Rect(topWindowRect.x + selfRect.x,topWindowRect.y + selfRect.y,selfRect.width, selfRect.height);
                 Rect = AbsoluteRect;
                 FixAbsoluteRect();
             }
