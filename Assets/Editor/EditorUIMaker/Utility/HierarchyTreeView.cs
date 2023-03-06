@@ -343,6 +343,11 @@ namespace EditorUIMaker.Utility
             OnInsertToParent?.Invoke(widget, parent.id, index);
         }
 
+        public TreeViewItem FindItem(int id)
+        {
+            return FindItem(id, rootItem);
+        }
+
 
         bool ValidDrag(TreeViewItem parent, List<TreeViewItem> draggedItems)
         {

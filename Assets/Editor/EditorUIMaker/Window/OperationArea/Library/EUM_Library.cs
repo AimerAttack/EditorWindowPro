@@ -116,6 +116,7 @@ namespace EditorUIMaker
                     ShowCustom = true;
                 }
             }
+
             GUILib.FlexibleSpace();
         }
 
@@ -257,7 +258,7 @@ namespace EditorUIMaker
                         EUM_Helper.Instance.DraggingWidget = control.Clone();
                     }
                 }
-            } 
+            }
         }
 
         void DrawCustomControl()
@@ -283,7 +284,7 @@ namespace EditorUIMaker
                         EUM_Helper.Instance.DraggingWidget = control.Clone();
                     }
                 }
-            } 
+            }
         }
 
         public void HandleDrag()
@@ -317,8 +318,20 @@ namespace EditorUIMaker
                             var treeView = EUM_Helper.Instance.TreeView;
                             if (treeView.ParentItem != null)
                             {
-                                treeView.InsertToParent(EUM_Helper.Instance.DraggingWidget, treeView.ParentItem,
-                                    treeView.InsertIndex);
+                                var parentID = treeView.ParentItem.id;
+                                var parentWidget = EUM_Helper.Instance.Widgets[parentID];
+                                if (parentWidget is EUM_Container)
+                                {
+                                    treeView.InsertToParent(EUM_Helper.Instance.DraggingWidget, treeView.ParentItem,
+                                        treeView.InsertIndex);
+                                }
+                                else
+                                {
+                                    var targetItemID = parentWidget.Parent.ID;
+                                    var targetItem = treeView.FindItem(targetItemID);
+                                    treeView.InsertToParent(EUM_Helper.Instance.DraggingWidget, targetItem,
+                                        -1);
+                                }
                             }
                         }
                     }
