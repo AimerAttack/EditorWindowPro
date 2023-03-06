@@ -45,7 +45,7 @@ public void {{name}}ValueChange()
 
         public override string Code()
         {
-            var code = @"if(GUILib.Popup(ref _Logic.{{name}}Str,_Logic.{{name}}Options))
+            var code = @"if(GUILib.Popup(ref _Logic.{{name}}Str,_Logic.{{name}}Options,{{layout}}))
 {
     _Logic.{{name}}Index = Array.IndexOf(_Logic.{{name}}Options,_Logic.{{name}}Str);
     _Logic.{{name}}ValueChange();
@@ -54,6 +54,8 @@ public void {{name}}ValueChange()
 
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
+            var layoutString = LayoutOptionsStr();
+            sObj.Add("layout",layoutString);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

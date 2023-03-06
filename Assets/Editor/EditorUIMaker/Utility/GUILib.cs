@@ -243,12 +243,12 @@ namespace EditorUIMaker
             GUILayout.EndHorizontal();
         }
 
-        public static void VerticelRect(Action drawContent, GUIStyle style = null)
+        public static void VerticelRect(Action drawContent, GUIStyle style = null,params GUILayoutOption[] options)
         {
             if (style != null)
-                GUILayout.BeginVertical(style);
+                GUILayout.BeginVertical(style,options);
             else
-                GUILayout.BeginVertical();
+                GUILayout.BeginVertical(options);
             drawContent?.Invoke();
             GUILayout.EndVertical();
         }

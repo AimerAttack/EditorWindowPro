@@ -28,17 +28,13 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
         CallMethod("OnAfterReloadDoMain");
     }
 
-    public GameObject GameObject1;
-    public void GameObject1ValueChange()
+    public void ClickButton4()
     {
-        CallMethod("OnGameObject1ValueChange");
+        CallMethod("OnClickButton4");
     }
-    
-    public Material Material1;
-    public void Material1ValueChange()
+    public Vector2 ScrollView1;
+    public void ClickButton3()
     {
-        CallMethod("OnMaterial1ValueChange");
+        CallMethod("OnClickButton3");
     }
-    
-    public float ProgressBar1;
 }

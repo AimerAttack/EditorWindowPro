@@ -8,7 +8,7 @@ using Sirenix.Serialization;
 
 public class NewWindow : EditorWindow,ISerializationCallbackReceiver
 {
-    [MenuItem("Tools/222")]
+    [MenuItem("Tools/NewWindow")]
     public static void ShowWindow()
     {
         var window = GetWindow<NewWindow>();
@@ -32,21 +32,30 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
 
     void OnGUI()
     {
-        if(GUILib.ObjectField("GameObject",ref _Logic.GameObject1))
+        GUILib.VerticelRect((() =>
         {
-            _Logic.GameObject1ValueChange();
-        }
+            var styleButton4 = new GUIStyle(GUI.skin.button);
+            styleButton4.alignment = TextAnchor.MiddleCenter;
+            if(GUILib.Button("Button",styleButton4,GUILayout.MinHeight(105)))
+            {
+                _Logic.ClickButton4();
+            }
         
+        }),null,null);
         
-        if(GUILib.ObjectField("Material",ref _Logic.Material1))
+        GUILib.HorizontalRect((() =>
         {
-            _Logic.Material1ValueChange();
-        }
-        
-        
-        GUILib.HelpBox("HelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBoxHelpBox",MessageType.Error);
-        
-        GUILib.ProgressBar(_Logic.ProgressBar1,"ggg",EditorGUIUtility.singleLineHeight);
+            GUILib.ScrollView(ref _Logic.ScrollView1,() =>
+            {
+                var styleButton3 = new GUIStyle(GUI.skin.button);
+                styleButton3.alignment = TextAnchor.MiddleCenter;
+                if(GUILib.Button("Button",styleButton3,null))
+                {
+                    _Logic.ClickButton3();
+                }
+            
+            },GUILayout.MinHeight(145));
+        }),null,GUILayout.MinHeight(184));
 
         Repaint();
     }

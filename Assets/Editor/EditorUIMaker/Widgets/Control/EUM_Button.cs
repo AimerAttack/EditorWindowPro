@@ -60,7 +60,7 @@ namespace EditorUIMaker.Widgets
             var code =
                 @"var style{{name}} = new GUIStyle(GUI.skin.button);
 style{{name}}.alignment = TextAnchor.{{textAnchor}};
-if(GUILib.Button(""{{text}}"",style{{name}}))
+if(GUILib.Button(""{{text}}"",style{{name}},{{layout}}))
 {
     _Logic.Click{{name}}();
 }
@@ -70,6 +70,8 @@ if(GUILib.Button(""{{text}}"",style{{name}}))
             sObj.Add("name", Info.Name);
             sObj.Add("text",string.IsNullOrEmpty(info.Text) ? TypeName : info.Text);
             sObj.Add("textAnchor", info.TextAnchor.ToString());
+            var layoutString = LayoutOptionsStr();
+            sObj.Add("layout",layoutString);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

@@ -1,5 +1,7 @@
 using Amazing.Editor.Library;
 using EditorUIMaker.Widgets;
+using Scriban;
+using Scriban.Runtime;
 using UnityEngine;
 
 namespace EditorUIMaker
@@ -51,12 +53,26 @@ namespace EditorUIMaker
 
         protected override string BeginCode()
         {
-            return "GUILayout.BeginHorizontal();";
+            var code = @"GUILib.HorizontalRect((() =>
+{";
+            return code;
         }
         
         protected override string EndCode()
         {
-            return "GUILayout.EndHorizontal();";
+            var code = @"}),null,{{layout}});";
+            var sObj = new ScriptObject();
+            sObj.Add("name", Info.Name);
+            var layout = LayoutOptionsStr();
+            sObj.Add("layout",layout);
+
+            var context = new TemplateContext();
+            context.PushGlobal(sObj);
+
+            var template = Template.Parse(code);
+            var result = template.Render(context);
+            
+            return result;
         }
     }
 }

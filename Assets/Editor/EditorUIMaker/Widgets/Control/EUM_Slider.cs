@@ -50,7 +50,7 @@ public void {{name}}ValueChange()
         public override string Code()
         {
             var code =
-                @"if(GUILib.Slider(""{{label}}"",ref _Logic.{{name}}, _Logic.{{name}}Min, _Logic.{{name}}Max))
+                @"if(GUILib.Slider(""{{label}}"",ref _Logic.{{name}}, _Logic.{{name}}Min, _Logic.{{name}}Max,{{layout}}))
 {
     _Logic.{{name}}ValueChange();
 }
@@ -59,6 +59,8 @@ public void {{name}}ValueChange()
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
+            var layoutString = LayoutOptionsStr();
+            sObj.Add("layout",layoutString);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

@@ -41,11 +41,12 @@ namespace EditorUIMaker.Widgets
         public override string Code()
         {
             var code =
-                @"GUILib.ProgressBar(_Logic.{{name}},""{{label}}"");";
+                @"GUILib.ProgressBar(_Logic.{{name}},""{{label}}"",{{height}});";
 
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
+            sObj.Add("height",info.Height > 0 ? info.Height : EditorGUIUtility.singleLineHeight);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

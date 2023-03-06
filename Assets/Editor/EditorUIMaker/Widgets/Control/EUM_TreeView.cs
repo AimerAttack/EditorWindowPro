@@ -163,10 +163,14 @@ void Init{{name}}()
         {
             var code =
                 @"Init{{name}}();
+_{{name}}.Content = ""{{label}}"";
+_{{name}}.MinHeight = {{height}};
 _{{name}}.Draw();";
             
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
+            sObj.Add("label",info.Label);
+            sObj.Add("height",info.Height);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

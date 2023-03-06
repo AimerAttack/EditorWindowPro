@@ -30,8 +30,8 @@ namespace EditorUIMaker.Widgets
             var code =
                 @"GUILib.HorizontalRect(()=>
 {
-    GUILib.Label(""{{label}}"");
-    if(GUILib.TextField(ref _Logic.{{name}}))
+    GUILib.Label(""{{label}}"",{{layout}});
+    if(GUILib.TextField(ref _Logic.{{name}},{{layout}}))
     {
         _Logic.{{name}}ValueChange();
     }
@@ -41,6 +41,8 @@ namespace EditorUIMaker.Widgets
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
+            var layoutString = LayoutOptionsStr();
+            sObj.Add("layout",layoutString);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

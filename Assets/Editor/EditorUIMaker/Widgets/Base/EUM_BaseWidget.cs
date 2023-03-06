@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace EditorUIMaker.Widgets
@@ -91,5 +93,83 @@ namespace EditorUIMaker.Widgets
                 
             return null;
         }
+
+        protected string LayoutOptionsStr()
+        {
+            var options = LayoutOptions();
+            if (options != null)
+            {
+                var content = new List<string>();
+                for (int i = 0; i < options.Length; i++)
+                {
+                    var option = options[i];
+                    var optionString = OptionToString(option);
+                    content.Add(optionString);
+                }
+
+                var str = string.Join(",", content);
+                return str;
+            }
+            return "null";
+        }
+
+        private string OptionToString(GUILayoutOption option)
+        {
+            var type = option.GetType();
+            var typeField = type.GetField("type",BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var typeVal = typeField.GetValue(option);
+            var valuefield = type.GetField("value",BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var optionValue = valuefield.GetValue(option);
+            var nestedTypes = type.GetNestedTypes(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+            Type enumType = null;
+            for (int i = 0; i < nestedTypes.Length; i++)
+            {
+                if (nestedTypes[i].Name == "Type")
+                {
+                    enumType = nestedTypes[i];
+                    break;
+                }
+            }
+
+            var values = enumType.GetEnumValues();
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                var item = values.GetValue(i);
+                var str = item.ToString();
+                var regionType = str;
+                if (typeVal.Equals(item))
+                {
+                    if (str == "fixedWidth")
+                        str = "width";
+                    else if (str == "stretchWidth")
+                        str = "ExpandWidth";
+                    else if (str == "stretchHeight")
+                        str = "ExpandHeight";
+                    
+                    str = char.ToUpper(str[0]) + str.Substring(1);
+                    var valStr = OptionValueToString(regionType, optionValue);
+                    var result = string.Format("GUILayout.{0}({1})",str,valStr);
+                    return result;
+                }
+            }
+
+            return string.Empty;
+        }
+
+        private string OptionValueToString(string type,object obj)
+        {
+            if (type == "stretchWidth" || type == "stretchHeight")
+            {
+                var val = (int) obj;
+                return val == 1 ? "true" : "false";
+            }
+            else
+            {
+                var val = (float) obj;
+                return val.ToString();
+            }
+        }
     }
+    
 }

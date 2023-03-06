@@ -45,7 +45,7 @@ public void {{name}}ValueChange()
         public override string Code()
         {
             var code =@"
-if(GUILib.Toggle(ref _Logic.{{name}},""{{label}}""))
+if(GUILib.Toggle(ref _Logic.{{name}},""{{label}}"",{{layout}}))
 {
     _Logic.{{name}}ValueChange();
 }
@@ -54,6 +54,8 @@ if(GUILib.Toggle(ref _Logic.{{name}},""{{label}}""))
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
+            var layoutString = LayoutOptionsStr();
+            sObj.Add("layout",layoutString);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

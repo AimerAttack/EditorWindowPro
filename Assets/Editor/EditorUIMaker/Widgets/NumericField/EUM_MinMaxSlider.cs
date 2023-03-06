@@ -48,7 +48,7 @@ public void {{name}}ValueChange()
         public override string Code()
         {
             var code =
-                @"if(GUILib.MinMaxSlider(""{{label}}"",ref _Logic.min{{name}},ref _Logic.max{{name}},{{min}},{{max}}))
+                @"if(GUILib.MinMaxSlider(""{{label}}"",ref _Logic.min{{name}},ref _Logic.max{{name}},{{min}},{{max}},{{layout}}))
 {
     _Logic.{{name}}ValueChange();
 }
@@ -59,6 +59,8 @@ public void {{name}}ValueChange()
             sObj.Add("label", info.Label);
             sObj.Add("min", info.Min);
             sObj.Add("max", info.Max);
+            var layoutString = LayoutOptionsStr();
+            sObj.Add("layout",layoutString);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

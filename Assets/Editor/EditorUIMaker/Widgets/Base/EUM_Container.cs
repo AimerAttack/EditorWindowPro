@@ -105,7 +105,7 @@ namespace EditorUIMaker
             context.PushGlobal(sObj);
 
             var code = @"{{beginCode}}
-{{widgetsCode}}
+    {{widgetsCode}}
 {{endCode}}";
             var template = Template.Parse(code);
             var result = template.Render(context);

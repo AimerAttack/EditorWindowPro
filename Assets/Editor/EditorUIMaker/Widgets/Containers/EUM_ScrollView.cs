@@ -1,5 +1,7 @@
 using Amazing.Editor.Library;
 using EditorUIMaker.Widgets;
+using Scriban;
+using Scriban.Runtime;
 using UnityEngine;
 
 namespace EditorUIMaker
@@ -53,15 +55,53 @@ namespace EditorUIMaker
             Info.CopyTo(widget.Info);
             return widget;
         }
-        
+
+        public override string LogicCode()
+        {
+            var code = @"public Vector2 {{name}};";
+            var sObj = new ScriptObject();
+            sObj.Add("name", Info.Name);
+
+            var context = new TemplateContext();
+            context.PushGlobal(sObj);
+
+            var template = Template.Parse(code);
+            var result = template.Render(context);
+            
+            return result + "\n" + base.LogicCode();
+        }
+
         protected override string BeginCode()
         {
-            return "GUILayout.BeginScrollView();";
+            var code = @"GUILib.ScrollView(ref _Logic.{{name}},() =>
+{";
+            var sObj = new ScriptObject();
+            sObj.Add("name", Info.Name);
+
+            var context = new TemplateContext();
+            context.PushGlobal(sObj);
+
+            var template = Template.Parse(code);
+            var result = template.Render(context);
+            
+            return result;
         }
         
         protected override string EndCode()
         {
-            return "GUILayout.EndScrollView();";
+            var code = @"},{{layout}});";
+            var sObj = new ScriptObject();
+            sObj.Add("name", Info.Name);
+            var layout = LayoutOptionsStr();
+            sObj.Add("layout",layout);
+
+            var context = new TemplateContext();
+            context.PushGlobal(sObj);
+
+            var template = Template.Parse(code);
+            var result = template.Render(context);
+            
+            return result;
         }
     }
 }
