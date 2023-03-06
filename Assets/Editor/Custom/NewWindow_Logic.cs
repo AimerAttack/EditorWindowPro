@@ -28,9 +28,9 @@ public partial class NewWindow_Logic : EUM_BaseWindowLogic
         CallMethod("OnAfterReloadDoMain");
     }
 
-    public void ClickButton4()
+    public void Clickwwww()
     {
-        CallMethod("OnClickButton4");
+        CallMethod("OnClickwwww");
     }
     public Vector2 ScrollView1;
     public void ClickButton3()

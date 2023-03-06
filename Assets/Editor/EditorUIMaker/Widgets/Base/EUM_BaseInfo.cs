@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace EditorUIMaker.Widgets
@@ -12,6 +13,8 @@ namespace EditorUIMaker.Widgets
         private EUM_BaseWidget _Widget;
         public int ID => _Widget.ID;
         public float Height = 0;
+
+        public HashSet<string> ModifiedKeys = new HashSet<string>();
 
         public float GetHeight()
         {

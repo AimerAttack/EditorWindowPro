@@ -34,11 +34,11 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
     {
         GUILib.VerticelRect((() =>
         {
-            var styleButton4 = new GUIStyle(GUI.skin.button);
-            styleButton4.alignment = TextAnchor.MiddleCenter;
-            if(GUILib.Button("Button",styleButton4,GUILayout.MinHeight(105)))
+            var stylewwww = new GUIStyle(GUI.skin.button);
+            stylewwww.alignment = TextAnchor.MiddleCenter;
+            if(GUILib.Button("Button",stylewwww,GUILayout.MinHeight(19)))
             {
-                _Logic.ClickButton4();
+                _Logic.Clickwwww();
             }
         
         }),null,null);
@@ -48,14 +48,14 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
             GUILib.ScrollView(ref _Logic.ScrollView1,() =>
             {
                 var styleButton3 = new GUIStyle(GUI.skin.button);
-                styleButton3.alignment = TextAnchor.MiddleCenter;
-                if(GUILib.Button("Button",styleButton3,null))
+                styleButton3.alignment = TextAnchor.UpperCenter;
+                if(GUILib.Button("dwadwa",styleButton3,GUILayout.MinHeight(2)))
                 {
                     _Logic.ClickButton3();
                 }
             
-            },GUILayout.MinHeight(145));
-        }),null,GUILayout.MinHeight(184));
+            },null);
+        }),null,null);
 
         Repaint();
     }

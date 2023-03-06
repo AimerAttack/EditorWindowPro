@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using Amazing.Editor.Library;
 using EditorUIMaker.Widgets;
@@ -92,10 +93,10 @@ namespace EditorUIMaker
                         var fieldName = fieldInfo.Name;
                         if (!EUM_Helper.Instance.SelectWidget.CanResize())
                         {
-                            if(fieldName == "Height")
+                            if (fieldName == "Height")
                                 continue;
                         }
-                        
+
                         if (fieldType == typeof(string))
                         {
                             var value = fieldInfo.GetValue(info) as string;
@@ -111,6 +112,7 @@ namespace EditorUIMaker
                                         //检查命名是否合法
                                         if (EUM_Helper.Instance.NameValid(EUM_Helper.Instance.SelectWidget, value))
                                         {
+                                            info.ModifiedKeys.Add(fieldName);
                                             EUM_Helper.Instance.Modified = true;
                                             fieldInfo.SetValue(info, value);
                                             EUM_Helper.Instance.OnItemRename?.Invoke(EUM_Helper.Instance.SelectWidget);
@@ -118,6 +120,7 @@ namespace EditorUIMaker
                                     }
                                     else
                                     {
+                                        info.ModifiedKeys.Add(fieldName);
                                         EUM_Helper.Instance.Modified = true;
                                         fieldInfo.SetValue(info, value);
                                     }
@@ -129,6 +132,7 @@ namespace EditorUIMaker
                             var value = (int) fieldInfo.GetValue(info);
                             if (GUILib.IntField(ref value, new GUIContent(fieldInfo.Name), GUILayout.ExpandWidth(true)))
                             {
+                                info.ModifiedKeys.Add(fieldName);
                                 EUM_Helper.Instance.Modified = true;
                                 fieldInfo.SetValue(info, value);
                             }
@@ -139,6 +143,7 @@ namespace EditorUIMaker
                             if (GUILib.LongField(ref value, new GUIContent(fieldInfo.Name),
                                     GUILayout.ExpandWidth(true)))
                             {
+                                info.ModifiedKeys.Add(fieldName);
                                 EUM_Helper.Instance.Modified = true;
                                 fieldInfo.SetValue(info, value);
                             }
@@ -149,6 +154,7 @@ namespace EditorUIMaker
                             if (GUILib.FloatField(ref value, new GUIContent(fieldInfo.Name),
                                     GUILayout.ExpandWidth(true)))
                             {
+                                info.ModifiedKeys.Add(fieldName);
                                 EUM_Helper.Instance.Modified = true;
                                 fieldInfo.SetValue(info, value);
                             }
@@ -161,8 +167,9 @@ namespace EditorUIMaker
                             if (GUILib.EnumPopup(ref currentValue, new GUIContent(fieldInfo.Name),
                                     GUILayout.ExpandWidth(true)))
                             {
+                                info.ModifiedKeys.Add(fieldName);
                                 EUM_Helper.Instance.Modified = true;
-                                fieldInfo.SetValue(info, currentValue); 
+                                fieldInfo.SetValue(info, currentValue);
                             }
                         }
                         else if (fieldType.BaseType == typeof(bool))
@@ -171,6 +178,7 @@ namespace EditorUIMaker
                             if (GUILib.Toggle(ref value, new GUIContent(fieldInfo.Name), null,
                                     GUILayout.ExpandWidth(true)))
                             {
+                                info.ModifiedKeys.Add(fieldName);
                                 EUM_Helper.Instance.Modified = true;
                                 fieldInfo.SetValue(info, value);
                             }
@@ -178,7 +186,14 @@ namespace EditorUIMaker
                         else if (fieldType.BaseType == typeof(Type))
                         {
                             var value = (Type) fieldInfo.GetValue(info);
-                            
+                        }
+
+                        if (info.ModifiedKeys.Contains(fieldName))
+                        {
+                            var lastRect = GUILib.GetLastRect();
+                            lastRect.xMin = 0;
+                            lastRect.width = 1;
+                            GUILib.Frame(lastRect, Color.white);
                         }
                     }
                 });
