@@ -39,10 +39,30 @@ namespace EditorUIMaker.Widgets
                 if (selfRect.width == 0)
                     selfRect.width = Parent.AbsoluteRect.width;
                 var topWindowRect = EUM_Helper.Instance.VitualWindowRect;
-                AbsoluteRect = new Rect(topWindowRect.x + selfRect.x,topWindowRect.y + selfRect.y,selfRect.width, selfRect.height);
+                if(ParentHasScrollView())
+                    AbsoluteRect = new Rect(Parent.AbsoluteRect.x + selfRect.x,Parent.AbsoluteRect.y + selfRect.y,selfRect.width, selfRect.height);
+                else
+                {
+                    AbsoluteRect = new Rect(topWindowRect.x + selfRect.x, topWindowRect.y + selfRect.y, selfRect.width,
+                        selfRect.height);
+                }
+
                 Rect = AbsoluteRect;
                 FixAbsoluteRect();
             }
+        }
+
+        bool ParentHasScrollView()
+        {
+            var node = Parent;
+            while (node != null)
+            {
+                if (node is EUM_ScrollView)
+                    return true;
+                node = node.Parent;
+            }
+
+            return false;
         }
 
         public abstract string LogicCode();
