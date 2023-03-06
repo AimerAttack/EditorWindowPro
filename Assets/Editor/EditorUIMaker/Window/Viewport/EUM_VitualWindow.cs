@@ -69,25 +69,25 @@ namespace EditorUIMaker
 
             Window.Draw(ref EUM_Helper.Instance.VitualWindowRect);
 
-            DrawResizeBar(contentRect,rect);
+            DrawResizeBar(rect);
             GUI.matrix = Matrix4x4.TRS(new Vector3(0, 0, 0), Quaternion.identity, new Vector3(1, 1, 1));
         }
 
-        void DrawResizeBar(Rect contentRect,Rect rect)
+        void DrawResizeBar(Rect rect)
         {
-            var rightResizeRect = new Rect(rect.xMax, rect.yMin, GUILib.s_SplitSize, contentRect.height);
+            var rightResizeRect = new Rect(rect.xMax, rect.yMin, GUILib.s_SplitSize, rect.height);
             rightResizeRect = GUILib.Padding(rightResizeRect, -2, -2);
             EditorGUIUtility.AddCursorRect(rightResizeRect, MouseCursor.ResizeHorizontal);
 
-            var leftResizeRect = new Rect(rect.xMin, rect.yMin, GUILib.s_SplitSize, contentRect.height);
+            var leftResizeRect = new Rect(rect.xMin, rect.yMin, GUILib.s_SplitSize, rect.height);
             leftResizeRect = GUILib.Padding(leftResizeRect, -2, -2);
             EditorGUIUtility.AddCursorRect(leftResizeRect, MouseCursor.ResizeHorizontal);
 
-            var topResizeRect = new Rect(rect.xMin, rect.yMin, contentRect.width, GUILib.s_SplitSize);
+            var topResizeRect = new Rect(rect.xMin, rect.yMin, rect.width, GUILib.s_SplitSize);
             topResizeRect = GUILib.Padding(topResizeRect, -2, -2);
             EditorGUIUtility.AddCursorRect(topResizeRect, MouseCursor.ResizeVertical);
 
-            var bottomResizeRect = new Rect(rect.xMin, rect.yMax, contentRect.width, GUILib.s_SplitSize);
+            var bottomResizeRect = new Rect(rect.xMin, rect.yMax, rect.width, GUILib.s_SplitSize);
             bottomResizeRect = GUILib.Padding(bottomResizeRect, -2, -2);
             EditorGUIUtility.AddCursorRect(bottomResizeRect, MouseCursor.ResizeVertical);
 

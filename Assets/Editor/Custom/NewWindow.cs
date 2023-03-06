@@ -35,8 +35,8 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
         GUILib.VerticelRect((() =>
         {
             var stylewwww = new GUIStyle(GUI.skin.button);
-            stylewwww.alignment = TextAnchor.MiddleCenter;
-            if(GUILib.Button("Button",stylewwww,GUILayout.MinHeight(19)))
+            stylewwww.alignment = TextAnchor.UpperRight;
+            if(GUILib.Button("Button",stylewwww,null))
             {
                 _Logic.Clickwwww();
             }
@@ -49,12 +49,12 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
             {
                 var styleButton3 = new GUIStyle(GUI.skin.button);
                 styleButton3.alignment = TextAnchor.UpperCenter;
-                if(GUILib.Button("dwadwa",styleButton3,GUILayout.MinHeight(2)))
+                if(GUILib.Button("dwadwa",styleButton3,null))
                 {
                     _Logic.ClickButton3();
                 }
             
-            },null);
+            },GUILayout.MinHeight(366));
         }),null,null);
 
         Repaint();

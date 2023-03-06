@@ -29,7 +29,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 112
+      Data: 105
     - Name: InViewport
       Entry: 5
       Data: false
@@ -117,7 +117,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 114
+      Data: 107
     - Name: InViewport
       Entry: 5
       Data: false
@@ -205,7 +205,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 115
+      Data: 108
     - Name: InViewport
       Entry: 5
       Data: false
@@ -277,7 +277,7 @@ MonoBehaviour:
       Data: 
     - Name: TextAnchor
       Entry: 3
-      Data: 4
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -301,7 +301,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 116
+      Data: 109
     - Name: InViewport
       Entry: 5
       Data: false
@@ -389,7 +389,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 117
+      Data: 110
     - Name: InViewport
       Entry: 5
       Data: false
@@ -477,7 +477,7 @@ MonoBehaviour:
       Data: 0
     - Name: ID
       Entry: 3
-      Data: 118
+      Data: 111
     - Name: InViewport
       Entry: 5
       Data: false
