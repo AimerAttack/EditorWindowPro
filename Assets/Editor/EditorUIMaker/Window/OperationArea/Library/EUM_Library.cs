@@ -221,7 +221,7 @@ namespace EditorUIMaker
                         rect.yMax -= height;
                     }
 
-                    GUI.DrawTexture(rect, GUIIconLib.TryGet(items[i].IconName).image, ScaleMode.ScaleToFit);
+                    GUI.DrawTexture(rect, Utility.Utility.TryGet(items[i].IconName).image, ScaleMode.ScaleToFit);
                 }
 
                 GUILayout.EndHorizontal();
@@ -264,7 +264,7 @@ namespace EditorUIMaker
 
                         GUILayout.Space(_NumbericSpace);
 
-                        GUI.DrawTexture(rect, GUIIconLib.TryGet(item.IconName).image, ScaleMode.ScaleToFit);
+                        GUI.DrawTexture(rect, Utility.Utility.TryGet(item.IconName).image, ScaleMode.ScaleToFit);
                     }
 
                     GUILayout.EndHorizontal();
