@@ -7,6 +7,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Space : EUM_Widget
     {
+        public override string IconName => "d_RectTransformBlueprint";
         EUM_Space_Info info => Info as EUM_Space_Info;
         public override string TypeName => "Space";
 

@@ -8,6 +8,7 @@ namespace EditorUIMaker
 {
     public class EUM_Foldout : EUM_Container
     {
+        public override string IconName => "d_icon dropdown@2x";
         private EUM_Foldout_Info info => Info as EUM_Foldout_Info;
         public override string TypeName => "Foldout";
 

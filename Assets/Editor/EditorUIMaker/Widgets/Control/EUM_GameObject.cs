@@ -7,6 +7,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_GameObject : EUM_Widget
     {
+        public override string IconName => "d_GameObject Icon";
         private EUM_GameObject_Info info => Info as EUM_GameObject_Info;
         public override string TypeName => "GameObject";
         protected override EUM_BaseInfo CreateInfo()

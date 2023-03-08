@@ -7,6 +7,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_ProgressBar : EUM_Widget
     {
+        public override string IconName => "d_Progress@2x";
         private EUM_ProgressBar_Info info => Info as EUM_ProgressBar_Info;
         public override string TypeName => "ProgressBar";
         protected override EUM_BaseInfo CreateInfo()

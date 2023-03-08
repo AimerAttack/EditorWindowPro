@@ -36,7 +36,7 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
         {
             var stylewwww = new GUIStyle(GUI.skin.button);
             stylewwww.alignment = TextAnchor.UpperRight;
-            if(GUILib.Button("Button",stylewwww,null))
+            if(GUILib.Button("Button",stylewwww,GUILayout.MinHeight(102)))
             {
                 _Logic.Clickwwww();
             }
@@ -48,8 +48,8 @@ public class NewWindow : EditorWindow,ISerializationCallbackReceiver
             GUILib.ScrollView(ref _Logic.ScrollView1,() =>
             {
                 var styleButton3 = new GUIStyle(GUI.skin.button);
-                styleButton3.alignment = TextAnchor.UpperCenter;
-                if(GUILib.Button("dwadwa",styleButton3,null))
+                styleButton3.alignment = TextAnchor.MiddleCenter;
+                if(GUILib.Button("dwadwa",styleButton3,GUILayout.MinHeight(29)))
                 {
                     _Logic.ClickButton3();
                 }

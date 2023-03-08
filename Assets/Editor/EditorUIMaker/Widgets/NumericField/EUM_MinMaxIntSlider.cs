@@ -8,7 +8,7 @@ namespace EditorUIMaker.Widgets
     public class EUM_MinMaxIntSlider : EUM_Widget
     {
         public EUM_MinMaxIntSlider_Info info => Info as EUM_MinMaxIntSlider_Info;
-        public override string TypeName => "MinMaxIntSlider";
+        public override string TypeName => "Min Max Int Slider";
 
         protected override EUM_BaseInfo CreateInfo()
         {

@@ -6,6 +6,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Dropdown : EUM_Widget
     {
+        public override string IconName => "d_Dropdown Icon";
         private EUM_Dropdown_Info info => Info as EUM_Dropdown_Info;
         public override string TypeName => "Dropdown";
 

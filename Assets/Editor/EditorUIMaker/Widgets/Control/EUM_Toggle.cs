@@ -7,6 +7,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Toggle :  EUM_Widget
     {
+        public override string IconName => "d_Toggle Icon";
         private EUM_Toggle_Info info => Info as EUM_Toggle_Info;
         public override string TypeName => "Toggle";
         protected override EUM_BaseInfo CreateInfo()

@@ -8,6 +8,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Label : EUM_Widget
     {
+        public override string IconName => "d_Text Icon";
         public override string TypeName => "Label";
         protected override EUM_BaseInfo CreateInfo()
         {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using EditorUIMaker;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,15 +9,28 @@ namespace Amazing.Editor.Library
     {
         private static readonly Dictionary<string, GUIContent> _cache = new Dictionary<string, GUIContent>();
 
-        static GUIContent TryGet(string id)
+        public static GUIContent TryGet(string id)
         {
             GUIContent result;
             if (_cache.TryGetValue(id, out result)) return result ?? GUIContent.none;
-            var icon = EditorGUIUtility.IconContent(id) ?? new GUIContent(Texture2D.whiteTexture);
+            GUIContent icon = null;
+            if (string.IsNullOrEmpty(id))
+            {
+                var texture = AssetDatabase.LoadAssetAtPath<Texture>("Assets/Editor/EditorUIMaker/Icon/default_icon.png");
+                icon = new GUIContent(texture);
+            }
+            else
+            {
+                icon = EditorGUIUtility.IconContent(id) ?? new GUIContent(Texture2D.whiteTexture);
+            }
             _cache.Add(id, icon);
             return icon;
         }
         
+        public static GUIContent Horizontal
+        {
+            get { return TryGet("d_HorizontalLayoutGroup Icon"); }
+        }
         public static GUIContent Scene { get { return TryGet("SceneAsset Icon"); } }
         public static GUIContent Folder { get { return TryGet("Project"); } }
         public static GUIContent Hierarchy { get { return TryGet("UnityEditor.HierarchyWindow"); } }

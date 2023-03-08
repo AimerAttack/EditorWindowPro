@@ -6,6 +6,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Material : EUM_Widget
     {
+        public override string IconName => "TreeEditor.Material";
         private EUM_Material_Info info => Info as EUM_Material_Info;
         public override string TypeName => "Material";
         protected override EUM_BaseInfo CreateInfo()

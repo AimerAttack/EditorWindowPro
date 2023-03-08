@@ -9,6 +9,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_TreeView : EUM_Widget
     {
+        public override string IconName => "d_UnityEditor.SceneHierarchyWindow@2x";
         private EUM_TreeView_Info info => Info as EUM_TreeView_Info;
         public override string TypeName => "TreeView";
 

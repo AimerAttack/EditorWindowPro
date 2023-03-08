@@ -6,6 +6,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_TextField : EUM_Widget
     {
+        public override string IconName => "d_InputField Icon";
         private EUM_TextField_Info info => Info as EUM_TextField_Info;
         public override string TypeName => "TextField";
 

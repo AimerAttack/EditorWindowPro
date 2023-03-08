@@ -4,6 +4,7 @@ using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 
+//LayoutGroup只适用内部元素使用统一Style的情况，所以目前只放在Libaray里用
 namespace Editor
 {
     public class WidgetTest : OdinEditorWindow
@@ -19,7 +20,11 @@ namespace Editor
         public bool EnableRichText;
         public bool DisplayTooltipWhenElidedDisplayTooltipWhenElidedDisplayTooltipWhenElidedDisplayTooltipWhenElided1;
         public string bbbbbbb;
-
-        public int a;
+        
+        [ResponsiveButtonGroup()]
+        public void a()
+        {
+            
+        }
     }
 }

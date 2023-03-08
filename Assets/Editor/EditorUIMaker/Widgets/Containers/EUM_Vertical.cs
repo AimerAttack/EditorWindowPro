@@ -8,6 +8,7 @@ namespace EditorUIMaker
 {
     public class EUM_Vertical : EUM_Container
     {
+        public override string IconName => "d_VerticalLayoutGroup Icon";
         public override string TypeName => "Vertical";
         protected override EUM_BaseInfo CreateInfo()
         {

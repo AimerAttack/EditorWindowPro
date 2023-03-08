@@ -8,6 +8,7 @@ namespace EditorUIMaker
 {
     public class EUM_Horizontal : EUM_Container
     {
+        public override string IconName => "d_HorizontalLayoutGroup Icon";
         public override string TypeName => "Horizontal";
         protected override EUM_BaseInfo CreateInfo()
         {

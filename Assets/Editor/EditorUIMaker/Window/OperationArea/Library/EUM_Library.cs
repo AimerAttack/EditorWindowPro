@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Amazing.Editor.Library;
 using EditorUIMaker.Utility;
@@ -5,6 +6,7 @@ using EditorUIMaker.Widgets;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace EditorUIMaker
 {
@@ -26,6 +28,10 @@ namespace EditorUIMaker
 
         public List<EUM_BaseWidget> CustomContainers = new List<EUM_BaseWidget>();
         public List<EUM_BaseWidget> CustomControls = new List<EUM_BaseWidget>();
+        private float _WindowWidth;
+        private GUIStyle _Style;
+        private const float s_GUIMargin = 5;
+        private const float itemSize = 60;
 
         public EUM_Library()
         {
@@ -88,6 +94,13 @@ namespace EditorUIMaker
 
             Title.Draw(ref rect);
 
+            _WindowWidth = rect.width;
+
+            _Style = new GUIStyle(GUI.skin.label);
+            _Style.alignment = TextAnchor.LowerCenter;
+            _Style.wordWrap = true;
+            _Style.fontSize = 11;
+
             GUILib.Area(rect, () =>
             {
                 GUILib.Space(10);
@@ -133,28 +146,59 @@ namespace EditorUIMaker
             GUILib.Toggle(ref ShowContainers, new GUIContent("Containers"), new GUIStyle("FoldoutHeader"));
             if (ShowContainers)
                 DrawContainers();
-
+            
             GUILib.Toggle(ref ShowControls, new GUIContent("Controls"), new GUIStyle("FoldoutHeader"));
             if (ShowControls)
                 DrawBaseControls();
-
+            
             GUILib.Toggle(ref ShowNumericFields, new GUIContent("NumericFields"), new GUIStyle("FoldoutHeader"));
             if (ShowNumericFields)
                 DrawNumericFields();
         }
 
+        private int _ContainerLineCount;
+        private int _ContainerPerLineItemCount;
+        private float _ContainerSpace;
         void DrawContainers()
         {
-            foreach (var control in Containers)
-            {
-                GUILib.HorizontalRect(() =>
-                {
-                    GUILib.Space(20);
-                    GUILib.Label(control.TypeName);
-                });
+            DrawItems(Containers,ref _ContainerLineCount,ref _ContainerPerLineItemCount,ref _ContainerSpace);
+        }
 
-                if (!EUM_Helper.Instance.Preview)
+        private int _BaseControlLineCount;
+        private int _BaseControlPerLineItemCount;
+        private float _BaseControlSpace;
+        void DrawBaseControls()
+        {
+            DrawItems(Controls,ref _BaseControlLineCount,ref _BaseControlPerLineItemCount,ref _BaseControlSpace);
+        }
+
+        private int _NumbericLineCount;
+        private int _NumbericPerLineItemCount;
+        private float _NumbericSpace;
+
+        void DrawNumericFields()
+        {
+            DrawItems(NumericFields,ref _NumbericLineCount,ref _NumbericPerLineItemCount,ref _NumbericSpace);
+        }
+
+        void DrawItems(List<EUM_BaseWidget> items, ref int lineCount, ref int perLineItemCount, ref float space)
+        {
+            if (Event.current.type == EventType.Layout)
+            {
+                var itemCount = items.Count;
+                perLineItemCount = Mathf.FloorToInt(_WindowWidth / itemSize);
+                perLineItemCount = Mathf.Max(perLineItemCount, 1);
+                lineCount = Mathf.CeilToInt(itemCount * 1f / perLineItemCount);
+                space = (_WindowWidth - perLineItemCount * itemSize - s_GUIMargin * (perLineItemCount - 1)) /
+                        (perLineItemCount + 1);
+            }
+
+            if (lineCount == 1)
+            {
+                GUILayout.BeginHorizontal();
+                for (int i = 0; i < items.Count; i++)
                 {
+                    GUILayout.Label(items[i].TypeName, _Style, GUILayout.Width(itemSize), GUILayout.Height(itemSize));
                     var lastRect = GUILib.GetLastRect();
                     if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
                     {
@@ -165,61 +209,65 @@ namespace EditorUIMaker
                             DragAndDrop.StartDrag("");
                             Event.current.Use();
 
-                            EUM_Helper.Instance.DraggingWidget = control.Clone();
+                            EUM_Helper.Instance.DraggingWidget = items[i].Clone();
                         }
                     }
-                }
-            }
-        }
 
-        void DrawBaseControls()
-        {
-            foreach (var control in Controls)
-            {
-                GUILib.HorizontalRect(() =>
-                {
-                    GUILib.Space(20);
-                    GUILib.Label(control.TypeName);
-                });
-
-                var lastRect = GUILib.GetLastRect();
-                if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
-                {
-                    if (lastRect.Contains(Event.current.mousePosition))
+                    Rect rect = new Rect();
+                    if (Event.current.type == EventType.Repaint)
                     {
-                        DragAndDrop.PrepareStartDrag();
-                        DragAndDrop.SetGenericData("dragflag", "");
-                        DragAndDrop.StartDrag("");
-                        Event.current.Use();
-
-                        EUM_Helper.Instance.DraggingWidget = control.Clone();
+                        rect = GUILayoutUtility.GetLastRect();
+                        var height = _Style.CalcHeight(new GUIContent(items[i].TypeName), rect.width);
+                        rect.yMax -= height;
                     }
+
+                    GUI.DrawTexture(rect, GUIIconLib.TryGet(items[i].IconName).image, ScaleMode.ScaleToFit);
                 }
+
+                GUILayout.EndHorizontal();
             }
-        }
-
-        void DrawNumericFields()
-        {
-            foreach (var control in NumericFields)
+            else if (lineCount > 1)
             {
-                GUILib.HorizontalRect(() =>
+                for (int lineIndex = 0; lineIndex < lineCount; lineIndex++)
                 {
-                    GUILib.Space(20);
-                    GUILib.Label(control.TypeName);
-                });
-
-                var lastRect = GUILib.GetLastRect();
-                if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
-                {
-                    if (lastRect.Contains(Event.current.mousePosition))
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Space(_NumbericSpace);
+                    for (int i = 0; i < perLineItemCount; i++)
                     {
-                        DragAndDrop.PrepareStartDrag();
-                        DragAndDrop.SetGenericData("dragflag", "");
-                        DragAndDrop.StartDrag("");
-                        Event.current.Use();
+                        var itemIndex = lineIndex * perLineItemCount + i;
+                        if (itemIndex >= items.Count)
+                            continue;
+                        var item = items[itemIndex];
+                        GUILayout.Label(item.TypeName, _Style, GUILayout.Width(itemSize), GUILayout.Height(itemSize));
 
-                        EUM_Helper.Instance.DraggingWidget = control.Clone();
+                        var lastRect = GUILib.GetLastRect();
+                        if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+                        {
+                            if (lastRect.Contains(Event.current.mousePosition))
+                            {
+                                DragAndDrop.PrepareStartDrag();
+                                DragAndDrop.SetGenericData("dragflag", "");
+                                DragAndDrop.StartDrag("");
+                                Event.current.Use();
+
+                                EUM_Helper.Instance.DraggingWidget = item.Clone();
+                            }
+                        }
+
+                        Rect rect = new Rect();
+                        if (Event.current.type == EventType.Repaint)
+                        {
+                            rect = GUILayoutUtility.GetLastRect();
+                            var height = _Style.CalcHeight(new GUIContent(item.TypeName), rect.width);
+                            rect.yMax -= height;
+                        }
+
+                        GUILayout.Space(_NumbericSpace);
+
+                        GUI.DrawTexture(rect, GUIIconLib.TryGet(item.IconName).image, ScaleMode.ScaleToFit);
                     }
+
+                    GUILayout.EndHorizontal();
                 }
             }
         }

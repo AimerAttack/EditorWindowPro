@@ -8,7 +8,7 @@ namespace EditorUIMaker.Widgets
     public class EUM_Vector3Int : EUM_Widget
     {
         private EUM_Vector3Int_Info info => Info as EUM_Vector3Int_Info;
-        public override string TypeName => "Vector3Int";
+        public override string TypeName => "Vector3 Int";
 
         protected override EUM_BaseInfo CreateInfo()
         {

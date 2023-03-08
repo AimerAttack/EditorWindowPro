@@ -7,8 +7,9 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_FlexibleSpace : EUM_Widget
     {
+        public override string IconName => "d_Outline Icon";
         EUM_NormalInfo info => Info as EUM_NormalInfo;
-        public override string TypeName => "FlexibleSpace";
+        public override string TypeName => "Flexible Space";
         protected override EUM_BaseInfo CreateInfo()
         {
             return new EUM_NormalInfo(this);

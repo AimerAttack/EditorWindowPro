@@ -13,6 +13,7 @@ namespace EditorUIMaker.Widgets
         public Rect AbsoluteRect;
         public EUM_Container Parent;
         public abstract string TypeName { get; }
+        public virtual string IconName => string.Empty;
 
         public EUM_BaseInfo Info;
         protected abstract EUM_BaseInfo CreateInfo();
