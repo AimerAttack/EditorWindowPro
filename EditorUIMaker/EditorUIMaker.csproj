@@ -343,9 +343,6 @@
     <Compile Include="Window\Viewport\EUM_Viewport.cs" />
     <Compile Include="Window\Viewport\EUM_VitualWindow.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Plugins\Scriban.Signed.dll" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.

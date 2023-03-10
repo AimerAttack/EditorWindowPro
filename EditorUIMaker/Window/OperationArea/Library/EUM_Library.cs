@@ -314,7 +314,7 @@ namespace EditorUIMaker
             }
         }
 
-        public void HandleDrag()
+        internal void HandleDrag()
         {
             switch (Event.current.type)
             {

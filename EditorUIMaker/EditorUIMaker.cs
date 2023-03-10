@@ -130,8 +130,13 @@ namespace EditorUIMaker
         {
             EUM_Helper.Instance.Modified = true;
         }
-       
-        void OnGUI()
+
+        public void OnGUI()
+        {
+            DoOnGUI();
+        }
+        
+        void DoOnGUI()
         {
             EUM_Helper.Instance.MouseRects.Clear();
 

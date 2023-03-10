@@ -11,7 +11,6 @@ namespace EditorUIMaker
     {
         public EUM_Title Title;
         public Vector2 ScrollPosition;
-        public const float s_PropertyNameWidth = 130;
 
         public EUM_Inspector()
         {

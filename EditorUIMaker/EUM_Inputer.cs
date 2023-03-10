@@ -4,7 +4,7 @@ namespace EditorUIMaker
 {
     public class EUM_Inputer
     {
-        public void CheckInput()
+        internal void CheckInput()
         {
             if (Event.current.isKey && Event.current.keyCode == KeyCode.S && Event.current.type == EventType.KeyDown &&
                 Event.current.control)

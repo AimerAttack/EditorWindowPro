@@ -7,15 +7,15 @@ namespace EditorUIMaker.Utility
 {
     public static class Utility
     {
-        public static string GetRelativePathInProject(string path)
+        internal static string GetRelativePathInProject(string path)
         {
             var result = path.Replace(Application.dataPath, "Assets");
             return result;
         }
 
-        private static readonly Dictionary<GUIIconLib.E_Icon, Texture2D> _Cache = new Dictionary<GUIIconLib.E_Icon, Texture2D>();
+        internal static readonly Dictionary<GUIIconLib.E_Icon, Texture2D> _Cache = new Dictionary<GUIIconLib.E_Icon, Texture2D>();
 
-        public static Texture2D GetIcon(GUIIconLib.E_Icon iconType)
+        internal static Texture2D GetIcon(GUIIconLib.E_Icon iconType)
         {
             if (_Cache.TryGetValue(iconType, out var result))
             {

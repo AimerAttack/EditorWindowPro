@@ -16,11 +16,6 @@ namespace EditorUIMaker.Widgets
 
         public HashSet<string> ModifiedKeys = new HashSet<string>();
 
-        public float GetHeight()
-        {
-            return Mathf.Max(Height, Min_Height);
-        } 
-        
         public string DisplayName
         {
             get
