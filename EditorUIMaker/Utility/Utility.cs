@@ -22,9 +22,16 @@ namespace EditorUIMaker.Utility
                 return result;
             }
 
-            var texture = ConvertBase64ToTexture(GUIIconLib.IconInfo[iconType]);
-            _Cache.Add(iconType, texture);
-            return texture;
+            if (GUIIconLib.IconInfo.ContainsKey(iconType))
+            {
+                var texture = ConvertBase64ToTexture(GUIIconLib.IconInfo[iconType]);
+                _Cache.Add(iconType, texture);
+                return texture;
+            }
+            else
+            {
+                return Texture2D.grayTexture;
+            }
         }
 
         private static Texture2D ConvertBase64ToTexture(string base64)
