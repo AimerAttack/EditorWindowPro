@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorUIMaker", "EditorUIMaker\EditorUIMaker.csproj", "{A85498BC-BC80-49F6-9069-3D8FB8D9DCCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A85498BC-BC80-49F6-9069-3D8FB8D9DCCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A85498BC-BC80-49F6-9069-3D8FB8D9DCCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A85498BC-BC80-49F6-9069-3D8FB8D9DCCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A85498BC-BC80-49F6-9069-3D8FB8D9DCCA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
