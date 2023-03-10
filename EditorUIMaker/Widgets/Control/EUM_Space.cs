@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEngine;
@@ -6,7 +7,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Space : EUM_Widget
     {
-        public override string IconName => "d_RectTransformBlueprint";
+        public override GUIIconLib.E_Icon IconType => GUIIconLib.E_Icon.Space;
         EUM_Space_Info info => Info as EUM_Space_Info;
         public override string TypeName => "Space";
 
@@ -20,10 +21,7 @@ namespace EditorUIMaker.Widgets
         public override void DrawDraging(Vector2 position)
         {
             var rect = new Rect(position.x, position.y, 200, 20);
-            GUILib.Area(rect, () =>
-            {
-                GUILib.Label(TypeName);
-            });
+            GUILib.Area(rect, () => { GUILib.Label(TypeName); });
         }
 
         protected override void OnDrawLayout()
@@ -47,7 +45,7 @@ namespace EditorUIMaker.Widgets
         {
             var code =
                 @"GUILib.Space({{pixel}});";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("pixel", info.Height);
 
@@ -56,7 +54,7 @@ namespace EditorUIMaker.Widgets
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
     }

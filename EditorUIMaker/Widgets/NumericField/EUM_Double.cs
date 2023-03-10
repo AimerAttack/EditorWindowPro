@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEditor;
@@ -7,6 +8,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Double : EUM_Widget
     {
+        public override GUIIconLib.E_Icon IconType => GUIIconLib.E_Icon.Double;
         private EUM_Double_Info info => Info as EUM_Double_Info;
         public override string TypeName => "Double";
 
@@ -19,7 +21,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.DoubleField(ref info.Value, info.Label,LayoutOptions());
+            GUILib.DoubleField(ref info.Value, info.Label, LayoutOptions());
         }
 
         public override string LogicCode()
@@ -56,7 +58,7 @@ if(GUILib.DoubleField(ref _Logic.{{name}},""{{label}}"",{{layout}}))
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
             var layoutString = LayoutOptionsStr();
-            sObj.Add("layout",layoutString);
+            sObj.Add("layout", layoutString);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

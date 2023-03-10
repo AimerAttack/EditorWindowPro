@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using EditorUIMaker.Utility;
 using UnityEngine;
 
 namespace EditorUIMaker.Widgets
@@ -13,8 +14,8 @@ namespace EditorUIMaker.Widgets
         public Rect AbsoluteRect;
         public EUM_Container Parent;
         public abstract string TypeName { get; }
-        public virtual string IconName => string.Empty;
 
+        public virtual GUIIconLib.E_Icon IconType { get; }
         public EUM_BaseInfo Info;
         protected abstract EUM_BaseInfo CreateInfo();
         

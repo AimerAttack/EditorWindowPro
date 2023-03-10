@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEngine;
@@ -6,7 +7,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Dropdown : EUM_Widget
     {
-        public override string IconName => "d_Dropdown Icon";
+        public override GUIIconLib.E_Icon IconType=> GUIIconLib.E_Icon.Dropdown;
         private EUM_Dropdown_Info info => Info as EUM_Dropdown_Info;
         public override string TypeName => "Dropdown";
 

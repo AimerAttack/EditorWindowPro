@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEditor;
@@ -7,6 +8,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Slider : EUM_Widget
     {
+        public override GUIIconLib.E_Icon IconType => GUIIconLib.E_Icon.Slider;
         private EUM_Slider_Info info => Info as EUM_Slider_Info;
         public override string TypeName => "Slider";
 
@@ -19,7 +21,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.Slider(info.Label, ref info.Value, info.Min, info.Max,LayoutOptions());
+            GUILib.Slider(info.Label, ref info.Value, info.Min, info.Max, LayoutOptions());
         }
 
         public override string LogicCode()
@@ -60,7 +62,7 @@ public void {{name}}ValueChange()
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
             var layoutString = LayoutOptionsStr();
-            sObj.Add("layout",layoutString);
+            sObj.Add("layout", layoutString);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

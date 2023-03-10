@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEditor;
@@ -22,10 +23,13 @@ namespace EditorUIMaker.Widgets
                 }
             }
         }
-        
+
+        public override GUIIconLib.E_Icon IconType => GUIIconLib.E_Icon.Button;
+
         private EUM_Button_Info info => Info as EUM_Button_Info;
-        
+
         public override string TypeName => "Button";
+
         protected override EUM_BaseInfo CreateInfo()
         {
             var info = new EUM_Button_Info(this);
@@ -34,19 +38,16 @@ namespace EditorUIMaker.Widgets
 
         public override void DrawDraging(Vector2 position)
         {
-            GUILib.Area(new Rect(position.x,position.y,100,20), () =>
-            {
-                GUILib.Button(TypeName);
-            });
+            GUILib.Area(new Rect(position.x, position.y, 100, 20), () => { GUILib.Button(TypeName); });
         }
 
         protected override void OnDrawLayout()
         {
             var style = new GUIStyle(GUI.skin.button);
             style.alignment = info.TextAnchor;
-            GUILib.Button(_Content,style,LayoutOptions());
+            GUILib.Button(_Content, style, LayoutOptions());
         }
-        
+
         public override EUM_BaseWidget Clone()
         {
             var widget = new EUM_Button();
@@ -64,20 +65,20 @@ if(GUILib.Button(""{{text}}"",style{{name}},{{layout}}))
     _Logic.Click{{name}}();
 }
 ";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
-            sObj.Add("text",string.IsNullOrEmpty(info.Text) ? TypeName : info.Text);
+            sObj.Add("text", string.IsNullOrEmpty(info.Text) ? TypeName : info.Text);
             sObj.Add("textAnchor", info.TextAnchor.ToString());
             var layoutString = LayoutOptionsStr();
-            sObj.Add("layout",layoutString);
+            sObj.Add("layout", layoutString);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
 
@@ -95,7 +96,7 @@ if(GUILib.Button(""{{text}}"",style{{name}},{{layout}}))
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
     }

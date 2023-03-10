@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEngine;
@@ -6,7 +7,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_TextField : EUM_Widget
     {
-        public override string IconName => "d_InputField Icon";
+        public override GUIIconLib.E_Icon IconType => GUIIconLib.E_Icon.TextField;
         private EUM_TextField_Info info => Info as EUM_TextField_Info;
         public override string TypeName => "TextField";
 
@@ -21,8 +22,8 @@ namespace EditorUIMaker.Widgets
         {
             GUILib.HorizontalRect(() =>
             {
-                GUILib.Label(info.Label,LayoutOptions());
-                GUILib.TextField(ref info.Value,LayoutOptions());
+                GUILib.Label(info.Label, LayoutOptions());
+                GUILib.TextField(ref info.Value, LayoutOptions());
             });
         }
 
@@ -43,7 +44,7 @@ namespace EditorUIMaker.Widgets
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
             var layoutString = LayoutOptionsStr();
-            sObj.Add("layout",layoutString);
+            sObj.Add("layout", layoutString);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEditor;
@@ -7,6 +8,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Vector2Int : EUM_Widget
     {
+        public override GUIIconLib.E_Icon IconType => GUIIconLib.E_Icon.Vector2Int;
         private EUM_Vector2Int_Info info => Info as EUM_Vector2Int_Info;
         public override string TypeName => "Vector2 Int";
 
@@ -19,7 +21,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.Vector2IntField(info.Label, ref info.Value,LayoutOptions());
+            GUILib.Vector2IntField(info.Label, ref info.Value, LayoutOptions());
         }
 
         public override string LogicCode()
@@ -56,7 +58,7 @@ if(GUILib.Vector2IntField(""{{label}}"",ref _Logic.{{name}},{{layout}}))
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
             var layoutString = LayoutOptionsStr();
-            sObj.Add("layout",layoutString);
+            sObj.Add("layout", layoutString);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);

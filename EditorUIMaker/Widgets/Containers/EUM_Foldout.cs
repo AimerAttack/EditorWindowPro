@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using EditorUIMaker.Widgets;
 using Scriban;
 using Scriban.Runtime;
@@ -8,7 +9,7 @@ namespace EditorUIMaker
 {
     public class EUM_Foldout : EUM_Container
     {
-        public override string IconName => "d_icon dropdown@2x";
+        public override GUIIconLib.E_Icon IconType => GUIIconLib.E_Icon.Foldout;
         private EUM_Foldout_Info info => Info as EUM_Foldout_Info;
         public override string TypeName => "Foldout";
 

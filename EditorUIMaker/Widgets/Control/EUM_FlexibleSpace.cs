@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEngine;
@@ -6,7 +7,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_FlexibleSpace : EUM_Widget
     {
-        public override string IconName => "d_Outline Icon";
+        public override GUIIconLib.E_Icon IconType=> GUIIconLib.E_Icon.FlexibleSpace;
         EUM_NormalInfo info => Info as EUM_NormalInfo;
         public override string TypeName => "Flexible Space";
         protected override EUM_BaseInfo CreateInfo()

@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEditor;
@@ -7,6 +8,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Vector2 : EUM_Widget
     {
+        public override GUIIconLib.E_Icon IconType => GUIIconLib.E_Icon.Vector2;
         private EUM_Vector2_Info info => Info as EUM_Vector2_Info;
         public override string TypeName => "Vector2";
 

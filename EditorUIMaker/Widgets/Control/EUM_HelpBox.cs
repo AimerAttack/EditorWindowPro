@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEditor;
@@ -7,6 +8,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_HelpBox : EUM_Widget
     {
+        public override GUIIconLib.E_Icon IconType=> GUIIconLib.E_Icon.HelpBox;
         private EUM_HelpBox_Info info => Info as EUM_HelpBox_Info;
         public override string TypeName => "HelpBox";
         protected override EUM_BaseInfo CreateInfo()

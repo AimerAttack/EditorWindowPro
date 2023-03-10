@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using EditorUIMaker.Widgets;
 using Scriban;
 using Scriban.Runtime;
@@ -7,7 +8,7 @@ namespace EditorUIMaker
 {
     public class EUM_Horizontal : EUM_Container
     {
-        public override string IconName => "d_HorizontalLayoutGroup Icon";
+        public override GUIIconLib.E_Icon IconType => GUIIconLib.E_Icon.Horizontal;
         public override string TypeName => "Horizontal";
         protected override EUM_BaseInfo CreateInfo()
         {

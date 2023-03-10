@@ -13,27 +13,21 @@ namespace EditorUIMaker.Utility
             return result;
         }
 
-        private static readonly Dictionary<string, GUIContent> _cache = new Dictionary<string, GUIContent>();
+        private static readonly Dictionary<GUIIconLib.E_Icon, Texture2D> _Cache = new Dictionary<GUIIconLib.E_Icon, Texture2D>();
 
-        public static GUIContent TryGet(string id)
+        public static Texture2D GetIcon(GUIIconLib.E_Icon iconType)
         {
-            GUIContent result;
-            if (_cache.TryGetValue(id, out result)) return result ?? GUIContent.none;
-            GUIContent icon = null;
-            if (string.IsNullOrEmpty(id))
+            if (_Cache.TryGetValue(iconType, out var result))
             {
-                icon = GUIContent.none;
-            }
-            else
-            {
-                icon = EditorGUIUtility.IconContent(id) ?? new GUIContent(Texture2D.whiteTexture);
+                return result;
             }
 
-            _cache.Add(id, icon);
-            return icon;
+            var texture = ConvertBase64ToTexture(GUIIconLib.IconInfo[iconType]);
+            _Cache.Add(iconType, texture);
+            return texture;
         }
-        
-        public static Texture2D ConvertBase64ToTexture(string base64)
+
+        private static Texture2D ConvertBase64ToTexture(string base64)
         {
             byte[] bytes = Convert.FromBase64String(base64);
             Texture2D texture = new Texture2D(1, 1);

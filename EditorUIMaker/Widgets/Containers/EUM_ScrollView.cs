@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using EditorUIMaker.Widgets;
 using Scriban;
 using Scriban.Runtime;
@@ -7,7 +8,7 @@ namespace EditorUIMaker
 {
     public class EUM_ScrollView : EUM_Container
     {
-        public override string IconName => "d_ScrollRect Icon";
+        public override GUIIconLib.E_Icon IconType=> GUIIconLib.E_Icon.ScrollView;
         private Vector2 _ScrollPosition;
         public override string TypeName => "ScrollView";
         protected override EUM_BaseInfo CreateInfo()

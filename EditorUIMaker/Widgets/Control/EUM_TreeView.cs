@@ -9,7 +9,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_TreeView : EUM_Widget
     {
-        public override string IconName => "d_UnityEditor.SceneHierarchyWindow@2x";
+        public override GUIIconLib.E_Icon IconType => GUIIconLib.E_Icon.TreeView;
         private EUM_TreeView_Info info => Info as EUM_TreeView_Info;
         public override string TypeName => "TreeView";
 
@@ -31,7 +31,7 @@ namespace EditorUIMaker.Widgets
         {
             if (_Treeview == null)
             {
-                _Treeview = SimpleTreeView.Create(info.Label,info.MinHeight);
+                _Treeview = SimpleTreeView.Create(info.Label, info.MinHeight);
 
                 var datas = GenerateRandomTree(10);
                 _Treeview.SetData(datas);
@@ -47,7 +47,7 @@ namespace EditorUIMaker.Widgets
             IDCounter = 0;
             var treeElements = new List<TreeViewItem>(numTotalElements);
 
-            var root = new TreeViewItem(IDCounter,1,"Root");
+            var root = new TreeViewItem(IDCounter, 1, "Root");
 
             for (int i = 0; i < numRootChildren; ++i)
             {
@@ -73,7 +73,7 @@ namespace EditorUIMaker.Widgets
                 if (IDCounter > numTotalElements)
                     return;
 
-                var child = new TreeViewItem( IDCounter++,element.depth + 1,"Element " + IDCounter);
+                var child = new TreeViewItem(IDCounter++, element.depth + 1, "Element " + IDCounter);
                 treeElements.Add(child);
 
                 if (!force && Random.value < 0.5f)
@@ -99,7 +99,7 @@ namespace EditorUIMaker.Widgets
 {
     CallMethod(""On{{name}}SelectChange"");
 }";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
 
@@ -108,7 +108,7 @@ namespace EditorUIMaker.Widgets
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
 
@@ -116,7 +116,7 @@ namespace EditorUIMaker.Widgets
         {
             var code =
                 @"Init{{name}}();";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
 
@@ -125,7 +125,7 @@ namespace EditorUIMaker.Widgets
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
 
@@ -144,19 +144,19 @@ void Init{{name}}()
     if(expend)
         _{{name}}.ExpandAll();
 }";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
-            sObj.Add("label",info.Label);
-            sObj.Add("minHeight",info.MinHeight);
-            sObj.Add("expend",info.ExpendAll);
+            sObj.Add("label", info.Label);
+            sObj.Add("minHeight", info.MinHeight);
+            sObj.Add("expend", info.ExpendAll);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
 
@@ -167,21 +167,21 @@ void Init{{name}}()
 _{{name}}.Content = ""{{label}}"";
 _{{name}}.MinHeight = {{height}};
 _{{name}}.Draw();";
-            
+
             var sObj = new ScriptObject();
             sObj.Add("name", Info.Name);
-            sObj.Add("label",info.Label);
-            sObj.Add("height",info.Height);
+            sObj.Add("label", info.Label);
+            sObj.Add("height", info.Height);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);
 
             var template = Template.Parse(code);
             var result = template.Render(context);
-            
+
             return result;
         }
-        
+
         SimpleTreeView _DraggingTreeview;
 
         public override void DrawDraging(Vector2 position)
@@ -195,6 +195,7 @@ _{{name}}.Draw();";
                     var datas = GenerateRandomTree(10);
                     _DraggingTreeview.SetData(datas);
                 }
+
                 _DraggingTreeview.Draw();
                 _DraggingTreeview.ExpandAll();
             });

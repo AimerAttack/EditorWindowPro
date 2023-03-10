@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEditor;
@@ -7,6 +8,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_MinMaxSlider : EUM_Widget
     {
+        public override GUIIconLib.E_Icon IconType => GUIIconLib.E_Icon.MinMaxSlider;
         private EUM_MinMaxSlider_Info info => Info as EUM_MinMaxSlider_Info;
         public override string TypeName => "Min Max Slider";
 

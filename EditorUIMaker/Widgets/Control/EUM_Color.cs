@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEditor;
@@ -7,7 +8,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Color : EUM_Widget
     {
-        public override string IconName => "d_PreTexRGB@2x";
+        public override GUIIconLib.E_Icon IconType=> GUIIconLib.E_Icon.Color;
         private EUM_Color_Info info => Info as EUM_Color_Info;
         public override string TypeName => "Color";
         protected override EUM_BaseInfo CreateInfo()

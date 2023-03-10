@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEngine;
@@ -6,7 +7,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Material : EUM_Widget
     {
-        public override string IconName => "TreeEditor.Material";
+        public override GUIIconLib.E_Icon IconType=> GUIIconLib.E_Icon.Material;
         private EUM_Material_Info info => Info as EUM_Material_Info;
         public override string TypeName => "Material";
         protected override EUM_BaseInfo CreateInfo()

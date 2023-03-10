@@ -1,3 +1,4 @@
+using EditorUIMaker.Utility;
 using Scriban;
 using Scriban.Runtime;
 using UnityEditor;
@@ -7,6 +8,7 @@ namespace EditorUIMaker.Widgets
 {
     public class EUM_Vector3 : EUM_Widget
     {
+        public override GUIIconLib.E_Icon IconType => GUIIconLib.E_Icon.Vector3;
         private EUM_Vector3_Info info => Info as EUM_Vector3_Info;
         public override string TypeName => "Vector3";
 
@@ -19,7 +21,7 @@ namespace EditorUIMaker.Widgets
 
         protected override void OnDrawLayout()
         {
-            GUILib.Vector3Field(info.Label, ref info.Value,LayoutOptions());
+            GUILib.Vector3Field(info.Label, ref info.Value, LayoutOptions());
         }
 
         public override string LogicCode()
@@ -56,7 +58,7 @@ if(GUILib.Vector3Field(""{{label}}"",ref _Logic.{{name}},{{layout}}))
             sObj.Add("name", Info.Name);
             sObj.Add("label", info.Label);
             var layoutString = LayoutOptionsStr();
-            sObj.Add("layout",layoutString);
+            sObj.Add("layout", layoutString);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);
