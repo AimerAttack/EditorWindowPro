@@ -38,7 +38,10 @@ namespace EditorUIMaker
         public List<Rect> MouseRects = new List<Rect>(10);
         public Vector2 MousePosition;
         public HierarchyTreeView TreeView;
- 
+        public HashSet<string> AdditionNamespace;
+        public List<EUM_BaseWidget> CustomWidget;
+        public List<EUM_BaseWidget> CustomContainer;
+
         #region need clear when data change
         public int WidgetID = 1;
         public bool Modified = false;
@@ -217,28 +220,13 @@ namespace EditorUIMaker
             AssetDatabase.CreateAsset(data,filePath);
             AssetDatabase.SaveAssets();
 
-            var setting = GetSetting();
-            
-            SaveClassFile(filePath,setting);
-            SaveLogicFile(filePath,setting);
+            SaveClassFile(filePath);
+            SaveLogicFile(filePath);
             AssetDatabase.Refresh();
         }
 
-        public static EUM_Setting GetSetting()
-        {
-            string[] guids = AssetDatabase.FindAssets("t:EUM_Setting", new[] {"Assets"});
-            for (int i = 0; i < guids.Length; i++)
-            {
-                var guid = guids[i];
-                var path = AssetDatabase.GUIDToAssetPath(guid);
-                var setting = AssetDatabase.LoadAssetAtPath<EUM_Setting>(path);
-                return setting;
-            }
 
-            return null;
-        }
-
-        void SaveClassFile(string windowPath,EUM_Setting setting)
+        void SaveClassFile(string windowPath)
         {
             var page = @"
 using System;
@@ -316,9 +304,8 @@ public class {{className}} : EditorWindow,ISerializationCallbackReceiver
 ";
             List<string> contents = new List<string>();
             contents.Clear();
-            for (int i = 0; i < setting.AdditionNamespaces.Count; i++)
+            foreach (var nameSpace in AdditionNamespace)
             {
-                var nameSpace = setting.AdditionNamespaces[i];
                 if(string.IsNullOrEmpty(nameSpace))
                     continue;
                 contents.Add(string.Format("using {0};",nameSpace));
@@ -384,7 +371,7 @@ public class {{className}} : EditorWindow,ISerializationCallbackReceiver
             File.WriteAllText(filePath,result,new UTF8Encoding(false));
         }
 
-        void SaveLogicFile(string windowPath,EUM_Setting setting)
+        void SaveLogicFile(string windowPath)
         {
             var page = @"
 using System;
@@ -421,9 +408,8 @@ public partial class {{className}}_Logic : EUM_BaseWindowLogic
 ";
             var contents = new List<string>();
             contents.Clear();
-            for (int i = 0; i < setting.AdditionNamespaces.Count; i++)
+            foreach (var nameSpace in AdditionNamespace)
             {
-                var nameSpace = setting.AdditionNamespaces[i];
                 if(string.IsNullOrEmpty(nameSpace))
                     continue;
                 contents.Add(string.Format("using {0};",nameSpace));

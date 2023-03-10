@@ -24,8 +24,6 @@ namespace EditorUIMaker
         public List<EUM_BaseWidget> Controls = new List<EUM_BaseWidget>();
         public List<EUM_BaseWidget> NumericFields = new List<EUM_BaseWidget>();
 
-        public List<EUM_BaseWidget> CustomContainers = new List<EUM_BaseWidget>();
-        public List<EUM_BaseWidget> CustomControls = new List<EUM_BaseWidget>();
         private float _WindowWidth;
         private GUIStyle _Style;
         private const float s_GUIMargin = 5;
@@ -67,23 +65,6 @@ namespace EditorUIMaker
             NumericFields.Add(new EUM_Vector3Int());
             NumericFields.Add(new EUM_MinMaxSlider());
             NumericFields.Add(new EUM_MinMaxIntSlider());
-
-            var setting = EUM_Helper.GetSetting();
-            if (setting.Containers != null)
-            {
-                foreach (var container in setting.Containers)
-                {
-                    CustomContainers.Add(container);
-                }
-            }
-
-            if (setting.Widgets != null)
-            {
-                foreach (var widget in setting.Widgets)
-                {
-                    CustomControls.Add(widget);
-                }
-            }
         }
 
         public void Draw(ref Rect rect)
@@ -283,7 +264,7 @@ namespace EditorUIMaker
 
         void DrawCustomContainer()
         {
-            foreach (var control in CustomContainers)
+            foreach (var control in EUM_Helper.Instance.CustomContainer)
             {
                 GUILib.HorizontalRect(() =>
                 {
@@ -309,7 +290,7 @@ namespace EditorUIMaker
 
         void DrawCustomControl()
         {
-            foreach (var control in CustomControls)
+            foreach (var control in EUM_Helper.Instance.CustomWidget)
             {
                 GUILib.HorizontalRect(() =>
                 {

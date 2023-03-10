@@ -20,8 +20,7 @@ namespace EditorUIMaker
             }
         }
         
-        [MenuItem("Tools/EditorUIMaker")]
-        static void OpenWindow()
+        public static void OpenWindow()
         {
             var window = GetWindow<EditorUIMaker>();
             window.Init();
