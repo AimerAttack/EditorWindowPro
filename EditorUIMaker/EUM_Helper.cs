@@ -43,6 +43,7 @@ namespace EditorUIMaker
         public List<EUM_BaseWidget> CustomContainer = new List<EUM_BaseWidget>();
 
         #region need clear when data change
+
         public int WidgetID = 1;
         public bool Modified = false;
         public bool CheckCanvasDrag = false;
@@ -56,27 +57,28 @@ namespace EditorUIMaker
         public EUM_BaseWidget HoverWidget;
         public List<EUM_Container> Containers = new List<EUM_Container>();
         public Dictionary<int, EUM_BaseWidget> Widgets = new Dictionary<int, EUM_BaseWidget>();
-        public Dictionary<Type,int> WidgetCount = new Dictionary<Type, int>();
+        public Dictionary<Type, int> WidgetCount = new Dictionary<Type, int>();
         public string MenuItemPath;
+
         #endregion
-        
+
         public string WindowTitle = "WindowTitle";
         public float Alpha = 0;
 
         public float _FadeTime = 0.2f;
         public float _StartFadeTime;
-        
-        public void LoadData(EUM_Object obj,string filePath)
+
+        public void LoadData(EUM_Object obj, string filePath)
         {
             if (Modified)
             {
-                WarningModified();    
+                WarningModified();
             }
 
             var fileName = Path.GetFileNameWithoutExtension(filePath);
             WindowTitle = fileName;
             ClearData();
-            
+
             FilePath = filePath;
 
             if (obj.Stash != null && obj.Stash.Widgets != null)
@@ -86,7 +88,7 @@ namespace EditorUIMaker
                     var dataWidget = obj.Stash.Widgets[i];
                     var widget = dataWidget.SingleClone();
                     AddToContainer(widget, Window);
-                    AddChildrenToWindow(dataWidget,widget);
+                    AddChildrenToWindow(dataWidget, widget);
                 }
             }
 
@@ -95,17 +97,17 @@ namespace EditorUIMaker
             Modified = false;
         }
 
-        void AddChildrenToWindow(EUM_BaseWidget dataWidget,EUM_BaseWidget widget)
+        void AddChildrenToWindow(EUM_BaseWidget dataWidget, EUM_BaseWidget widget)
         {
-            if(dataWidget is EUM_Container dataContainer)
+            if (dataWidget is EUM_Container dataContainer)
             {
                 var container = widget as EUM_Container;
                 for (int i = 0; i < dataContainer.Widgets.Count; i++)
                 {
                     var dataChild = dataContainer.Widgets[i];
                     var child = dataChild.SingleClone();
-                    AddToContainer(child,container);
-                    AddChildrenToWindow(dataChild,child);
+                    AddToContainer(child, container);
+                    AddChildrenToWindow(dataChild, child);
                 }
             }
         }
@@ -123,23 +125,23 @@ namespace EditorUIMaker
             SelectWidget = null;
             DraggingOverContainer = null;
             HoverWidget = null;
-            
+
             Containers.Clear();
             Containers.Add(Window);
-            
+
             Widgets.Clear();
-            Widgets.Add(Window.ID,Window);
+            Widgets.Add(Window.ID, Window);
 
             MenuItemPath = string.Empty;
-            
+
             OnClearData?.Invoke();
         }
 
-        public bool NameValid(EUM_BaseWidget widget,string newName)
+        public bool NameValid(EUM_BaseWidget widget, string newName)
         {
             if (newName.Length <= 0)
                 return false;
-            
+
             //检查是否数字开头
             if (newName.Length > 0 && char.IsDigit(newName[0]))
             {
@@ -150,11 +152,12 @@ namespace EditorUIMaker
             foreach (var pair in Widgets)
             {
                 var item = pair.Value;
-                if(item != widget && item.Info.Name == newName)
+                if (item != widget && item.Info.Name == newName)
                 {
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -195,7 +198,7 @@ namespace EditorUIMaker
 
             Modified = false;
         }
-        
+
         void SaveDataToPath(string filePath)
         {
             if (MenuItemPath.IndexOf("/") < 1)
@@ -203,10 +206,10 @@ namespace EditorUIMaker
                 EditorUtility.DisplayDialog("MenuPath Error", "MenuPath must be like 'xxx/xxx'!", "OK");
                 return;
             }
-            
+
             var data = ScriptableObject.CreateInstance<EUM_Object>();
 
-            
+
             data.Stash = new EUM_Stash();
             data.MenuItemPath = MenuItemPath;
             var window = Window.Clone() as EUM_Window;
@@ -217,7 +220,7 @@ namespace EditorUIMaker
             }
 
             AssetDatabase.DeleteAsset(filePath);
-            AssetDatabase.CreateAsset(data,filePath);
+            AssetDatabase.CreateAsset(data, filePath);
             AssetDatabase.SaveAssets();
 
             SaveClassFile(filePath);
@@ -306,18 +309,19 @@ public class {{className}} : EditorWindow,ISerializationCallbackReceiver
             contents.Clear();
             foreach (var nameSpace in AdditionNamespace)
             {
-                if(string.IsNullOrEmpty(nameSpace))
+                if (string.IsNullOrEmpty(nameSpace))
                     continue;
-                contents.Add(string.Format("using {0};",nameSpace));
+                contents.Add(string.Format("using {0};", nameSpace));
             }
+
             var additionNamespace = string.Join("\n", contents);
-            
+
             contents.Clear();
             for (int i = 0; i < Window.Widgets.Count; i++)
             {
                 var widget = Window.Widgets[i];
                 var widgetCode = widget.Code();
-                if(string.IsNullOrEmpty(widgetCode))
+                if (string.IsNullOrEmpty(widgetCode))
                     continue;
                 contents.Add(widgetCode);
             }
@@ -347,14 +351,14 @@ public class {{className}} : EditorWindow,ISerializationCallbackReceiver
             }
 
             var initCode = string.Join("\n\n", contents);
-            
+
             var sObj = new ScriptObject();
-            sObj.Add("code",code);
-            sObj.Add("className",WindowTitle);
-            sObj.Add("menuItemPath",MenuItemPath);
-            sObj.Add("defineCode",defineCode);
-            sObj.Add("initCode",initCode);
-            sObj.Add("additionNamespace",additionNamespace);
+            sObj.Add("code", code);
+            sObj.Add("className", WindowTitle);
+            sObj.Add("menuItemPath", MenuItemPath);
+            sObj.Add("defineCode", defineCode);
+            sObj.Add("initCode", initCode);
+            sObj.Add("additionNamespace", additionNamespace);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);
@@ -365,10 +369,10 @@ public class {{className}} : EditorWindow,ISerializationCallbackReceiver
 
             var fileName = WindowTitle;
             var path = Path.GetDirectoryName(windowPath);
-            var filePath = Path.Combine(Application.dataPath.Replace("Assets",string.Empty),
+            var filePath = Path.Combine(Application.dataPath.Replace("Assets", string.Empty),
                 path, fileName + ".cs");
-            
-            File.WriteAllText(filePath,result,new UTF8Encoding(false));
+
+            File.WriteAllText(filePath, result, new UTF8Encoding(false));
         }
 
         void SaveLogicFile(string windowPath)
@@ -410,76 +414,78 @@ public partial class {{className}}_Logic : EUM_BaseWindowLogic
             contents.Clear();
             foreach (var nameSpace in AdditionNamespace)
             {
-                if(string.IsNullOrEmpty(nameSpace))
+                if (string.IsNullOrEmpty(nameSpace))
                     continue;
-                contents.Add(string.Format("using {0};",nameSpace));
+                contents.Add(string.Format("using {0};", nameSpace));
             }
+
             var additionNamespace = string.Join("\n", contents);
 
-            
+
             contents.Clear();
             for (int i = 0; i < Window.Widgets.Count; i++)
             {
                 var widget = Window.Widgets[i];
                 var widgetCode = widget.LogicCode();
-                if(string.IsNullOrEmpty(widgetCode))
+                if (string.IsNullOrEmpty(widgetCode))
                     continue;
                 contents.Add(widgetCode);
             }
 
             var code = string.Join("\n", contents);
 
-            
+
             var sObj = new ScriptObject();
-            sObj.Add("code",code);
-            sObj.Add("className",WindowTitle);
-            sObj.Add("additionNamespace",additionNamespace);
+            sObj.Add("code", code);
+            sObj.Add("className", WindowTitle);
+            sObj.Add("additionNamespace", additionNamespace);
 
             var context = new TemplateContext();
             context.PushGlobal(sObj);
 
             var template = Template.Parse(page);
             var result = template.Render(context);
-            
+
             var fileName = WindowTitle;
             var path = Path.GetDirectoryName(windowPath);
-            var filePath = Path.Combine(Application.dataPath.Replace("Assets",string.Empty),
+            var filePath = Path.Combine(Application.dataPath.Replace("Assets", string.Empty),
                 path, fileName + "_Logic.cs");
-            
-            File.WriteAllText(filePath,result,new UTF8Encoding(false)); 
+
+            File.WriteAllText(filePath, result, new UTF8Encoding(false));
         }
-        
+
         public void OpenFile()
         {
             var path = EditorUtility.OpenFilePanelWithFilters("Open File", "", new[] {"EUM_Object", "asset"});
-            if(string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path))
                 return;
             var filePath = Utility.Utility.GetRelativePathInProject(path);
             var data = AssetDatabase.LoadAssetAtPath<EUM_Object>(filePath);
-            LoadData(data,filePath);
+            LoadData(data, filePath);
         }
-        
+
         public void NewFile()
         {
             var path = EditorUtility.SaveFilePanelInProject("Save File", "NewFile", "asset", "Save File");
             var data = ScriptableObject.CreateInstance<EUM_Object>();
-            AssetDatabase.CreateAsset(data,path);
+            AssetDatabase.CreateAsset(data, path);
             AssetDatabase.SaveAssets();
-            LoadData(data,path);
+            LoadData(data, path);
         }
-        
-        public void AddToContainer(EUM_BaseWidget widget, EUM_Container container,int index=-1)
+
+        public void AddToContainer(EUM_BaseWidget widget, EUM_Container container, int index = -1)
         {
             if (container == null)
                 return;
             if (container.Widgets.Contains(widget))
                 return;
-            if(index == -1)
+            if (index == -1)
                 container.Widgets.Add(widget);
             else
             {
-                container.Widgets.Insert(index,widget);
+                container.Widgets.Insert(index, widget);
             }
+
             widget.OnAddToContainer(container);
 
             var type = widget.GetType();
@@ -487,10 +493,21 @@ public partial class {{className}}_Logic : EUM_BaseWindowLogic
             {
                 WidgetCount.Add(type, 0);
             }
+
             WidgetCount[type]++;
-            if(string.IsNullOrEmpty(widget.Info.Name) || widget.Info.Name == widget.TypeName)
+            if (string.IsNullOrEmpty(widget.Info.Name) || widget.Info.Name == widget.TypeName)
                 widget.Info.Name = widget.TypeName + WidgetCount[type];
-            
+            else
+            {
+                foreach (var pair in Widgets)
+                {
+                    if (pair.Value.Info.Name == widget.Info.Name)
+                    {
+                        widget.Info.Name = widget.TypeName + WidgetCount[type];
+                    }
+                }
+            }
+
             OnAddItemToWindow?.Invoke(widget);
         }
 
@@ -498,21 +515,21 @@ public partial class {{className}}_Logic : EUM_BaseWindowLogic
         {
             GUIUtility.keyboardControl = 0;
         }
-        
+
         public void ResetFade()
         {
             Alpha = 0;
             _StartFadeTime = Time.realtimeSinceStartup;
         }
-        
+
         public void Fade()
         {
             var deltaTime = Time.realtimeSinceStartup - _StartFadeTime;
-            var percent = deltaTime/ _FadeTime;
+            var percent = deltaTime / _FadeTime;
             percent = Mathf.Clamp01(percent);
             Alpha = Mathf.Lerp(0, 1, percent);
         }
-        
+
 
         public class ZoomScaleData
         {
