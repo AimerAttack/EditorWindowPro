@@ -11,6 +11,8 @@ namespace EditorUIMaker
 {
     public class EditorUIMaker : EditorWindow,ISerializationCallbackReceiver
     {
+        public static Action OnInit;
+        
         private static EditorUIMaker _Instance;
         public static bool IsOpen
         {
@@ -20,6 +22,7 @@ namespace EditorUIMaker
             }
         }
         
+        [MenuItem("Tools/EditorUIMaker")]
         public static void OpenWindow()
         {
             var window = GetWindow<EditorUIMaker>();
@@ -85,6 +88,8 @@ namespace EditorUIMaker
             EUM_Helper.Instance.OnItemIndexChange += OnItemIndexChange;
             
             EUM_Helper.Instance.ClearData();
+            
+            OnInit?.Invoke();
         }
 
         void OnEnable()
