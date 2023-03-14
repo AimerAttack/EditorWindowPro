@@ -93,7 +93,7 @@ namespace EditorUIMaker.Widgets
         [SerializeField]
         public int Depth { get; set; }
 
-        public abstract void DrawDraging(Vector2 position);
+        public abstract void DrawDragging(Vector2 position);
         
         public abstract EUM_BaseWidget Clone();
         public abstract EUM_BaseWidget SingleClone();

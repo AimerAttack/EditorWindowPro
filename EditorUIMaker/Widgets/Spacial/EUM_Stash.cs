@@ -16,7 +16,7 @@ namespace EditorUIMaker
             
         }
 
-        public override void DrawDraging(Vector2 position)
+        public override void DrawDragging(Vector2 position)
         {
             
         }

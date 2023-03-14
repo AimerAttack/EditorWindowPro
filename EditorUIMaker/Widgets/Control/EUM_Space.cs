@@ -18,7 +18,7 @@ namespace EditorUIMaker.Widgets
             return info;
         }
 
-        public override void DrawDraging(Vector2 position)
+        public override void DrawDragging(Vector2 position)
         {
             var rect = new Rect(position.x, position.y, 200, 20);
             GUILib.Area(rect, () => { GUILib.Label(TypeName); });

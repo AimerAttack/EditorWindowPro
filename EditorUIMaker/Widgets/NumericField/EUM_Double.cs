@@ -69,7 +69,7 @@ if(GUILib.DoubleField(ref _Logic.{{name}},""{{label}}"",{{layout}}))
             return result;
         }
 
-        public override void DrawDraging(Vector2 position)
+        public override void DrawDragging(Vector2 position)
         {
             GUILib.Area(new Rect(position.x, position.y, 200, 20), () =>
             {

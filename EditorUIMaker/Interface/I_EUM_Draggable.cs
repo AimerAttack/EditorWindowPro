@@ -4,6 +4,6 @@ namespace EditorUIMaker
 {
     public interface I_EUM_Draggable
     {
-        void DrawDraging(Vector2 position);
+        void DrawDragging(Vector2 position);
     }
 }

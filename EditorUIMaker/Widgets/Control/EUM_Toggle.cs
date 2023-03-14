@@ -68,7 +68,7 @@ if(GUILib.Toggle(ref _Logic.{{name}},""{{label}}"",null,{{layout}}))
             return result;
         }
 
-        public override void DrawDraging(Vector2 position)
+        public override void DrawDragging(Vector2 position)
         {
             GUILib.Area(new Rect(position.x + 20, position.y, 200, 20), () =>
             {

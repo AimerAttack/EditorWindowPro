@@ -72,7 +72,7 @@ public void {{name}}ValueChange()
             return result;
         }
 
-        public override void DrawDraging(Vector2 position)
+        public override void DrawDragging(Vector2 position)
         {
             GUILib.Area(new Rect(position.x, position.y, 300, 30),
                 () => { GUILib.MinMaxSlider(TypeName, ref info.MinValue, ref info.MaxValue, info.Min, info.Max); });
