@@ -39,8 +39,8 @@ namespace EditorUIMaker
         public Vector2 MousePosition;
         public HierarchyTreeView TreeView;
         public HashSet<string> AdditionNamespace = new HashSet<string>();
-        public List<EUM_BaseWidget> CustomWidget = new List<EUM_BaseWidget>();
-        public List<EUM_BaseWidget> CustomContainer = new List<EUM_BaseWidget>();
+        public List<EUM_Widget> CustomWidget = new List<EUM_Widget>();
+        public List<EUM_Container> CustomContainer = new List<EUM_Container>();
 
         #region need clear when data change
 
