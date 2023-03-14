@@ -458,7 +458,11 @@ public partial class {{className}}_Logic : EUM_BaseWindowLogic
         {
             var path = EditorUtility.OpenFilePanelWithFilters("Open File", "", new[] {"EUM_Object", "asset"});
             if (string.IsNullOrEmpty(path))
+            {
+                Debug.LogError("open path is empty");
                 return;
+            }
+
             var filePath = Utility.Utility.GetRelativePathInProject(path);
             var data = AssetDatabase.LoadAssetAtPath<EUM_Object>(filePath);
             LoadData(data, filePath);
@@ -467,6 +471,11 @@ public partial class {{className}}_Logic : EUM_BaseWindowLogic
         public void NewFile()
         {
             var path = EditorUtility.SaveFilePanelInProject("Save File", "NewFile", "asset", "Save File");
+            if (string.IsNullOrEmpty(path))
+            {
+                Debug.LogError("save path is empty");
+                return;
+            }
             var data = ScriptableObject.CreateInstance<EUM_Object>();
             AssetDatabase.CreateAsset(data, path);
             AssetDatabase.SaveAssets();
