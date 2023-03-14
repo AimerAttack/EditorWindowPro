@@ -209,16 +209,6 @@ namespace EditorUIMaker
             return true;
         }
 
-        public static bool Toggle(ref bool value, string content,
-            params GUILayoutOption[] options)
-        {
-            bool vv = false;
-            vv = GUILayout.Toggle(value, content, options);
-            if (vv == value) return false;
-            value = vv;
-            return true;
-        }
-
         public static void HelpBox(string text, MessageType type)
         {
             EditorGUILayout.HelpBox(text, type);

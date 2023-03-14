@@ -47,7 +47,7 @@ public void {{name}}ValueChange()
         public override string Code()
         {
             var code = @"
-if(GUILib.Toggle(ref _Logic.{{name}},""{{label}}"",{{layout}}))
+if(GUILib.Toggle(ref _Logic.{{name}},""{{label}}"",null,{{layout}}))
 {
     _Logic.{{name}}ValueChange();
 }
