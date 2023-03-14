@@ -25,6 +25,26 @@ namespace EditorUIMaker
             }
         }
 
+        internal override EUM_BaseWidget CloneWithChildren()
+        {
+            var container = Clone() as EUM_Container;
+            foreach (var widget in Widgets)
+            {
+                var childClone = widget.CloneWithChildren();
+                container.Widgets.Add(childClone);
+            }
+
+            return container;
+        }
+
+        internal override void UpdateDepth()
+        {
+            Depth = Parent.Depth + 1;
+            foreach (var widget in Widgets)
+            {
+                widget.UpdateDepth();
+            }
+        }
 
         protected abstract string BeginCode();
 

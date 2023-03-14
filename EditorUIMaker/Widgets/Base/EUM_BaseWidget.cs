@@ -96,13 +96,19 @@ namespace EditorUIMaker.Widgets
         public abstract void DrawDragging(Vector2 position);
         
         public abstract EUM_BaseWidget Clone();
-        public abstract EUM_BaseWidget SingleClone();
 
-        public void OnAddToContainer(EUM_Container container)
+        internal abstract EUM_BaseWidget CloneWithChildren();
+
+        internal void OnAddToContainer(EUM_Container container)
         {
             Parent = container;
-            Depth = container.Depth + 1;
+            UpdateDepth();
             InViewport = true;
+        }
+
+        internal virtual void UpdateDepth()
+        {
+            Depth = Parent.Depth + 1;
         }
 
         protected GUILayoutOption[] LayoutOptions()

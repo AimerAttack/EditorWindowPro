@@ -28,11 +28,6 @@ namespace EditorUIMaker
             return widget;
         }
 
-        public override EUM_BaseWidget SingleClone()
-        {
-            return Clone();
-        }
-
         protected override string BeginCode()
         {
             return string.Empty;

@@ -23,6 +23,7 @@ namespace EditorUIMaker
             EUM_Helper.Instance.OnClearData += ClearData;
             EUM_Helper.Instance.OnBeforeReloadDomain += OnBeforeReloadDomain;
             EUM_Helper.Instance.OnAfterReloadDomain += OnAfterReloadDomain;
+            EUM_Helper.Instance.OnRefreshHierarchy += RefreshTreeView;
         }
 
         public IList<int> expendIds;
@@ -201,6 +202,10 @@ namespace EditorUIMaker
                 widget.Parent.Widgets.Remove(widget);
                 container.Widgets.Insert(index,widget);
                 widget.OnAddToContainer(container);
+                if (widget is EUM_Container childContainer)
+                {
+                    childContainer.UpdateDepth();
+                }
             }
             RefreshTreeView();
             EUM_Helper.Instance.OnItemIndexChange?.Invoke();

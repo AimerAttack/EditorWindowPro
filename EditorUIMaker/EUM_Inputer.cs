@@ -34,7 +34,7 @@ namespace EditorUIMaker
             {
                 if (EUM_Helper.Instance.SelectWidget != null)
                 {
-                    EUM_Helper.Instance.ClipboardWidget = EUM_Helper.Instance.SelectWidget.Clone();
+                    EUM_Helper.Instance.ClipboardWidget = EUM_Helper.Instance.SelectWidget.CloneWithChildren();
                 }
             }
 
@@ -61,6 +61,8 @@ namespace EditorUIMaker
                     {
                         EUM_Helper.Instance.AddToContainer(widget, EUM_Helper.Instance.Window);
                     }
+
+                    EUM_Helper.Instance.FullCloneWidgetToTarget(EUM_Helper.Instance.ClipboardWidget, widget);
 
                     EUM_Helper.Instance.SelectWidget = widget;
                     EUM_Helper.Instance.OnSelectWidgetChange?.Invoke();

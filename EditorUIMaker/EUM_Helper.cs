@@ -24,6 +24,7 @@ namespace EditorUIMaker
         public string FilePath;
         public string WindowName = "EditorUIMaker";
         public Action<EUM_BaseWidget> OnAddItemToWindow;
+        public Action OnRefreshHierarchy;
         public Action<EUM_BaseWidget> OnRemoveItemFromWindow;
         public Action OnItemIndexChange;
         public Action OnSelectWidgetChange;
@@ -85,29 +86,30 @@ namespace EditorUIMaker
             {
                 for (int i = 0; i < obj.Stash.Widgets.Count; i++)
                 {
-                    var dataWidget = obj.Stash.Widgets[i];
-                    var widget = dataWidget.SingleClone();
+                    var sourceWidget = obj.Stash.Widgets[i];
+                    var widget = sourceWidget.Clone();
                     AddToContainer(widget, Window);
-                    AddChildrenToWindow(dataWidget, widget);
+                    FullCloneWidgetToTarget(sourceWidget,widget);
                 }
             }
-
+            
             MenuItemPath = obj.MenuItemPath;
 
             Modified = false;
         }
 
-        void AddChildrenToWindow(EUM_BaseWidget dataWidget, EUM_BaseWidget widget)
+        internal void FullCloneWidgetToTarget(EUM_BaseWidget sourceWidget, EUM_BaseWidget target)
         {
-            if (dataWidget is EUM_Container dataContainer)
+            if (sourceWidget is EUM_Container sourceContainer)
             {
-                var container = widget as EUM_Container;
-                for (int i = 0; i < dataContainer.Widgets.Count; i++)
+                var container = target as EUM_Container;
+
+                for (int i = 0; i < sourceContainer.Widgets.Count; i++)
                 {
-                    var dataChild = dataContainer.Widgets[i];
-                    var child = dataChild.SingleClone();
+                    var sourceChild = sourceContainer.Widgets[i];
+                    var child = sourceChild.Clone();
                     AddToContainer(child, container);
-                    AddChildrenToWindow(dataChild, child);
+                    FullCloneWidgetToTarget(sourceChild, child);
                 }
             }
         }
@@ -212,7 +214,7 @@ namespace EditorUIMaker
 
             data.Stash = new EUM_Stash();
             data.MenuItemPath = MenuItemPath;
-            var window = Window.Clone() as EUM_Window;
+            var window = Window.CloneWithChildren() as EUM_Window;
 
             foreach (var widget in window.Widgets)
             {
@@ -518,6 +520,11 @@ public partial class {{className}}_Logic : EUM_BaseWindowLogic
             }
 
             OnAddItemToWindow?.Invoke(widget);
+        }
+
+        internal void RefreshHierarchy()
+        {
+            OnRefreshHierarchy?.Invoke();
         }
 
         public void ClearFocus()

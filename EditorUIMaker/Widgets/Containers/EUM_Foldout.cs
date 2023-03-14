@@ -46,22 +46,9 @@ namespace EditorUIMaker
             var widget = new EUM_Foldout();
             Info.CopyTo(widget.Info);
 
-            foreach (var w in Widgets)
-            {
-                widget.Widgets.Add(w.Clone());
-            }
-
             return widget;
         }
-
-        public override EUM_BaseWidget SingleClone()
-        {
-            var widget = new EUM_Foldout();
-            Info.CopyTo(widget.Info);
-
-            return widget;
-        }
-
+       
         public override string LogicCode()
         {
             var code = @"public bool {{name}} = false;";

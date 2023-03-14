@@ -36,21 +36,9 @@ namespace EditorUIMaker
             var widget = new EUM_Horizontal();
             Info.CopyTo(widget.Info);
             
-            foreach (var w in Widgets)
-            {
-                widget.Widgets.Add(w.Clone());
-            }
-            
             return widget;
         }
 
-        public override EUM_BaseWidget SingleClone()
-        {
-            var widget = new EUM_Horizontal();
-            Info.CopyTo(widget.Info);
-            
-            return widget; 
-        }
 
         protected override string BeginCode()
         {
