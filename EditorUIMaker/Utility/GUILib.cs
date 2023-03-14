@@ -14,7 +14,7 @@ namespace EditorUIMaker
 
         internal static Dictionary<string, GUIContent> tooltipCache = new Dictionary<string, GUIContent>();
 
-        public static void ProgressBar(float value, string label,float height)
+        public static void ProgressBar(float value, string label, float height)
         {
             var rect = EditorGUILayout.GetControlRect(false, height);
             EditorGUI.ProgressBar(rect, value, label);
@@ -209,6 +209,16 @@ namespace EditorUIMaker
             return true;
         }
 
+        public static bool Toggle(ref bool value, string content,
+            params GUILayoutOption[] options)
+        {
+            bool vv = false;
+            vv = GUILayout.Toggle(value, content, options);
+            if (vv == value) return false;
+            value = vv;
+            return true;
+        }
+
         public static void HelpBox(string text, MessageType type)
         {
             EditorGUILayout.HelpBox(text, type);
@@ -233,20 +243,20 @@ namespace EditorUIMaker
             GUILayout.EndArea();
         }
 
-        public static void HorizontalRect(Action drawContent, GUIStyle style = null,params GUILayoutOption[] options)
+        public static void HorizontalRect(Action drawContent, GUIStyle style = null, params GUILayoutOption[] options)
         {
             if (style != null)
-                GUILayout.BeginHorizontal(style,options);
+                GUILayout.BeginHorizontal(style, options);
             else
                 GUILayout.BeginHorizontal(options);
             drawContent?.Invoke();
             GUILayout.EndHorizontal();
         }
 
-        public static void VerticelRect(Action drawContent, GUIStyle style = null,params GUILayoutOption[] options)
+        public static void VerticelRect(Action drawContent, GUIStyle style = null, params GUILayoutOption[] options)
         {
             if (style != null)
-                GUILayout.BeginVertical(style,options);
+                GUILayout.BeginVertical(style, options);
             else
                 GUILayout.BeginVertical(options);
             drawContent?.Invoke();
@@ -422,54 +432,54 @@ namespace EditorUIMaker
             return GUILayoutUtility.GetLastRect();
         }
 
-        public static bool ObjectField<T>(string label, ref T val,params GUILayoutOption[] options) where T : Object
+        public static bool ObjectField<T>(string label, ref T val, params GUILayoutOption[] options) where T : Object
         {
-            var tmpObj = EditorGUILayout.ObjectField(label, val, typeof(T),options);
+            var tmpObj = EditorGUILayout.ObjectField(label, val, typeof(T), options);
             if (Equals(tmpObj, val))
                 return false;
             val = tmpObj as T;
             return true;
         }
 
-        public static bool Color(string label, ref Color color,params GUILayoutOption[] options)
+        public static bool Color(string label, ref Color color, params GUILayoutOption[] options)
         {
-            var tmpColor = EditorGUILayout.ColorField(label, color,options);
+            var tmpColor = EditorGUILayout.ColorField(label, color, options);
             if (Equals(tmpColor, color))
                 return false;
             color = tmpColor;
             return true;
         }
 
-        public static bool Vector3IntField(string label, ref Vector3Int val,params GUILayoutOption[] options)
+        public static bool Vector3IntField(string label, ref Vector3Int val, params GUILayoutOption[] options)
         {
-            var tmpVal = EditorGUILayout.Vector3IntField(label, val,options);
+            var tmpVal = EditorGUILayout.Vector3IntField(label, val, options);
             if (Equals(tmpVal, val))
                 return false;
             val = tmpVal;
             return true;
         }
 
-        public static bool Vector2IntField(string label, ref Vector2Int val,params GUILayoutOption[] options)
+        public static bool Vector2IntField(string label, ref Vector2Int val, params GUILayoutOption[] options)
         {
-            var tmpVal = EditorGUILayout.Vector2IntField(label, val,options);
+            var tmpVal = EditorGUILayout.Vector2IntField(label, val, options);
             if (Equals(tmpVal, val))
                 return false;
             val = tmpVal;
             return true;
         }
 
-        public static bool Vector3Field(string label, ref Vector3 val,params GUILayoutOption[] options)
+        public static bool Vector3Field(string label, ref Vector3 val, params GUILayoutOption[] options)
         {
-            var tmpVal = EditorGUILayout.Vector3Field(label, val,options);
+            var tmpVal = EditorGUILayout.Vector3Field(label, val, options);
             if (Equals(tmpVal, val))
                 return false;
             val = tmpVal;
             return true;
         }
 
-        public static bool Vector2Field(string label, ref Vector2 val,params GUILayoutOption[] options)
+        public static bool Vector2Field(string label, ref Vector2 val, params GUILayoutOption[] options)
         {
-            var tmpVal = EditorGUILayout.Vector2Field(label, val,options);
+            var tmpVal = EditorGUILayout.Vector2Field(label, val, options);
             if (Equals(tmpVal, val))
                 return false;
             val = tmpVal;
@@ -513,9 +523,9 @@ namespace EditorUIMaker
             GUILayout.Label(content, options);
         }
 
-        public static void Label(string content, GUIStyle style,params GUILayoutOption[] options)
+        public static void Label(string content, GUIStyle style, params GUILayoutOption[] options)
         {
-            GUILayout.Label(content, style,options);
+            GUILayout.Label(content, style, options);
         }
 
         public static bool IntField(ref int val, GUIContent label, params GUILayoutOption[] options)
@@ -651,9 +661,9 @@ namespace EditorUIMaker
             return true;
         }
 
-        public static void ScrollView(ref Vector2 scrollPosition, Action drawContent,params GUILayoutOption[] options)
+        public static void ScrollView(ref Vector2 scrollPosition, Action drawContent, params GUILayoutOption[] options)
         {
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition,options);
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition, options);
             drawContent?.Invoke();
             GUILayout.EndScrollView();
         }
