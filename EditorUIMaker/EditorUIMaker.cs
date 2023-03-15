@@ -92,14 +92,14 @@ namespace EditorUIMaker
             OnInit?.Invoke();
         }
 
-        void OnEnable()
+        public void OnEnable()
         {
             _Instance = this;
             AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
             AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
         }
 
-        void OnDisable()
+        public void OnDisable()
         {
             AssemblyReloadEvents.beforeAssemblyReload -= OnBeforeAssemblyReload;
             AssemblyReloadEvents.afterAssemblyReload -= OnAfterAssemblyReload;
