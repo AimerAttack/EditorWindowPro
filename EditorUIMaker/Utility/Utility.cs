@@ -37,7 +37,7 @@ namespace EditorUIMaker.Utility
         private static Texture2D ConvertBase64ToTexture(string base64)
         {
             byte[] bytes = Convert.FromBase64String(base64);
-            Texture2D texture = new Texture2D(500, 500);
+            Texture2D texture = new Texture2D(500, 500, TextureFormat.ARGB32, false);
             texture.LoadImage(bytes);
             return texture;
         }

@@ -54,7 +54,7 @@ namespace EditorUIMaker.Widgets
 
         public override void DrawDragging(Vector2 position)
         {
-            GUILib.Area(new Rect(position.x, position.y, 300, 20), () =>
+            GUILib.Area(new Rect(position.x, position.y, 300, 40), () =>
             {
                 GUILib.HelpBox(TypeName, MessageType.Info);
             });

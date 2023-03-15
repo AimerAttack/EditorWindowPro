@@ -31,10 +31,10 @@ namespace EditorUIMaker
         {
             var widget = new EUM_Window();
             Info.CopyTo(widget.Info);
-           
+
             return widget;
         }
-        
+
         public void Draw(ref Rect rect)
         {
             Rect = rect;
