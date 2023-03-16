@@ -238,7 +238,7 @@ using System;
 using EditorUIMaker;
 using UnityEditor;
 using UnityEngine;
-using Sirenix.Serialization;
+using OdinSerializer;
 {{additionNamespace}}
 
 public class {{className}} : EditorWindow,ISerializationCallbackReceiver
