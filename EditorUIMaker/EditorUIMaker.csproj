@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EditorUIMaker</RootNamespace>
     <AssemblyName>EditorUIMaker</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile>
@@ -266,6 +266,7 @@
     <Compile Include="Interface\I_EUM_LayoutDrawable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScriptableObject\EUM_Object.cs" />
+    <Compile Include="TestCase\TestForText.cs" />
     <Compile Include="Utility\EUM_BaseWindowLogic.cs" />
     <Compile Include="Utility\GUIIconLib.cs" />
     <Compile Include="Utility\GUILib.cs" />
