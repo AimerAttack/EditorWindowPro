@@ -266,6 +266,7 @@
     <Compile Include="Interface\I_EUM_LayoutDrawable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScriptableObject\EUM_Object.cs" />
+    <Compile Include="TestCase\TestEditorWindow.cs" />
     <Compile Include="TestCase\TestForText.cs" />
     <Compile Include="Utility\EUM_BaseWindowLogic.cs" />
     <Compile Include="Utility\GUIIconLib.cs" />
